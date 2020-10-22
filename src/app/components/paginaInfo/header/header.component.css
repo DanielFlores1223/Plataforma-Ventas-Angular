@@ -1,0 +1,12 @@
+.link-Activado {
+    padding: .3rem;
+    background-color: #F1C40F;
+    border-radius: 15px 50px 30px;
+}
+
+@media (max-width: 768px) {
+    .link-Activado {
+        padding: .5rem;
+        text-align: center;
+    }
+}
