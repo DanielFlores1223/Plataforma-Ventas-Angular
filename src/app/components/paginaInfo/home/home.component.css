@@ -1,3 +1,9 @@
 .img-categorias {
     height: 13rem;
 }
+
+img {
+    max-width: 100%;
+}
+
+.titulo {}

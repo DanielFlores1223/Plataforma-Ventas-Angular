@@ -1,0 +1,33 @@
+.contenedor-bordes {
+    line-height: 2;
+    border-top: .3rem solid rgb(224, 191, 3);
+}
+
+.img-nosotros {
+    max-width: 100%;
+    margin-bottom: 1rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.uno {
+    order: 2;
+}
+
+.dos {
+    order: 1;
+}
+
+
+/* Invertir orden la imagen y el texto */
+
+@media (max-width: 768px) {
+    .uno {
+        order: 1;
+    }
+    .dos {
+        order: 2;
+    }
+}

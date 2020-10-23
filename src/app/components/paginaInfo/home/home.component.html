@@ -1,5 +1,5 @@
 <!-- Carrusel  -->
-<div class="container-fluid my-4 animated fadeIn">
+<div class="container-fluid my-4 animated fadeIn" id="principal">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -32,10 +32,33 @@
     </div>
 </div>
 
+<!-- sobre nosotros-->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="text-center font-weight-light my-4 titulo">Sobre nosotros</h3>
+        </div>
+    </div>
+
+    <div class="row jumbotron jumbotron-fluid c-amarillo">
+        <div class="col-3">
+            <img src="../assets/img/nosotrosInicio.png" alt="">
+        </div>
+        <div class="col-9">
+            <h1 class="display-4 texto-titulo">En Cremería y abarrotes Liz</h1>
+            <p class="texto-info"> Estamos comprometidos a brindar una experiencia satisfactoria con nuestros clientes ofreciendo los mejores productos.</p>
+            <a routerLink="/nosotros" class="btn btn-outline-info">Más sobre nosotros</a>
+        </div>
+    </div>
+</div>
+
+
+
 <!-- Apartado donde muestra productos -->
 <main class="my-4">
     <h3 class="text-center font-weight-light my-4">Categorias de productos</h3>
     <div class="container">
+
         <div class="row">
             <div class="col-sm-12 col-md-4 col-lg-4 my-2 " align=center>
                 <div class="card" style="width: 18rem; border-top: .3rem solid rgb(224, 191, 3);  max-width:100%;">
@@ -54,10 +77,10 @@
                     </div>
 
                     <div class="card-body">
-                        <h5 class="card-title text-center">Alimentos</h5>
+                        <h5 class="card-title text-center texto-titulo">Alimentos</h5>
 
                     </div>
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush texto-info">
                         <li class="list-group-item">Quesos y Lacteos</li>
                         <li class="list-group-item">Carnes frias y Embutidos</li>
                         <li class="list-group-item">Bebidas y frituras</li>
@@ -85,10 +108,10 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-center">Abarrotes</h5>
+                        <h5 class="card-title text-center texto-titulo">Abarrotes</h5>
 
                     </div>
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush texto-info">
                         <li class="list-group-item">
                             Hogar y Limpieza
                         </li>
@@ -121,9 +144,9 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-center">Servicios</h5>
+                        <h5 class="card-title text-center texto-titulo">Servicios</h5>
                     </div>
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush texto-info">
                         <li class="list-group-item">Recarga telcel</li>
                         <li class="list-group-item">Recarga movistar</li>
                         <li class="list-group-item">Recarga unefon</li>

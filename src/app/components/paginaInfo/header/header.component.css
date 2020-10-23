@@ -1,7 +1,12 @@
 .link-Activado {
-    padding: .3rem;
+    /*padding: .3rem;
     background-color: #F1C40F;
-    border-radius: 15px 50px 30px;
+    border-radius: 15px 50px 30px;*/
+    border-top: 7px solid #F1C40F;
+}
+
+a:hover {
+    border-bottom: 7px solid #F1C40F;
 }
 
 @media (max-width: 768px) {

@@ -10,6 +10,7 @@ import { FooterComponent } from './components/paginaInfo/footer/footer.component
 import { HomeComponent } from './components/paginaInfo/home/home.component';
 import { ContactoComponent } from './components/paginaInfo/contacto/contacto.component';
 import { ChatFacebookComponent } from './components/paginaInfo/chat-facebook/chat-facebook.component';
+import { NosotrosComponent } from './components/paginaInfo/nosotros/nosotros.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ChatFacebookComponent } from './components/paginaInfo/chat-facebook/cha
     FooterComponent,
     HomeComponent,
     ContactoComponent,
-    ChatFacebookComponent
+    ChatFacebookComponent,
+    NosotrosComponent
   ],
   imports: [
     BrowserModule,

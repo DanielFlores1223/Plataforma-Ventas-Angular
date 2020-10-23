@@ -8,6 +8,16 @@
     background: #D5F5E3;
 }
 
+.texto-info {
+    /* font-family: 'Abel', sans-serif; */
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1.1rem;
+}
+
+.texto-titulo {
+    font-family: 'Tenor Sans', sans-serif;
+}
+
 
 /*Animaciones*/
 

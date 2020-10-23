@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 //componentes
 import { HomeComponent } from './components/paginaInfo/home/home.component';
 import { ContactoComponent } from './components/paginaInfo/contacto/contacto.component';
+import { NosotrosComponent } from './components/paginaInfo/nosotros/nosotros.component';
 
 const routes: Routes = [
   //{ path: '**', pathMatch: 'full', redirectTo: 'inicio'},
   { path:'', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'inicio', component: HomeComponent },
-  { path: 'contacto', component: ContactoComponent}
+  { path: 'contacto', component: ContactoComponent},
+  { path: 'nosotros', component: NosotrosComponent}
 ];
 
 @NgModule({
