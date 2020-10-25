@@ -11,6 +11,7 @@ import { HomeComponent } from './components/paginaInfo/home/home.component';
 import { ContactoComponent } from './components/paginaInfo/contacto/contacto.component';
 import { ChatFacebookComponent } from './components/paginaInfo/chat-facebook/chat-facebook.component';
 import { NosotrosComponent } from './components/paginaInfo/nosotros/nosotros.component';
+import { RegistrarseComponent } from './components/paginaInfo/registrarse/registrarse.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NosotrosComponent } from './components/paginaInfo/nosotros/nosotros.com
     HomeComponent,
     ContactoComponent,
     ChatFacebookComponent,
-    NosotrosComponent
+    NosotrosComponent,
+    RegistrarseComponent
   ],
   imports: [
     BrowserModule,

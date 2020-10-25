@@ -18,6 +18,10 @@
     font-family: 'Tenor Sans', sans-serif;
 }
 
+.borde-amarillo {
+    border-top: 8px solid #F1C40F;
+}
+
 
 /*Animaciones*/
 

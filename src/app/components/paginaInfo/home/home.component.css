@@ -6,4 +6,12 @@ img {
     max-width: 100%;
 }
 
-.titulo {}
+.alineacionTxt {
+    text-align: left;
+}
+
+@media (max-width: 480px) {
+    .alineacionTxt {
+        text-align: center;
+    }
+}
