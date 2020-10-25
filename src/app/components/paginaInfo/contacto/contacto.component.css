@@ -1,0 +1,19 @@
+ iframe {
+     height: 400px;
+     width: 900px;
+     max-width: 100%;
+ }
+ 
+ @media (max-width: 768px) {
+     iframe {
+         width: 250px;
+     }
+ }
+ 
+ a {
+     font-size: .9rem;
+ }
+ 
+ div {
+     max-width: 100%;
+ }
