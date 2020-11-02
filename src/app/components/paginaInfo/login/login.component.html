@@ -1,0 +1,59 @@
+<!-- modal inicioSesion -->
+
+<div class="modal fade" id="modalInicioSesion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header c-amarillo">
+                <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-box-arrow-in-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                     <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                     <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                   </svg>
+                <h5 class="modal-title ml-3" id="exampleModalLabel">Inicio de sesión</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cerrarModal()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <img src="../assets/img/logo_crem_adap.png" alt="logo cremeria">
+                    </div>
+                </div>
+                <div class="row mt-2" *ngIf="!exito">
+                    <div class="col-12 animated fadeIn fast">
+                        <div class="alert alert-danger text-center" role="alert">
+                            Datos incorrectos!
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row mt-1 mr-2">
+
+                    <div class="col-2 text-center">
+                        <label for="correo"> <img src="../assets/img/correo_icono.png" alt="icono correo"> </label>
+                    </div>
+                    <div class="col-10">
+                        <input [(ngModel)]="usuario.correo" type="email" name="correo" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese su correo eléctronico">
+                    </div>
+                </div>
+                <div class="form-row mt-3 mr-2">
+                    <div class="col-2 text-center">
+                        <label for="pass"> <img src="../assets/img/pass_icono.png" alt="icono contraseña"> </label>
+                    </div>
+                    <div class="col-10 mb-3">
+                        <input [(ngModel)]="usuario.contrasenia" type="password" name="pass" class="form-control" placeholder="Ingrese su contraseña">
+                        <div id="alertaPass"></div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <div class="m-auto">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal" (click)="cerrarModal()">Cancelar</button>
+                    <button type="button" class="btn btn-info ml-2" (click)="login()">Iniciar Sesión</button>
+                </div>
+            </div>
+            <small class="form-text text-muted text-center m-3">¿No tienes cuenta? <a routerLink="/registrarse" data-dismiss="modal" data-toggle="modal" data-target="#modalRegistro"><span aria-hidden="true">Registrarse</span></a> </small>
+        </div>
+    </div>
+</div>

@@ -26,14 +26,14 @@
             </p>
             <div class="form-row">
                 <div class="col">
-                    <input type="text" name="nombre" class="form-control" placeholder="Nombre(s)" onkeypress="return soloLetras(event)" required maxlength='50' title='minimo 50 caracteres'>
+                    <input type="text" class="form-control" placeholder="Nombre(s)" (keypress)="soloLetras($event)" required maxlength='50' title='máximo 50 caracteres' [(ngModel)]="cliente.nombre">
 
                 </div>
                 <div class="col">
-                    <input type="text" name="a_pat" class="form-control" placeholder="Apellido Paterno" onkeypress="return soloLetras(event)" required maxlength='50' title='minimo 50 caracteres'>
+                    <input type="text" class="form-control" placeholder="Apellido Paterno" (keypress)="soloLetras($event)" required maxlength='50' title='máximo 50 caracteres' [(ngModel)]=" cliente.apellidoP ">
                 </div>
-                <div class="col">
-                    <input type="text" name="a_mat" class="form-control" placeholder="Apellido Materno" onkeypress="return soloLetras(event)" required maxlength='50' title='minimo 50 caracteres'>
+                <div class="col ">
+                    <input type="text " class="form-control " placeholder="Apellido Materno " (keypress)="soloLetras($event)" required maxlength='50' title='minimo 50 caracteres' [(ngModel)]="cliente.apellidoM">
                 </div>
             </div>
             <br>
@@ -42,7 +42,7 @@
                     <p class="texto-info">Fecha de nacimiento</p>
                 </div>
                 <div class="col-10">
-                    <input type="date" name="fechaNac" class="form-control" placeholder="fecha de nacimiento" required>
+                    <input type="date" class="form-control" placeholder="fecha de nacimiento" required [(ngModel)]="cliente.fechaNac">
                 </div>
                 <div class="col-1">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -56,7 +56,7 @@
                     <p class="texto-info mt-1">Teléfono ó movil</p>
                 </div>
                 <div class="col-10">
-                    <input type="text" name="telefono" class="form-control" placeholder="Ejem. 3333333333" onkeypress="return validarTelefono(event)" maxlength="14" minlength="14" required title="maximo 14 caracteres">
+                    <input type="text" class="form-control" placeholder="Ejem. 3333333333" maxlength="10" minlength="10" (keypress)="soloNumeros($event)" required title="máximo 10 caracteres" [(ngModel)]="cliente.telefono">
                 </div>
                 <div class="col-1">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +70,7 @@
                     <p class="texto-info">Correo eléctronico</p>
                 </div>
                 <div class="col-10">
-                    <input type="email" name="correo" class="form-control" placeholder="Ejem. cremeria@correo.com" required maxlength='50' title='minimo 50 caracteres'>
+                    <input type="email" class="form-control" placeholder="Ejem. cremeria@correo.com" required maxlength='50' title='minimo 50 caracteres' [(ngModel)]="cliente.correo">
                 </div>
                 <div class="col-1">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -83,7 +83,7 @@
                     <p class="texto-info">Contraseña</p>
                 </div>
                 <div class="col-10">
-                    <input type="password" name="contra" class="form-control" placeholder="Ingresa tu contraseña" required minlength='6' title='minimo 6 caracteres'>
+                    <input type="password" class="form-control" placeholder="Ingresa tu contraseña" required minlength='6' title='minimo 6 caracteres' [(ngModel)]="cliente.contrasenia">
                 </div>
                 <div class="col-1">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -92,7 +92,35 @@
                 </div>
             </div>
             <div class="form-row">
-                <button class="form-control my-3 btn btn-info">Registrarse</button>
+                <button class="form-control my-3 btn btn-info" data-toggle="modal" data-target="#mensajeReg" (click)="regCli()">Registrarse</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="mensajeReg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body text-center"><img class="imagenExito" src="../assets/img/{{img}}" alt="gif correcto">
+                <div class="alert {{alert}} texto-info" role="alert">
+                    {{mensaje}}
+                </div>
+                <div *ngIf="!exito">
+                    <p class="text-left texto-info font-weight-bold">Revise los posibles errores:</p>
+                    <ul class="list-group" *ngFor="let i of instrucciones ">
+                        <li class="list-group-item text-left list-group-item-warning texto-info">{{ i }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-info form-control" data-dismiss="modal" data-toggle="modal" data-target="#modalInicioSesion">Iniciar sesión</button>
             </div>
         </div>
     </div>

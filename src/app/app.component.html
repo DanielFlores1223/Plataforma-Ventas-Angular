@@ -1,7 +1,24 @@
-<app-header></app-header>
+<div *ngIf="!entro else siLogin">
+    <app-header></app-header>
+    <app-login></app-login>
+    <router-outlet></router-outlet>
 
-<router-outlet></router-outlet>
+    <app-footer></app-footer>
 
-<app-footer></app-footer>
+    <app-chat-facebook></app-chat-facebook>
+</div>
+<ng-template #siLogin>
+    <div *ngIf="tipo == 'Admin' || tipo == 'Cajero' || tipo == 'Bodega'; else noEsEmpleado">
+        <div class="side-flex">
+            <app-sidebar-empleado></app-sidebar-empleado>
+            <div class="contenido-pagina">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+    <ng-template #noEsEmpleado>
+        <app-header-cliente></app-header-cliente>
+        <router-outlet></router-outlet>
+    </ng-template>
 
-<app-chat-facebook></app-chat-facebook>
+</ng-template>

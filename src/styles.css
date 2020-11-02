@@ -23,6 +23,18 @@
 }
 
 
+/*sidebar*/
+
+.side-flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.contenido-pagina {
+    width: 100%;
+}
+
+
 /*Animaciones*/
 
 .animated {
