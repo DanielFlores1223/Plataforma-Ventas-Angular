@@ -22,6 +22,9 @@ import { HeaderClienteComponent } from './components/Cliente/header-cliente/head
 import { InicioClienteComponent } from './components/Cliente/inicio-cliente/inicio-cliente.component';
 import { SidebarEmpleadoComponent } from './components/Empleado/sidebar-empleado/sidebar-empleado.component';
 import { InicioEmpleadoComponent } from './components/Empleado/inicio-empleado/inicio-empleado.component';
+import { NavbarEmpleadoComponent } from './components/Empleado/navbar-empleado/navbar-empleado.component';
+import { EmpleadoCrudComponent } from './components/Empleado/empleado-crud/empleado-crud.component';
+import { ClienteCrudComponent } from './components/Empleado/cliente-crud/cliente-crud.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { InicioEmpleadoComponent } from './components/Empleado/inicio-empleado/i
     HeaderClienteComponent,
     InicioClienteComponent,
     SidebarEmpleadoComponent,
-    InicioEmpleadoComponent
+    InicioEmpleadoComponent,
+    NavbarEmpleadoComponent,
+    EmpleadoCrudComponent,
+    ClienteCrudComponent
   ],
   imports: [
     BrowserModule,

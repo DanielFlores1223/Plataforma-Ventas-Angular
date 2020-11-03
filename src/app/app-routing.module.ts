@@ -14,14 +14,14 @@ import { InicioClienteComponent } from './components/Cliente/inicio-cliente/inic
 import { InicioEmpleadoComponent } from './components/Empleado/inicio-empleado/inicio-empleado.component';
 
 const routes: Routes = [
-  //{ path: '**', pathMatch: 'full', redirectTo: 'inicio'},
   { path:'', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'inicio', component: HomeComponent, canActivate: [GuardiaPaginaInfoGuard]},
   { path: 'contacto', component: ContactoComponent, canActivate: [GuardiaPaginaInfoGuard]},
   { path: 'nosotros', component: NosotrosComponent, canActivate: [GuardiaPaginaInfoGuard]},
   { path: 'registrarse', component: RegistrarseComponent, canActivate: [GuardiaPaginaInfoGuard]},
   { path: 'inicio-Cliente', component: InicioClienteComponent, canActivate: [GuardiaSesionAdminGuard]},
-  { path: 'inicio-Empleado',component: InicioEmpleadoComponent, canActivate: [GuardiaSesionAdminGuard]}
+  { path: 'inicio-Empleado',component: InicioEmpleadoComponent, canActivate: [GuardiaSesionAdminGuard]},
+  { path: '**', redirectTo: '/inicio'}, //<--- esta ruta tiene que ir siempre al último para que funcione
 
 ];
 

@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
          localStorage.setItem('token', datos[0]);
          localStorage.setItem('nombre', datos[1]);
          localStorage.setItem('tipo', datos[2]);
+         localStorage.setItem('correo', datos[3]);
          this.loginService.loginExito();
          this.tipoUsu = this.loginService.tipoUsu();   
          this.exito = true;

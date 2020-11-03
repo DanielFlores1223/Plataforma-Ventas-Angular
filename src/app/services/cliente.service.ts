@@ -12,4 +12,8 @@ export class ClienteService {
   regCliente(cliente){
     return this.http.post<any>(this.urlCli, cliente);
   }
+
+  consultarCliCorreo(cliente){
+    return this.http.get(this.urlCli + "/buscar-cli-correo");
+  }
 }

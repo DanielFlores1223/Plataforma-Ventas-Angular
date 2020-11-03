@@ -40,33 +40,3 @@
         margin-left: -15rem;
     }
 }
-
-.cursor-pointer {
-    cursor: pointer;
-}
-
-.link-sidebar {
-    color: #495057;
-    text-decoration: none;
-    background-color: #F4F6F7;
-    border-top: 2px solid #D7DBDD;
-    border-bottom: .5px solid #D7DBDD;
-    border-right: 9px solid #F9E79F;
-}
-
-.link-sidebar:hover {
-    background-color: #F9E79F;
-}
-
-.link-activado {
-    background-color: #F9E79F;
-}
-
-.sin-borde {
-    border-top: 0px;
-}
-
-.img-style {
-    background-color: #F4F6F7;
-    border-right: 9px solid #F9E79F;
-}

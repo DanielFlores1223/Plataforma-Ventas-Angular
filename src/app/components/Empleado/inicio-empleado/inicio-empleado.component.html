@@ -1,1 +1,57 @@
-<p>inicio-empleado works!</p>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+
+<div class="container-fluid py-3">
+    <div class="row mx-2">
+        <div class="col-sm-12 col-md-2 col-lg-2 bg-info">
+            <p class="letra ">{{ letra }}</p>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <p class="h5">{{empleado.nombre}} {{empleado.apellidoP}} {{empleado.apellidoM}}</p>
+            <p>
+                <img src="../assets/img/phone-inicio.png" alt="teléfono"> {{empleado.telefono}}
+            </p>
+            <p>
+                <img src="../assets/img/sueldo-inicio.png" alt="Sueldo"> {{empleado.sueldo}}
+            </p>
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <p class="h5">.</p>
+            <p>
+                <img src="../assets/img/correo-inicio.png" alt="teléfono"> {{empleado.correo}}
+            </p>
+
+            <div *ngIf="empleado.estatus == 'Activo'; else inactivo">
+                <p>
+                    <img src="../assets/img/activo-inicio.png" alt="Sueldo"> {{empleado.estatus}}
+                </p>
+            </div>
+            <ng-template #inactivo>
+                <p>
+                    <img src="../assets/img/inactivo-inicio.png" alt="Sueldo"> {{empleado.estatus}}
+                </p>
+            </ng-template>
+
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <p class="h5">.</p>
+            <p>
+                <img src="../assets/img/tipoUsu-inicio.png" alt="teléfono"> {{empleado.tipo}}
+            </p>
+            <p>
+                <img src="../assets/img/fechaNac-inicio.png" alt="Sueldo"> {{empleado.fechaNac}}
+            </p>
+        </div>
+        <div class="col-sm-12 col-md-1 col-lg-1">
+            <button class="btn btn-secondary"><img src="./assets/img/config.png" alt=""></button>
+        </div>
+    </div>
+
+    <div class="row my-4">
+        <div class="col-12">
+            <h3 class="font-weight-light">Notificaciones(0)</h3>
+            <hr>
+        </div>
+
+    </div>
+
+</div>
