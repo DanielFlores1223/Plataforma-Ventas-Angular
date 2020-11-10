@@ -12,13 +12,10 @@ import * as $ from 'jquery';
 export class RegistrarseComponent implements OnInit {
   cliente = {
     nombre: '',
-    apellidoP: '',
-    apellidoM: '',
+    apellidos: '',
     telefono: '',
-    estatus: 'Activo',
     correo: '',
     contrasenia: '',
-    fechaNac: '',
     tipo: 'Cliente'
   }
 
@@ -36,7 +33,6 @@ export class RegistrarseComponent implements OnInit {
   regCli(){
 
     this.clienteService.regCliente(this.cliente).subscribe(res =>{
-      alert('Te has registrado correctamente');
       this.mensaje ='Te has registrado de manera exitosa!';
       this.img = 'exito.gif';
       this.alert = 'alert-success';

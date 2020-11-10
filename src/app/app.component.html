@@ -18,8 +18,18 @@
         </div>
     </div>
     <ng-template #noEsEmpleado>
-        <app-header-cliente></app-header-cliente>
-        <router-outlet></router-outlet>
+        <div ngIf="tipo == 'Cliente'; else noEsCliente">
+            <app-header-cliente></app-header-cliente>
+            <router-outlet></router-outlet>
+        </div>
     </ng-template>
+    <ng-template #noEsCliente>
+        <app-header></app-header>
+        <app-login></app-login>
+        <router-outlet></router-outlet>
 
+        <app-footer></app-footer>
+
+        <app-chat-facebook></app-chat-facebook>
+    </ng-template>
 </ng-template>

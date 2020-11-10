@@ -9,10 +9,17 @@ export class EmpleadoService {
 
   constructor(private http : HttpClient) { }
 
+  regEmp( empleado ){
+    return this.http.post<any>(this.urlEmp, empleado);
+  }
+
   consultarEmpCorreo( correo ){
     return this.http.post<any>(this.urlEmp + "/buscar-emp-correo", correo);
   }
 
+  consultarTodoEmp(){
+    return this.http.get(this.urlEmp);
+  }
   
 
 }

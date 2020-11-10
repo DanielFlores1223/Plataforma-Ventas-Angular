@@ -6,7 +6,7 @@
             <p class="letra ">{{ letra }}</p>
         </div>
         <div class="col-sm-12 col-md-3 col-lg-3">
-            <p class="h5">{{empleado.nombre}} {{empleado.apellidoP}} {{empleado.apellidoM}}</p>
+            <p class="h5">{{empleado.nombre}} {{empleado.apellidos}}</p>
             <p>
                 <img src="../assets/img/phone-inicio.png" alt="teléfono"> {{empleado.telefono}}
             </p>
@@ -19,18 +19,6 @@
             <p>
                 <img src="../assets/img/correo-inicio.png" alt="teléfono"> {{empleado.correo}}
             </p>
-
-            <div *ngIf="empleado.estatus == 'Activo'; else inactivo">
-                <p>
-                    <img src="../assets/img/activo-inicio.png" alt="Sueldo"> {{empleado.estatus}}
-                </p>
-            </div>
-            <ng-template #inactivo>
-                <p>
-                    <img src="../assets/img/inactivo-inicio.png" alt="Sueldo"> {{empleado.estatus}}
-                </p>
-            </ng-template>
-
         </div>
         <div class="col-sm-12 col-md-3 col-lg-3">
             <p class="h5">.</p>
@@ -38,7 +26,7 @@
                 <img src="../assets/img/tipoUsu-inicio.png" alt="teléfono"> {{empleado.tipo}}
             </p>
             <p>
-                <img src="../assets/img/fechaNac-inicio.png" alt="Sueldo"> {{empleado.fechaNac}}
+                <img src="../assets/img/fechaNac-inicio.png" alt="Sueldo"> {{fechaNacimiento[0]}}
             </p>
         </div>
         <div class="col-sm-12 col-md-1 col-lg-1">

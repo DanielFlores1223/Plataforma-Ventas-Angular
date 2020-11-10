@@ -14,28 +14,29 @@ export class InicioEmpleadoComponent implements OnInit {
  
  empleado = {
   nombre: "",
-  apellidoP: "",
-  apellidoM: "",
+  apellidos: "",
   telefono: "",
   sueldo: 0,
-  estatus: "",
   correo: this.correo,
   contrasenia: "",
   fechaNac: "",
   tipo: ""   
 }
 
+fechaNacimiento = String[''];
   constructor(private empleadoService : EmpleadoService) { }
 
   ngOnInit(): void {
     this.miInfo();
-    //console.log(this.empleado2)
-    //console.log(this.correo)
+    let fecha = new Date()
+    //fecha.setFullYear()
+
   }
 
   miInfo(){
     this.empleadoService.consultarEmpCorreo(this.empleado).subscribe(res=>{
       this.empleado = res;
+      this.fechaNacimiento = this.empleado.fechaNac.split('T');
     },
     err => console.log(err)
     );

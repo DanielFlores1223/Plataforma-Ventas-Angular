@@ -1,1 +1,345 @@
-<p>empleado-crud works!</p>
+<div class="container-fluid my-3 mb-5">
+    <div class="row">
+        <div class="com-sm- col-md-8 pr-0">
+            <input type="text" class="form-control">
+        </div>
+        <div class="col-">
+            <button class="form-control">Buscar</button>
+        </div>
+        <div class="com-sm- col-md-3">
+            <button class="form-control btn btn-info" data-toggle="modal" data-target="#modalRegistroEmp">
+                 Registrar Empleado
+                 <svg  width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                  </svg>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<div class="container-fluid">
+    <div class="table-responsive-md ">
+        <table class="table">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Nombre del Empleado</th>
+                        <th scope="col">Correo eléctronico</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr *ngFor="let e of empleados | async">
+                        <td>{{e.nombre}} {{e.apellidoP}} {{e.apellidoM}}</td>
+                        <td>{{e.correo}}</td>
+                        <td>{{e.telefono}}</td>
+                        <td class="text-center">
+                            <button (click)="r(e.correo)" class="btn btn-sm ml-1 btn-info">Mas info</button>
+                            <button (click)="modificarEmp(e.correo)" class="btn btn-sm ml-1 btn-warning" data-toggle="modal" data-target="#modalModificarEmp">Modificar</button>
+                            <button class="btn btn-sm ml-1 btn-danger">Eliminar</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </table>
+    </div>
+</div>
+
+
+<!-- Modal para el registro -->
+<div class="modal fade" id="modalRegistroEmp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header c-amarillo">
+                <div class="mr-3">
+                    <img src="../img/usario_header.png" alt="">
+                </div>
+                <h5 class="modal-title" id="exampleModalLabel">Registro de Empleado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="exito == 1">
+                    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                        El empleado se registró <strong>correctamente!</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="exito == 2">
+                    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                        <strong>¡Error! </strong>El empleado no se registró
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Formulario registro de empleado -->
+                <form>
+                    <div class="mb-3">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                 <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+               </svg>
+                        <b class="ml-2">Campos obligatorios</b>
+                        <hr>
+                        <h5 class="font-weight-light mt-3">Datos Personales</h5>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <p class="text-center">
+                                Nombre completo
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                     </svg>
+                            </p>
+                        </div>
+                        <div class="col-sm-12 col-md-4 col-lg-4">
+                            <input type="text" name="nombre" class="form-control mb-1" placeholder="Nombre(s)" (keypress)="soloLetras($event)" required maxlength='50' title='minimo 50 caracteres' [(ngModel)]="empleado.nombre">
+                        </div>
+                        <div class="col-sm-12 col-md-5 col-lg-5">
+                            <input type="text" name="a_pat" class="form-control mb-1" placeholder="Apellidos" (keypress)="soloLetras($event)" required maxlength='50' title='minimo 50 caracteres' [(ngModel)]="empleado.apellidos">
+                        </div>
+                    </div>
+                    <div class="form-row mt-2">
+                        <div class="col-sm-6 col-md-3 col-lg-3">
+                            <p class="text-center">Fecha de nacimiento</p>
+                        </div>
+                        <div class="col-sm-6 col-md-8 col-lg-8">
+                            <input type="date" name="fechaNac" class="form-control" required [(ngModel)]="empleado.fechaNac">
+                        </div>
+                        <div class="col-sm-1 col-md-1 col-lg-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                     </svg>
+                        </div>
+                    </div>
+                    <div class="form-row mt-2">
+                        <div class="col-sm-6 col-md-3 col-lg-3">
+                            <p class="text-center">Teléfono</p>
+                        </div>
+                        <div class="col-sm-6 col-md-8 col-lg-8">
+                            <input type="text" name="telefono" class="form-control" placeholder="Ejem. 3333333333" (keypress)="soloNumeros($event)" maxlength="10" minlength="10" required title="maximo 10 caracteres" [(ngModel)]="empleado.telefono">
+                        </div>
+                        <div class="col-sm-1 col-md-1 col-lg-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                     </svg>
+                        </div>
+                    </div>
+                    <hr>
+                    <h5 class="font-weight-light mb-3">Datos Laborales</h5>
+                    <div class="form-row mt-2">
+                        <div class="col-sm-12 col-md-2 col-lg-2">
+                            <p class="text-center">Sueldo</p>
+                        </div>
+                        <div class="col-sm-11 col-md-3 col-lg-3">
+                            <input type="number" name="sueldo" class="form-control" placeholder="" required max="20000" [(ngModel)]="empleado.sueldo">
+                        </div>
+                        <div class="col-sm-1 col-md-1 col-lg-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                     </svg>
+                        </div>
+                        <div class="col-sm-12 col-md-2 col-lg-2">
+                            <p class="text-center">Tipo</p>
+                        </div>
+                        <div class="col-sm-11 col-md-3 col-lg-3">
+                            <select name="tipo" id="" class="form-control" required [(ngModel)]="empleado.tipo">
+                       <option value="Bodega">Bodega</option>
+                       <option value="Cajero">Cajero</option>
+                       <option value="Adm">Admin</option>
+                  </select>
+                        </div>
+                    </div>
+                    <div class="form-row mt-2 mb-3">
+                        <div class="col-sm-12 col-md-2 col-lg-2">
+                            <p class="text-center">Correo</p>
+                        </div>
+                        <div class="col-sm-11 col-md-3 col-lg-3">
+                            <input type="email" name="correo" class="form-control" placeholder="Ejemp: usu@cremeria.com" required maxlength='50' title='minimo 50 caracteres' [(ngModel)]="empleado.correo">
+                        </div>
+                        <div class="col-sm-1 col-md-1 col-lg-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                     </svg>
+                        </div>
+                        <div class="col-sm-12 col-md-2 col-lg-2">
+                            <p class="text-center">Contraseña</p>
+                        </div>
+                        <div class="col-sm-11 col-md-3 col-lg-3">
+                            <input type="password" name="pass" class="form-control" placeholder="" required minlength='6' title='minimo 6 caracteres' [(ngModel)]="empleado.contrasenia">
+                        </div>
+                        <div class="col-sm-1 col-md-1 col-lg-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                     </svg>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" name="btnRegistrarEmp" value="registrar" (click)="regEmp()">Registrar</button>
+                        <div id="spinnerReg"></div>
+                    </div>
+                </form>
+
+                <!-- Termina Formulario registro de empleado -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Termina Modal para el registro -->
+
+
+<!-- Modal para modificar empleado -->
+<div class="modal fade" id="modalModificarEmp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header c-amarillo">
+                <div class="mr-3">
+                    <img src="../img/usario_header.png" alt="">
+                </div>
+                <h5 class="modal-title" id="exampleModalLabel">Modificar Empleado {{empleadoM.nombre}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="exito == 1">
+                    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                        El empleado se actualizo <strong>correctamente!</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="exito == 2">
+                    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                        <strong>¡Error! </strong>El empleado no se actualizo
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Formulario registro de empleado -->
+                <form>
+                    <div class="mb-3">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                 <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+               </svg>
+                        <b class="ml-2">Campos obligatorios</b>
+                        <hr>
+                        <h5 class="font-weight-light mt-3">Datos Personales</h5>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <p class="text-center">
+                                Nombre completo
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                     </svg>
+                            </p>
+                        </div>
+                        <div class="col-sm-12 col-md-3 col-lg-3">
+                            <input type="text" name="nombre" class="form-control mb-1" placeholder="Nombre(s)" (keypress)="soloLetras($event)" required maxlength='50' title='minimo 50 caracteres' [(ngModel)]="empleadoM.nombre">
+                        </div>
+                        <div class="col-sm-12 col-md-3 col-lg-3">
+                            <input type="text" name="a_pat" class="form-control mb-1" placeholder="Apellido Paterno" (keypress)="soloLetras($event)" required maxlength='50' title='minimo 50 caracteres' [(ngModel)]="empleadoM.apellidos">
+                        </div>
+                    </div>
+                    <div class="form-row mt-2">
+                        <div class="col-sm-6 col-md-3 col-lg-3">
+                            <p class="text-center">Fecha de nacimiento</p>
+                        </div>
+                        <div class="col-sm-6 col-md-8 col-lg-8">
+                            <input type="date" name="fechaNac" class="form-control" required [(ngModel)]="empleadoM.fechaNac">
+                        </div>
+                        <div class="col-sm-1 col-md-1 col-lg-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                     </svg>
+                        </div>
+                    </div>
+                    <div class="form-row mt-2">
+                        <div class="col-sm-6 col-md-3 col-lg-3">
+                            <p class="text-center">Teléfono</p>
+                        </div>
+                        <div class="col-sm-6 col-md-8 col-lg-8">
+                            <input type="text" name="telefono" class="form-control" placeholder="Ejem. 3333333333" (keypress)="soloNumeros($event)" maxlength="10" minlength="10" required title="maximo 10 caracteres" [(ngModel)]="empleadoM.telefono">
+                        </div>
+                        <div class="col-sm-1 col-md-1 col-lg-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                     </svg>
+                        </div>
+                    </div>
+                    <hr>
+                    <h5 class="font-weight-light mb-3">Datos Laborales</h5>
+                    <div class="form-row mt-2">
+                        <div class="col-sm-12 col-md-2 col-lg-2">
+                            <p class="text-center">Sueldo</p>
+                        </div>
+                        <div class="col-sm-11 col-md-3 col-lg-3">
+                            <input type="number" name="sueldo" class="form-control" placeholder="" required max="20000" [(ngModel)]="empleadoM.sueldo">
+                        </div>
+                        <div class="col-sm-1 col-md-1 col-lg-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                     </svg>
+                        </div>
+                        <div class="col-sm-12 col-md-2 col-lg-2">
+                            <p class="text-center">Tipo {{empleadoM.tipo}}</p>
+                        </div>
+                        <div class="col-sm-11 col-md-3 col-lg-3">
+                            <select class="form-control"> 
+                                <option value="{{empleadoM.tipo}}" selected>{{empleadoM.tipo}}</option>   
+                                <option value="Bodega">Bodega</option>
+                                <option value="Cajero">Cajero</option>
+                                <option value="Admin">Admin</option>                      
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row mt-2 mb-3">
+                        <div class="col-sm-12 col-md-2 col-lg-2">
+                            <p class="text-center">Correo</p>
+                        </div>
+                        <div class="col-sm-11 col-md-3 col-lg-3">
+                            <input type="email" name="correo" class="form-control" placeholder="Ejemp: usu@cremeria.com" required maxlength='50' title='minimo 50 caracteres' [(ngModel)]="empleadoM.correo">
+                        </div>
+                        <div class="col-sm-1 col-md-1 col-lg-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                     </svg>
+                        </div>
+                        <div class="col-sm-12 col-md-2 col-lg-2">
+                            <p class="text-center">Contraseña</p>
+                        </div>
+                        <div class="col-sm-11 col-md-3 col-lg-3">
+                            <input type="password" name="pass" class="form-control" placeholder="" required minlength='6' title='minimo 6 caracteres' [(ngModel)]="empleado.contrasenia">
+                        </div>
+                        <div class="col-sm-1 col-md-1 col-lg-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                     </svg>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" name="btnRegistrarEmp" value="registrar">Modificar</button>
+                        <div id="spinnerReg"></div>
+                    </div>
+                </form>
+
+                <!-- Termina Formulario modificar de empleado -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Termina Modal para modificar -->

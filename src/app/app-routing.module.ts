@@ -12,6 +12,9 @@ import { NosotrosComponent } from './components/paginaInfo/nosotros/nosotros.com
 import { RegistrarseComponent } from './components/paginaInfo/registrarse/registrarse.component';
 import { InicioClienteComponent } from './components/Cliente/inicio-cliente/inicio-cliente.component';
 import { InicioEmpleadoComponent } from './components/Empleado/inicio-empleado/inicio-empleado.component';
+import { EmpleadoCrudComponent } from './components/Empleado/empleado-crud/empleado-crud.component';
+import { ClienteCrudComponent } from './components/Empleado/cliente-crud/cliente-crud.component';
+
 
 const routes: Routes = [
   { path:'', redirectTo: 'inicio', pathMatch: 'full' },
@@ -21,6 +24,8 @@ const routes: Routes = [
   { path: 'registrarse', component: RegistrarseComponent, canActivate: [GuardiaPaginaInfoGuard]},
   { path: 'inicio-Cliente', component: InicioClienteComponent, canActivate: [GuardiaSesionAdminGuard]},
   { path: 'inicio-Empleado',component: InicioEmpleadoComponent, canActivate: [GuardiaSesionAdminGuard]},
+  { path: 'empleado-crud', component: EmpleadoCrudComponent, canActivate: [GuardiaSesionAdminGuard] },
+  { path: 'cliente-crud', component: ClienteCrudComponent, canActivate: [GuardiaSesionAdminGuard]},
   { path: '**', redirectTo: '/inicio'}, //<--- esta ruta tiene que ir siempre al último para que funcione
 
 ];
