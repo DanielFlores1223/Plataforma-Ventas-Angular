@@ -20,7 +20,22 @@ export class EmpleadoService {
   consultarTodoEmp(){
     return this.http.get(this.urlEmp);
   }
-  
+
+  modificarEmp(empleado){
+    return this.http.put<any>(this.urlEmp, empleado);
+  }
+
+  modificarContraEmp(empleado){
+    return this.http.put<any>(this.urlEmp + "/modificar-contrasenia", empleado);
+  }
+   
+  eliminarEmp(empleado){
+    return this.http.post<any>(this.urlEmp + "/eliminar", empleado);
+  }
+
+  buscarEmpLike(empleado){
+    return this.http.post<any>(this.urlEmp + "/buscar-like", empleado)
+  }
 
 }
 

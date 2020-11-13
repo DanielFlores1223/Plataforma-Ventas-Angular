@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 //servicios
 import { EmpleadoService } from '../../../services/empleado.service';
+import * as $ from 'jquery';
+import { exit } from 'process';
 
 
 @Component({
@@ -22,6 +24,11 @@ export class EmpleadoCrudComponent implements OnInit {
         tipo: ""   
       }
 
+      empleadoB = {
+        nombre: "",
+        apellidos: ""
+      }
+
       empleadoM = {
         nombre: "",
         apellidos: "",
@@ -35,7 +42,11 @@ export class EmpleadoCrudComponent implements OnInit {
 
       empleados;
 
-      rol = "";
+      letra = "";
+      
+      empleadosFiltrados;
+
+      cambiarContra = false;
 
   constructor( private empleadoService : EmpleadoService ) { }
 
@@ -43,45 +54,92 @@ export class EmpleadoCrudComponent implements OnInit {
       this.consultarTodo();
   }
 
-  limpiarEmp(){
-      this.empleado.nombre = "";
-      this.empleado.apellidos = "";
-      this.empleado.correo = "";
-      this.empleado.contrasenia = "";
-      this.empleado.fechaNac = "";
-      this.empleado.tipo = "";
-      this.empleado.telefono = "";
-      this.empleado.sueldo = 0;
-  }
-
 //Empleado CRUD
 regEmp(){
     this.empleadoService.regEmp(this.empleado).subscribe(res =>{
         this.exito = 1;
         this.limpiarEmp();
-        this.consultarTodo();
-    }, erro =>{
+        this.consultarTodo();       
+    }, err =>{
         this.exito = 2;
     });
 }
 
-modificarEmp( correo ){
+consultarEmp( correo ){
     this.empleadoM.correo = correo; 
 
     this.empleadoService.consultarEmpCorreo(this.empleadoM).subscribe(res=>{
         let fechaNacimiento;
         this.empleadoM = res;
-        this.rol = this.empleadoM.tipo;
-        this.empleadoM.tipo = "";
+        this.empleadoM.contrasenia = "";
         fechaNacimiento = this.empleadoM.fechaNac.split('T');
         this.empleadoM.fechaNac = fechaNacimiento[0];
+        this.letra = this.empleadoM.nombre.charAt(0);
       },
       err => console.log(err)
       );
 }
 
+modificarEmp(){
+    this.empleadoService.modificarEmp(this.empleadoM).subscribe(res => {
+        this.exito = 1;
+        this.consultarTodo();
+    },
+    err => {
+        console.log(err)
+        this.exito = 2;
+    });
+
+    if(this.cambiarContra)
+        this.modificarContra();
+}
+
+modificarContra(){
+    this.empleadoService.modificarContraEmp(this.empleadoM).subscribe(res => {
+        alert("se modifico la contraseña correctamente");
+    },
+    err => console.log(err));
+}
+
 consultarTodo(){
     this.empleados = this.empleadoService.consultarTodoEmp();
+}
+
+eliminarEmp(){
+    this.empleadoService.eliminarEmp(this.empleadoM).subscribe(res => {
+        this.consultarTodo();
+    },  
+    err => console.log(err));
+}
+
+buscarEmpLike(){
+    this.empleadoService.buscarEmpLike(this.empleadoB).subscribe(res => {
+        this.empleadosFiltrados = res;
+    }, 
+    err => console.log(err));
+}
+
+//funciones extra
+reiniciarExito(){
+    this.exito = 0;
+}
+
+limpiarEmp(){
+    this.empleado.nombre = "";
+    this.empleado.apellidos = "";
+    this.empleado.correo = "";
+    this.empleado.contrasenia = "";
+    this.empleado.fechaNac = "";
+    this.empleado.tipo = "";
+    this.empleado.telefono = "";
+    this.empleado.sueldo = 0;
+}
+
+cambiarContraEmp(){
+    if(this.cambiarContra)
+        this.cambiarContra = false;
+    else
+        this.cambiarContra = true;
 }
 
 //validacion para formulario

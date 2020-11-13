@@ -14,6 +14,22 @@ export class ClienteService {
   }
 
   consultarCliCorreo(cliente){
-    return this.http.get(this.urlCli + "/buscar-cli-correo");
+    return this.http.get(this.urlCli + "/buscar-cli-correo", cliente);
+  }
+
+  modificarCli(cliente){
+    return this.http.put<any>(this.urlCli, cliente);
+  }
+
+  eliminarCli(cliente){
+    return this.http.post<any>(this.urlCli + "/eliminar", cliente);
+  }
+
+  consultarTodoCli(){
+    return this.http.get(this.urlCli);
+  }
+
+  buscarCliLike(cliente){
+    return this.http.post<any>(this.urlCli + "/buscar-like", cliente);
   }
 }
