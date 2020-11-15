@@ -14,7 +14,7 @@ export class ClienteService {
   }
 
   consultarCliCorreo(cliente){
-    return this.http.get(this.urlCli + "/buscar-cli-correo", cliente);
+    return this.http.post<any>(this.urlCli + "/buscar-cli-correo", cliente);
   }
 
   modificarCli(cliente){

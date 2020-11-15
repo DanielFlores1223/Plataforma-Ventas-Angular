@@ -1,3 +1,10 @@
+.letra {
+    font-size: 7rem;
+    text-align: center;
+    font-family: 'Fredoka One', cursive;
+    color: white;
+}
+
 .buscador {
     border-right: 5px solid #F1C40F;
 }

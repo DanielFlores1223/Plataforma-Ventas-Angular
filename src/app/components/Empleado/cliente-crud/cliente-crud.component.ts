@@ -24,16 +24,66 @@ export class ClienteCrudComponent implements OnInit {
     apellidos: ''
   }
 
+  clienteM = {
+    nombre: '',
+    apellidos: '',
+    telefono: '',
+    correo: '',
+    contrasenia: ''
+  }
+
   clientes;
 
   clientesFiltrados;
 
   exito = 0;
 
+  letra = "";
+
   constructor(private clienteService : ClienteService) { }
 
   ngOnInit(): void {
     this.consultarTodo();
+  }
+
+  regCli(){
+    this.clienteService.regCliente(this.cliente).subscribe(res => {
+      this.exito = 1;
+      this.limpiarCli();
+      this.consultarTodo();     
+    },
+    err => {
+      this.exito = 2;
+    });
+  }
+
+  consultarCli( correo ){
+    this.clienteM.correo = correo; 
+
+    this.clienteService.consultarCliCorreo(this.clienteM).subscribe(res=>{
+        this.clienteM = res;
+        this.letra = this.clienteM.nombre.charAt(0);
+      },
+      err => console.log(err)
+      );
+  }
+
+  modificarCli(){
+    this.clienteService.modificarCli(this.clienteM).subscribe(res => {
+      this.exito = 1;
+      this.consultarTodo(); 
+    },
+    err => {
+      this.exito = 2;
+     // console.log(err);
+    })
+  }
+
+  eliminarCli(){
+    this.clienteService.eliminarCli(this.clienteM).subscribe(res => {
+      this.consultarTodo();
+    }, 
+    err => console.log(err));
   }
 
   consultarTodo(){
@@ -50,6 +100,14 @@ export class ClienteCrudComponent implements OnInit {
   //funciones extra
   reiniciarExito(){
     this.exito = 0;
+  }
+
+  limpiarCli(){
+    this.cliente.nombre = "",
+    this.cliente.apellidos = "",
+    this.cliente.contrasenia = "",
+    this.cliente.correo = "",
+    this.cliente.telefono = ""
   }
 
   //validacion para formulario

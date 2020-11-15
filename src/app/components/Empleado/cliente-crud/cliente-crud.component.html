@@ -23,7 +23,6 @@
 </div>
 
 <div class="container">
-
     <div class="row mb-2">
         <div class="col-sm-12 col-md-9">
 
@@ -61,9 +60,9 @@
                             <td class="text-center">{{c.correo}}</td>
                             <td class="text-center">{{c.telefono}}</td>
                             <td class="text-center">
-                                <button (click)="r(e.correo)" class="btn btn-sm ml-1 btn-info boton-responsivo" data-toggle="modal" data-target="#modalConsultar">Mas info</button>
-                                <button class="btn btn-sm ml-1 btn-warning boton-responsivo" data-toggle="modal" data-target="#modalModificarEmp">Modificar</button>
-                                <button class="btn btn-sm ml-1 btn-danger boton-responsivo" data-toggle="modal" data-target="#modalEliminar">Eliminar</button>
+                                <button (click)="r(e.correo)" class="btn btn-sm ml-1 btn-info boton-responsivo" data-toggle="modal" data-target="#modalConsultar" (click)="consultarCli( c.correo )">Mas info</button>
+                                <button class="btn btn-sm ml-1 btn-warning boton-responsivo" data-toggle="modal" data-target="#modalModificarCli" (click)="consultarCli( c.correo )">Modificar</button>
+                                <button class="btn btn-sm ml-1 btn-danger boton-responsivo" data-toggle="modal" data-target="#modalEliminar" (click)="consultarCli( c.correo )">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
@@ -89,9 +88,9 @@
                             <td class="text-center">{{c.correo}}</td>
                             <td class="text-center">{{c.telefono}}</td>
                             <td class="text-center">
-                                <button (click)="r(e.correo)" class="btn btn-sm ml-1 btn-info boton-responsivo" data-toggle="modal" data-target="#modalConsultar">Mas info</button>
-                                <button class="btn btn-sm ml-1 btn-warning boton-responsivo" data-toggle="modal" data-target="#modalModificarEmp">Modificar</button>
-                                <button class="btn btn-sm ml-1 btn-danger boton-responsivo" data-toggle="modal" data-target="#modalEliminar">Eliminar</button>
+                                <button (click)="r(e.correo)" class="btn btn-sm ml-1 btn-info boton-responsivo" data-toggle="modal" data-target="#modalConsultar" (click)="consultarCli( c.correo )">Mas info</button>
+                                <button class="btn btn-sm ml-1 btn-warning boton-responsivo" data-toggle="modal" data-target="#modalModificarCli" (click)="consultarCli( c.correo )">Modificar</button>
+                                <button class="btn btn-sm ml-1 btn-danger boton-responsivo" data-toggle="modal" data-target="#modalEliminar" (click)="consultarCli( c.correo )">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
@@ -197,7 +196,7 @@
                 </div>
                 <div class="modal-footer mt-2">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Registrar</button>
+                    <button type="button" class="btn btn-primary" (click)="regCli()">Registrar</button>
                     <div id="spinnerReg"></div>
                 </div>
                 <!-- Termina Formulario registro de cliente-->
@@ -206,3 +205,181 @@
     </div>
 </div>
 <!-- Termina Modal para el registro -->
+
+<!-- Modal para modificar -->
+<div class="modal fade" id="modalModificarCli" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header c-amarillo">
+                <div class="mr-3">
+                    <img src="" alt="">
+                </div>
+                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Modificar Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reiniciarExito()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="exito == 1">
+                    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                        El cliente se actualizó <strong>correctamente!</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="reiniciarExito()">
+                           <span aria-hidden="true">&times;</span>
+                         </button>
+                    </div>
+                </div>
+                <div *ngIf="exito == 2">
+                    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                        <strong>¡Error! </strong>El cliente no se actualizó
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="reiniciarExito()">
+                           <span aria-hidden="true">&times;</span>
+                         </button>
+                    </div>
+                </div>
+                <!-- Formulario registro de cliente -->
+                <div class="mb-3">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+             <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+           </svg>
+                    <b class="ml-2">Campos obligatorios</b>
+                    <hr>
+                </div>
+                <p class="">
+                    Nombre completo
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                     <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                   </svg>
+                </p>
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Nombre(s)" (keypress)="soloLetras($event)" required maxlength='50' title='máximo 50 caracteres' [(ngModel)]="clienteM.nombre">
+
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Apellidos" (keypress)="soloLetras($event)" required maxlength='50' title='máximo 50 caracteres' [(ngModel)]=" clienteM.apellidos ">
+                    </div>
+                </div>
+                <br>
+                <div class="form-row mt-2">
+                    <div class="col-12">
+                        <p class=" mt-1">Teléfono ó movil</p>
+                    </div>
+                    <div class="col-10">
+                        <input type="text" class="form-control" placeholder="Ejem. 3333333333" maxlength="10" minlength="10" (keypress)="soloNumeros($event)" required title="máximo 10 caracteres" [(ngModel)]="clienteM.telefono">
+                    </div>
+                    <div class="col-1">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                         <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                       </svg>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-row">
+                    <div class="col-12">
+                        <p class="">Correo eléctronico</p>
+                    </div>
+                    <div class="col-10">
+                        <input type="email" class="form-control" placeholder="Ejem. cremeria@correo.com" required maxlength='50' title='minimo 50 caracteres' [(ngModel)]="clienteM.correo">
+                    </div>
+                    <div class="col-1">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                         <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                       </svg>
+                    </div>
+                </div>
+                <div class="modal-footer mt-2">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="modificarCli()">Guardar cambios</button>
+                    <div id="spinnerReg"></div>
+                </div>
+                <!-- Termina Formulario registro de cliente-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Termina Modal para el registro -->
+
+<!-- Modal para consultar información del cliente -->
+<div class="modal fade" id="modalConsultar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header c-amarillo">
+                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Más información</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="text-center letra p-3 rounded-circle bg-info mx-auto" style="width: 200px; max-width: 100%;"> {{letra}} </h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-center h4 font-weight-light mt-1">{{clienteM.nombre}} {{clienteM.apellidos}}</p>
+                    </div>
+                </div>
+
+                <hr>
+                <p class="text-info font-weight-bold">Información personal</p>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <p>
+                            <img src="../assets/img/phone-inicio.png" alt="teléfono"> <b> Teléfono: </b> {{clienteM.telefono}}
+                            <a class="btn btn-info form-control mt-2" target="_blank" href="https://api.whatsapp.com/send?phone={{clienteM.telefono}}">
+                                <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-telephone-fill mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M2.267.98a1.636 1.636 0 0 1 2.448.152l1.681 2.162c.309.396.418.913.296 1.4l-.513 2.053a.636.636 0 0 0 .167.604L8.65 9.654a.636.636 0 0 0 .604.167l2.052-.513a1.636 1.636 0 0 1 1.401.296l2.162 1.681c.777.604.849 1.753.153 2.448l-.97.97c-.693.693-1.73.998-2.697.658a17.47 17.47 0 0 1-6.571-4.144A17.47 17.47 0 0 1 .639 4.646c-.34-.967-.035-2.004.658-2.698l.97-.969z"/>
+                                  </svg> Enviar whatsapp
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <p>
+                            <img src="../assets/img/correo-inicio.png" alt="teléfono"> <b> Correo: </b> {{clienteM.correo}}
+                            <a href="mailto:{{clienteM.correo}}?&subject=Mensaje%20Cremeria%20Liz" target="_blank" class="btn btn-primary mt-2 form-control">
+                                <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-envelope-fill mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                                  </svg> Enviar un correo</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cierra modal para consultar -->
+
+
+<!-- Modal eliminar  -->
+<div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header c-amarillo">
+                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Eliminar cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="com-sm-12 col-md-2 text-center">
+                        <img src="../assets/img/elimarUse.png" alt="eliminar usuario">
+                    </div>
+                    <div class="col-sm-12 col-md-10">
+                        <p class="mt-3">¿Deseas eliminar a <b>{{clienteM.nombre}}</b> de la base de datos?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" (click)="eliminarCli()" data-dismiss="modal">Si</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cierra el modal eliminar -->

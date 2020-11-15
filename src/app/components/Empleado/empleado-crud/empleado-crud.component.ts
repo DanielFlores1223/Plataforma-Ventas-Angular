@@ -48,6 +48,8 @@ export class EmpleadoCrudComponent implements OnInit {
 
       cambiarContra = false;
 
+      exitoContra = 0;
+
   constructor( private empleadoService : EmpleadoService ) { }
 
   ngOnInit(): void {
@@ -86,7 +88,6 @@ modificarEmp(){
         this.consultarTodo();
     },
     err => {
-        console.log(err)
         this.exito = 2;
     });
 
@@ -96,9 +97,13 @@ modificarEmp(){
 
 modificarContra(){
     this.empleadoService.modificarContraEmp(this.empleadoM).subscribe(res => {
-        alert("se modifico la contraseña correctamente");
+        this.exito = 1;
+        this.exitoContra = 0;
+        this.consultarTodo();
     },
-    err => console.log(err));
+    err => {
+        this.exitoContra = 3;
+    });
 }
 
 consultarTodo(){

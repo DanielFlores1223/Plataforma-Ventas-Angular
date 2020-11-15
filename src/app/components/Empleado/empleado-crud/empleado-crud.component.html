@@ -114,7 +114,6 @@
         <div class="modal-content">
             <div class="modal-header c-amarillo">
                 <div class="mr-3">
-                    <img src="../img/usario_header.png" alt="">
                 </div>
                 <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Registro de Empleado</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reiniciarExito()">
@@ -260,7 +259,6 @@
         <div class="modal-content">
             <div class="modal-header c-amarillo">
                 <div class="mr-3">
-                    <img src="../img/usario_header.png" alt="">
                 </div>
                 <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Modificar Empleado</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reiniciarExito()">
@@ -279,6 +277,14 @@
                 <div *ngIf="exito == 2">
                     <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
                         <strong>¡Error! </strong>El empleado no se actualizo
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="reiniciarExito()">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="exitoContra == 3">
+                    <div class="alert alert-danger alert-dismissible fade show text-center mt-2" role="alert">
+                        la contraseña está <strong>vacía</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="reiniciarExito()">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -364,10 +370,6 @@
 
                         </div>
 
-
-
-
-
                     </div>
 
                     <div class="form-row mt-2 mb-3">
@@ -405,7 +407,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" (click)="modificarEmp()">Modificar</button>
+                        <button type="button" class="btn btn-primary" (click)="modificarEmp()">Guardar cambios</button>
                         <div id="spinnerReg"></div>
                     </div>
                 </form>
@@ -511,7 +513,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary" (click)="eliminarEmp()">Si</button>
+                <button type="button" class="btn btn-primary" (click)="eliminarEmp()" data-dismiss="modal">Si</button>
             </div>
         </div>
     </div>

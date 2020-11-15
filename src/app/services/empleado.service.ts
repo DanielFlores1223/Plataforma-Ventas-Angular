@@ -37,5 +37,13 @@ export class EmpleadoService {
     return this.http.post<any>(this.urlEmp + "/buscar-like", empleado)
   }
 
+  modificarPerfilEmp(empleado){
+    return this.http.put<any>(this.urlEmp + "/modificar-perfil", empleado);
+  }
+
+  buscarEmpId(empleado){
+    return this.http.post<any>(this.urlEmp + "/buscar-emp-id", empleado);
+  }
+
 }
 
