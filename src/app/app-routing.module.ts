@@ -14,6 +14,7 @@ import { InicioClienteComponent } from './components/Cliente/inicio-cliente/inic
 import { InicioEmpleadoComponent } from './components/Empleado/inicio-empleado/inicio-empleado.component';
 import { EmpleadoCrudComponent } from './components/Empleado/empleado-crud/empleado-crud.component';
 import { ClienteCrudComponent } from './components/Empleado/cliente-crud/cliente-crud.component';
+import { ProveedorCrudComponent } from './components/Empleado/proveedor-crud/proveedor-crud.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'inicio-Empleado',component: InicioEmpleadoComponent, canActivate: [GuardiaSesionAdminGuard]},
   { path: 'empleado-crud', component: EmpleadoCrudComponent, canActivate: [GuardiaSesionAdminGuard] },
   { path: 'cliente-crud', component: ClienteCrudComponent, canActivate: [GuardiaSesionAdminGuard]},
+  { path: 'proveedor-crud', component: ProveedorCrudComponent, canActivate: [GuardiaSesionAdminGuard]},
   { path: '**', redirectTo: '/inicio'}, //<--- esta ruta tiene que ir siempre al último para que funcione
 
 ];

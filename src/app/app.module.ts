@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 //servicios
 import {LoginService} from './services/login.service';
 
+
 //Importacion de componentes
 import { HeaderComponent } from './components/paginaInfo/header/header.component';
 import { FooterComponent } from './components/paginaInfo/footer/footer.component';
@@ -26,6 +27,7 @@ import { InicioEmpleadoComponent } from './components/Empleado/inicio-empleado/i
 import { NavbarEmpleadoComponent } from './components/Empleado/navbar-empleado/navbar-empleado.component';
 import { EmpleadoCrudComponent } from './components/Empleado/empleado-crud/empleado-crud.component';
 import { ClienteCrudComponent } from './components/Empleado/cliente-crud/cliente-crud.component';
+import { ProveedorCrudComponent } from './components/Empleado/proveedor-crud/proveedor-crud.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { ClienteCrudComponent } from './components/Empleado/cliente-crud/cliente
     InicioEmpleadoComponent,
     NavbarEmpleadoComponent,
     EmpleadoCrudComponent,
-    ClienteCrudComponent
+    ClienteCrudComponent,
+    ProveedorCrudComponent
   ],
   imports: [
     BrowserModule,
