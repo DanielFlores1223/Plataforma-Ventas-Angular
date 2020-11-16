@@ -55,7 +55,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let c of clientesFiltrados">
+                        <tr *ngFor="let c of clientesFiltrados | paginate: { itemsPerPage: 5, currentPage: p }">
                             <td class="text-center">{{c.nombre}} {{c.apellidos}}</td>
                             <td class="text-center">{{c.correo}}</td>
                             <td class="text-center">{{c.telefono}}</td>
@@ -68,6 +68,7 @@
                     </tbody>
                 </table>
             </table>
+            <pagination-controls (pageChange)="p = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
         </div>
     </div>
     <ng-template #todos>
@@ -83,7 +84,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let c of clientes | async">
+                        <tr *ngFor="let c of clientes | async | paginate: { itemsPerPage: 5, currentPage: p }">
                             <td class="text-center">{{c.nombre}} {{c.apellidos}}</td>
                             <td class="text-center">{{c.correo}}</td>
                             <td class="text-center">{{c.telefono}}</td>
@@ -96,6 +97,7 @@
                     </tbody>
                 </table>
             </table>
+            <pagination-controls (pageChange)="p = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
         </div>
     </ng-template>
 </div>

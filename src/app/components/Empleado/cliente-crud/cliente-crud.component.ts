@@ -40,6 +40,8 @@ export class ClienteCrudComponent implements OnInit {
 
   letra = "";
 
+  p: number = 1;
+
   constructor(private clienteService : ClienteService) { }
 
   ngOnInit(): void {

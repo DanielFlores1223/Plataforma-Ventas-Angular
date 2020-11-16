@@ -50,6 +50,8 @@ export class EmpleadoCrudComponent implements OnInit {
 
       exitoContra = 0;
 
+      p: number = 1;
+
   constructor( private empleadoService : EmpleadoService ) { }
 
   ngOnInit(): void {

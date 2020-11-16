@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {NgxPaginationModule} from 'ngx-pagination'; //paginacion
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,7 +50,8 @@ import { ClienteCrudComponent } from './components/Empleado/cliente-crud/cliente
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule 
+    HttpClientModule,
+    NgxPaginationModule 
   ],
   providers: [
     LoginService
