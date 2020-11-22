@@ -1,0 +1,147 @@
+<div class="container-fluid my-3">
+    <div class="row">
+        <div class="col-3 ocultar">
+            <div class="card" style="width: 18rem; border-top: .3rem solid rgb(224, 191, 3);  max-width:100%;">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="../assets/img/abarrotes.jpg" class="d-block w-100 img-categorias" alt="abarrotes" style="height: 230px">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../assets/img/abarrotes2.png" class="d-block w-100 img-categorias" alt="abarrotes2" style="height: 230px">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../assets/img/abarrotes3.jpg" class="d-block w-100 img-categorias" alt="abarrotes3" style="height: 230px">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-center texto-titulo">Abarrotes</h5>
+
+                </div>
+                <ul class="list-group list-group-flush texto-info">
+                    <li class="list-group-item text-center">Selecciona un filtro de búsqueda</li>
+                    <select multiple class="form-control buscador" id="exampleFormControlSelect2" [(ngModel)]="filtros.subCategoria" (change)="consultar()">
+                         <option class="mt-2" value="Todos">Todos</option>
+                         <option class="mt-2" value="Hogar y Limpieza">Hogar y Limpieza</option>
+                         <option class="mt-2" value="Salud y Cuidado Personal">Salud y Cuidado Personal</option>
+                         <option class="mt-2" value="Semillas y Cereales">Semillas y Cereales</option>
+                         <option class="mt-2" value="Productos diversos">Productos diversos</option>
+                    </select>
+                </ul>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="row">
+                <div class="col-sm-12 ocultar-div">
+                    <select name="sub" class="form-control buscador mb-2" [(ngModel)]="filtros.subCategoria" (change)="consultar()">
+                        <option class="mt-2" value="Todos">Todos</option>
+                        <option class="mt-2" value="Quesos y Lacteos">Quesos y Lacteos</option>
+                        <option class="mt-2" value="Carnes frias y Embutidos">Carnes frias y Embutidos</option>
+                        <option class="mt-2" value="Bebidas y frituras">Bebidas y frituras</option>
+                        <option class="mt-2" value="Reposteria">Reposteria</option> 
+                      </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-8 pr-0">
+                    <input type="text" name="buscador" class=" form-control buscador" placeholder="Buscar producto por nombre o marca..." [(ngModel)]="filtros.nombre" (keyup)="consultar()">
+                </div>
+                <div class="col-sm-1 pl-0 ocultar">
+                    <button class="btn p-1 btn-buscador" (click)="consultar()">
+                             <svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                 <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                                 <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                               </svg>
+                   </button>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-sm-12 col-md-6 col-lg-4 text-center" *ngFor="let a of productos | paginate: { itemsPerPage: 6, currentPage: p }">
+                    <div class="card my-2" style="width: 20rem; max-width:100%;">
+                        <button data-toggle="modal" data-target="#modalInfo" class="btn" (click)="consultarProd(a.codigo)">
+                           <img src="{{a.img}}" class="card-img-top" style='height: 18rem; '>
+                       </button>
+                        <div class="card-body">
+                            <h5 class="card-title">{{a.nombreProd}}</h5>
+                            <p class="card-text"><b>Precio:</b> <b class="text-success"> {{a.precio}}</b> pesos.</p>
+                            <div class=" text-center">
+                                <button data-toggle="modal" data-target="#modalInfo" class="btn btn-info mt-2 form-control" (click)="consultarProd(a.codigo)">Más detalles</button>
+                                <button class="btn btn-warning mt-2 form-control">
+                                   <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                       <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
+                                     </svg>
+                               </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <pagination-controls (pageChange)="p = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header c-amarillo">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="{{productoB.img}}" style="width: 100%; height: 330px;">
+                        </div>
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4 class="font-weight-light">{{productoB.nombreProd}}</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="texto-info"><b class="text-info">Precio: </b> <b class="text-success">{{productoB.precio}} </b>pesos</p>
+                                    <p class="texto-info"><b class="text-info">Categoria: </b>{{productoB.categoria}}</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="texto-info"><b class="text-info">Subcategoria: </b>{{productoB.subCategoria}}</p>
+                                    <p class="texto-info"><b class="text-info">Marca: </b>{{productoB.marca}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="texto-info"><b class="text-info">Descripción: </b>{{productoB.descripcion}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select name="cantidad" class="cantidad buscador texto-info">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                   </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>

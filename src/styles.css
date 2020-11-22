@@ -63,3 +63,9 @@
 .fadeIn {
     animation-name: fadeIn;
 }
+
+.cantidad {
+    padding: .3rem .6rem;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+}

@@ -1,0 +1,747 @@
+<div class="container my-3 mb-5">
+    <div class="row">
+        <div class="col-sm-12 col-md-2 pr-0 ">
+            <select name="" id="" class="form-control buscador mb-2" [(ngModel)]="productoB.categoria" (change)="buscar()">
+                 <option value="Todos" class="select-option">Todos</option>
+                 <option value="Alimentos">Alimentos</option>
+                 <option value="Abarrotes">Abarrotes</option>
+            </select>
+        </div>
+        <div class="col-sm-12 col-md-8 ">
+            <div class="form-row">
+                <div class="col-sm-11 pr-0">
+                    <input type="text" name="buscador" class=" form-control buscador" (keyup)="buscar()" [(ngModel)]="productoB.nombre" placeholder="Buscar producto por nombre o marca...">
+                </div>
+                <div class="col-sm-1 pl-0 ocultar">
+                    <button class="btn p-1 btn-buscador" (click)="buscar()">
+                         <svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                             <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                             <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                           </svg>
+                     </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-2">
+
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="row mb-2">
+        <div class="col-sm-12 col-md-9">
+
+            <h4 class="font-weight-light h3">
+                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-clipboard-check mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                    <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3zm4.354 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                  </svg>Inventario
+            </h4>
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <button class=" btn btn-info form-control" data-toggle="modal" data-target="#modalregistrarProducto" (click)="consultarProveedores()">
+                  Registrar Producto
+                  <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-clipboard-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                    <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3zM8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
+                  </svg>
+             </button>
+        </div>
+    </div>
+    <hr>
+
+    <div class="container">
+
+        <div *ngIf="productosFiltrados else todos">
+            <div class="card my-3" style="border-top: .3rem solid rgb(224, 191, 3);" *ngFor="let prod of productosFiltrados | paginate: { itemsPerPage: 3, currentPage: p }">
+                <div class="row">
+                    <div class="col-2 mt-2">
+                        <img src="{{prod.img}}" style="max-width:100%;" alt="">
+                    </div>
+                    <div class="col-6 mt-2">
+                        <h5> {{prod.nombreProd}} </h5>
+                        <p><b class="text-info">Descripción:</b> {{prod.descripcion}} </p>
+                        <p><b class="text-info">Precio:</b>{{prod.precio}} pesos</p>
+                        <p><b class="text-info">Existencia:</b> {{prod.existencia}} </p>
+                        <p><b class="text-info">Categoria:</b>{{prod.categoria}}</p>
+                    </div>
+                    <div class="col-4 mt-5 text-center">
+                        <p><b>Acciones</b></p>
+                        <button class="btn btn-sm btn-info mr-1" data-toggle="modal" data-target="#modalMasInfo" (click)="buscarCodigo(prod.codigo)">Más info</button>
+                        <button class="btn btn-sm btn-warning  mr-1" data-toggle="modal" data-target="#modalModificarProducto" (click)="buscarCodigo(prod.codigo)">Modificar</button>
+                        <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalEliminar" (click)="buscarCodigo(prod.codigo)">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+            <pagination-controls (pageChange)="p = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+        </div>
+        <ng-template #todos>
+            <div class="card my-3" style="border-top: .3rem solid rgb(224, 191, 3);" *ngFor="let prod of productos | async | paginate: { itemsPerPage: 3, currentPage: p }">
+                <div class="row">
+                    <div class="col-2 mt-2">
+                        <img src="{{prod.img}}" style="max-width:100%;" alt="">
+                    </div>
+                    <div class="col-6 mt-2">
+                        <h5> {{prod.nombreProd}} </h5>
+                        <p><b class="text-info">Descripción:</b> {{prod.descripcion}} </p>
+                        <p><b class="text-info">Precio:</b>{{prod.precio}} pesos</p>
+                        <p><b class="text-info">Existencia:</b> {{prod.existencia}} </p>
+                        <p><b class="text-info">Categoria:</b>{{prod.categoria}}</p>
+                    </div>
+                    <div class="col-4 mt-5 text-center">
+                        <p><b>Acciones</b></p>
+                        <button class="btn btn-sm btn-info mr-1" data-toggle="modal" data-target="#modalMasInfo" (click)="buscarCodigo(prod.codigo)">Más info</button>
+                        <button class="btn btn-sm btn-warning  mr-1" data-toggle="modal" data-target="#modalModificarProducto" (click)="buscarCodigo(prod.codigo)">Modificar</button>
+                        <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalEliminar" (click)="buscarCodigo(prod.codigo)">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+            <pagination-controls (pageChange)="p = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+        </ng-template>
+
+    </div>
+
+    <!-- modal para registrar un producto -->
+    <div class="modal fade" id="modalregistrarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header c-amarillo">
+                    <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Registro de Producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reiniciarExito()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="exito == 1">
+                        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                            El producto se registró <strong>correctamente!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="reiniciarExito()">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngIf="exito == 2">
+                        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                            <strong>¡Error! </strong>El producto no se registró
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="reiniciarExito()">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                      </svg>
+                    <b class="ml-2">Campos obligatorios</b>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6">
+                            <p class="mb-0 mt-2">Código</p>
+                        </div>
+                        <div class="col-sm-12 col-md-6 ocultar">
+                            <p class="mb-0 mt-2">Nombre del producto</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-10 col-md-5">
+                            <input type="text" class="form-control " [(ngModel)]="producto.codigo">
+                        </div>
+                        <div class="col-1 pl-1 pb-0">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                              </svg>
+                        </div>
+
+                        <div class="col-12 ocultar-div">
+                            <p class="mb-0 mt-2">Nombre del producto</p>
+                        </div>
+
+                        <div class="col-sm-10 col-md-5">
+                            <input type="text" class="form-control " [(ngModel)]="producto.nombreProd">
+                        </div>
+                        <div class="col-1 pl-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                              </svg>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6">
+                            <p class="mb-0 mt-2">Existencia</p>
+                        </div>
+                        <div class="col-6 ocultar">
+                            <p class="mb-0 mt-2">Precio</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-10 col-md-5">
+                            <input type="number" class="form-control" [(ngModel)]="producto.existencia">
+                        </div>
+                        <div class="col-1 pl-1 pb-0">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                              </svg>
+                        </div>
+                        <div class="col-12 ocultar-div">
+                            <p class="mb-0 mt-2">Precio</p>
+                        </div>
+                        <div class="col-sm-10 col-md-5">
+                            <input type="number" class="form-control" [(ngModel)]="producto.precio">
+                        </div>
+                        <div class="col-1 pl-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                              </svg>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6">
+                            <p class="mb-0 mt-2">Categoria</p>
+                        </div>
+                        <div class="col-6 ocultar">
+                            <p class="mb-0 mt-2">Subcategoria</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-5">
+                            <select name="categoria" class="form-control" [(ngModel)]="producto.categoria">
+                                <option value="Alimentos">Alimentos</option>
+                                <option value="Abarrotes">Abarrotes</option>
+                            </select>
+                        </div>
+                        <div class="col-1 pl-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                              </svg>
+                        </div>
+                        <div class="col-12 ocultar-div">
+                            <p class="mb-0 mt-2">Subcategoria</p>
+                        </div>
+                        <div class="col-sm-12 col-md-5">
+                            <select name="subcategoria" class="form-control" *ngIf="producto.categoria == 'Alimentos'; else abarrotes" [(ngModel)]="producto.subCategoria">
+                                <option value="Quesos y Lacteos">Quesos y Lacteos</option>
+                                <option value="Carnes frias y Embutidos">Carnes frias y Embutidos</option>
+                                <option value="Bebidas y Frituras">Bebidas y Frituras</option>
+                                <option value="Reposteria">Reposteria</option>
+                            </select>
+                            <ng-template #abarrotes>
+                                <select name="subcategoria" class="form-control" [(ngModel)]="producto.subCategoria">
+                                    <option value="Hogar y Limpieza">Hogar y Limpieza</option>
+                                    <option value="Salud y Cuidado Personal">Salud y Cuidado Personal</option>
+                                    <option value="Semillas y Cereales">Semillas y Cereales</option>
+                                    <option value="Productos diversos">Productos diversos</option>
+                                </select>
+
+                            </ng-template>
+                        </div>
+                        <div class="col-1 pl-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                              </svg>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6">
+                            <p class="mb-0 mt-2">Marca</p>
+                        </div>
+                        <div class="col-6 ocultar">
+                            <p class="mb-0 mt-2">Imagen</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-10 col-md-5">
+                            <input type="text" class="form-control" [(ngModel)]="producto.marca">
+                        </div>
+                        <div class="col-1 pl-1 pb-0">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                              </svg>
+                        </div>
+                        <div class="col-12 ocultar-div">
+                            <p class="mb-0 mt-2">Imagen</p>
+                        </div>
+                        <div class="col-sm-10 col-md-5">
+                            <input type="file" class="form-control-file" [(ngModel)]="producto.img">
+                        </div>
+                        <div class="col-1 pl-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                              </svg>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12">
+                            <p class="mb-0 mt-2">Descripción</p>
+                        </div>
+                        <div class="col-12">
+                            <textarea name="descripcion" class="form-control" [(ngModel)]="producto.descripcion"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                <p class="mb-0 mt-2">Proveedores</p>
+                            </div>
+                            <div class="col-12">
+                                <select name="prov" id="prov" class="form-control" (change)="obtenerValorProv()" [(ngModel)]="valores">
+                                <option *ngFor="let prov of proveedores | async" value="{{prov.nombreProveedor}}|{{prov.telefono}}|{{prov.horario}}">{{prov.nombreProveedor}}</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="text-center mt-2">
+                            <small><b>Nota: </b>si desea agregar otro proveedor al producto, primero registralo y después dirigete a modificar el producto</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" (click)="regProd()">Registrar</button>
+                        <div class="spinner-border text-warning" role="status" *ngIf="spinerStatus == 3">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="animated fadeIn" *ngIf="spinerStatus == 1">
+                            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check-circle-fill text-success" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                              </svg>
+                        </div>
+                        <div class="animated fadeIn" *ngIf="spinerStatus == 2">
+                            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-x-circle-fill text-danger" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                              </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal para modificar un producto -->
+    <div class="modal fade" id="modalModificarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header c-amarillo">
+                    <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Modificar Producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reiniciarExito()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="exito == 1">
+                        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                            El producto se actualizó <strong>correctamente!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="reiniciarExito()">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                    </div>
+                    <div *ngIf="exito == 2">
+                        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                            <strong>¡Error! </strong>El producto no se actualizó
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="reiniciarExito()">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                    </div>
+
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                  </svg>
+                    <b class="ml-2">Campos obligatorios</b>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <img src="{{productoM.img}}" alt="" style="height: 8rem;">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center" *ngIf="cambioImg; else noImg">
+                            <input type="file" class="mb-1" [(ngModel)]="productoM.img">
+                            <button class="btn btn-secondary" (click)="cambiarImg()">cancelar</button>
+                        </div>
+                        <ng-template #noImg>
+                            <div class="col-12 text-center">
+                                <button class="btn btn-primary" (click)="cambiarImg()">Cambiar imagen</button>
+                            </div>
+                        </ng-template>
+                    </div>
+                    <hr>
+                    <h5 class="font-weight-light">Información del producto</h5>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6">
+                            <p class="mb-0 mt-2">Código</p>
+                        </div>
+                        <div class="col-sm-12 col-md-6 ocultar">
+                            <p class="mb-0 mt-2">Nombre del producto</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-10 col-md-5">
+                            <input type="text" class="form-control " [(ngModel)]="productoM.codigo">
+                        </div>
+                        <div class="col-1 pl-1 pb-0">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                          </svg>
+                        </div>
+
+                        <div class="col-12 ocultar-div">
+                            <p class="mb-0 mt-2">Nombre del producto</p>
+                        </div>
+
+                        <div class="col-sm-10 col-md-5">
+                            <input type="text" class="form-control " [(ngModel)]="productoM.nombreProd">
+                        </div>
+                        <div class="col-1 pl-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                          </svg>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6">
+                            <p class="mb-0 mt-2">Existencia</p>
+                        </div>
+                        <div class="col-6 ocultar">
+                            <p class="mb-0 mt-2">Precio</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-10 col-md-5">
+                            <input type="number" class="form-control" [(ngModel)]="productoM.existencia">
+                        </div>
+                        <div class="col-1 pl-1 pb-0">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                          </svg>
+                        </div>
+                        <div class="col-12 ocultar-div">
+                            <p class="mb-0 mt-2">Precio</p>
+                        </div>
+                        <div class="col-sm-10 col-md-5">
+                            <input type="number" class="form-control" [(ngModel)]="productoM.precio">
+                        </div>
+                        <div class="col-1 pl-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                          </svg>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6">
+                            <p class="mb-0 mt-2">Categoria</p>
+                        </div>
+                        <div class="col-6 ocultar">
+                            <p class="mb-0 mt-2">Subcategoria {{productoM.subCategoria}}</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-5">
+                            <select name="categoria" class="form-control" [(ngModel)]="productoM.categoria">
+                            <option value="Alimentos">Alimentos</option>
+                            <option value="Abarrotes">Abarrotes</option>
+                        </select>
+                        </div>
+                        <div class="col-1 pl-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                          </svg>
+                        </div>
+                        <div class="col-12 ocultar-div">
+                            <p class="mb-0 mt-2">Subcategoria</p>
+
+                        </div>
+                        <div class="col-sm-12 col-md-5">
+
+                            <select name="subcategoria" class="form-control" [(ngModel)]="productoM.subCategoria" [(ngModel)]="productoM.subCategoria" *ngIf="productoM.categoria == 'Alimentos'">
+                                <option value="Quesos y Lacteos">Quesos y Lacteos</option>
+                                <option value="Carnes frias y Embutidos">Carnes frias y Embutidos</option>
+                                <option value="Bebidas y Frituras">Bebidas y Frituras</option>
+                                <option value="Reposteria">Reposteria</option>
+                            </select>
+                            <select name="subcategoria" class="form-control" [(ngModel)]="productoM.subCategoria" *ngIf="productoM.categoria == 'Abarrotes'">                          
+                                <option value="Hogar y Limpieza">Hogar y Limpieza</option>
+                                <option value="Salud y Cuidado Personal">Salud y Cuidado Personal</option>
+                                <option value="Semillas y Cereales">Semillas y Cereales</option>
+                                <option value="Productos diversos">Productos diversos</option>
+                            </select>
+
+                        </div>
+                        <div class="col-1 pl-1">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                          </svg>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6">
+                            <p class="mb-0 mt-2">Marca</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-10 col-md-5">
+                            <input type="text" class="form-control" [(ngModel)]="productoM.marca">
+                        </div>
+                        <div class="col-1 pl-1 pb-0">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-patch-exclamation-fll p-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.553.553 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                          </svg>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12">
+                            <p class="mb-0 mt-2">Descripción</p>
+                        </div>
+                        <div class="col-12">
+                            <textarea name="descripcion" class="form-control" [(ngModel)]="productoM.descripcion"></textarea>
+                        </div>
+                    </div>
+                    <hr>
+                    <h5 class="font-weight-light">Proveedores</h5>
+                    <div class="row mt-3">
+                        <div class="col-sm-12 col-md-4 mb-2" *ngFor="let prov of productoM.proveedor;let i = index;">
+                            <div class="card border-primary mb-3" style="max-width: 100%; height: 100%;">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <b class="">Proveedor #{{i + 1}}</b>
+                                        </div>
+                                        <div class="col-3">
+                                            <button class="btn btn-sm btn-danger" (click)="llenarInfoProvEliminar(prov._id, productoM.codigo)" data-toggle="modal" data-target="#modalEliminarProv">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                                                  </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body text-primary">
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            <img src="../assets/img/provImg.png" alt="" style="max-width: 100%; height: 4rem;">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            <p class="card-title nombre-prov">{{prov.nombreProveedor}}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-4 mb-2">
+                            <button class="btn btn-outline-primary boton-agregar-prov " data-toggle="modal" data-target="#modalAgregarProv" (click)="consultarProveedores()">
+                                <img src="../assets/img/provImg.png" alt="" style="max-width: 100%; height: 5rem;">
+                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                  </svg>
+                              <p>Agregar otro proveedor</p>  
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer mt-3">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="reiniciarExito()">Cancelar</button>
+                        <button type="button" class="btn btn-primary" (click)="modificarProducto()">Guardar cambios</button>
+                        <div class="spinner-border text-warning" role="status" *ngIf="spinerStatus == 3">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="animated fadeIn" *ngIf="spinerStatus == 1">
+                            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check-circle-fill text-success" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                              </svg>
+                        </div>
+                        <div class="animated fadeIn" *ngIf="spinerStatus == 2">
+                            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-x-circle-fill text-danger" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                              </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar otro proveedor -->
+    <div class="modal fade" id="modalAgregarProv" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header c-amarillo">
+                    <h5 class="modal-title font-weight-normal" id="exampleModalLongTitle">Agregar otro proveedor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="col-12">
+                            <p>Selecciona un proveedor</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12">
+                            <select name="agregarProv" class="form-control buscador" [(ngModel)]="valores">
+                                <option *ngFor="let prov of proveedores | async" value="{{prov.nombreProveedor}}|{{prov.telefono}}|{{prov.horario}}">{{prov.nombreProveedor}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="agregarProv(productoM.codigo)" data-dismiss="modal">Agregar proveedor</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para eliminar un proveedor -->
+    <div class="modal fade" id="modalEliminarProv" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header c-amarillo">
+                    <h5 class="modal-title font-weight-normal" id="exampleModalLongTitle">Eliminar proveedor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="com-sm-12 col-md-2 text-center">
+                            <img src="../assets/img/provImg.png" alt="eliminar usuario" style="height: 72px; width: 72px;">
+                        </div>
+                        <div class="col-sm-12 col-md-10">
+                            <p>¿Desas eliminar al proveedor de este producto?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary" (click)="eliminarProv()" data-dismiss="modal">Si</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal mas informacion del producot -->
+    <div class="modal fade" id="modalMasInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header c-amarillo">
+                    <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Más Información</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs">
+                                <li class="nav-item">
+                                    <button class="nav-link {{!masInfo ? 'active' : ''}}" (click)="cambiarInfo(false)">Producto</button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link {{masInfo ? 'active' : ''}}" (click)="cambiarInfo(true)">Proveedores</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body" *ngIf="masInfo; else infoBasica">
+                            <h3 class="font-weight-light text-info text-left">Información de proveedores del producto</h3>
+                            <hr>
+                            <div class="row mt-3">
+                                <div class="col-sm-12 col-md-4 mb-2" *ngFor="let prov of productoM.proveedor;let i = index;">
+                                    <div class="card borde-amarillo mb-3" style="max-width: 100%; height: 100%;">
+                                        <div class="card-body text-primary">
+                                            <div class="row">
+                                                <div class="col-12 text-center">
+                                                    <img src="../assets/img/provImg.png" alt="" style="max-width: 100%; height: 4rem;">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 text-center">
+                                                    <p class="card-title nombre-prov">{{prov.nombreProveedor}}</p>
+                                                    <p>Horario: {{prov.horario}}</p>
+                                                    <p>Teléfono: {{prov.telefono}}</p>
+                                                    <p>
+                                                        <a class="btn btn-info form-control mt-2" target="_blank" href="https://api.whatsapp.com/send?phone=52{{prov.telefono}}">
+                                                            <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-telephone-fill mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" d="M2.267.98a1.636 1.636 0 0 1 2.448.152l1.681 2.162c.309.396.418.913.296 1.4l-.513 2.053a.636.636 0 0 0 .167.604L8.65 9.654a.636.636 0 0 0 .604.167l2.052-.513a1.636 1.636 0 0 1 1.401.296l2.162 1.681c.777.604.849 1.753.153 2.448l-.97.97c-.693.693-1.73.998-2.697.658a17.47 17.47 0 0 1-6.571-4.144A17.47 17.47 0 0 1 .639 4.646c-.34-.967-.035-2.004.658-2.698l.97-.969z"/>
+                                                              </svg> Enviar whatsapp
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-template #infoBasica>
+                            <div class="card-body">
+                                <h3 class="font-weight-light text-info text-left">Información del producto</h3>
+                                <hr>
+                                <div class="row mt-3">
+                                    <div class="col-4">
+                                        <img src="{{productoM.img}}" alt="" style="max-width: 100%; height: 15rem;">
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h4 class="text-left font-weight-light">{{productoM.nombreProd}}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p class="text-left"><b class="text-info">Existencia:</b> {{productoM.existencia}}</p>
+                                                <p class="text-left"><b class="text-info">Precio:</b> {{productoM.precio}} pesos</p>
+                                                <p class="text-left"><b class="text-info">Categoria:</b> {{productoM.categoria}}</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="text-left"><b class="text-info">Subcategoria:</b> {{productoM.subCategoria}}</p>
+                                                <p class="text-left"><b class="text-info">marca:</b> {{productoM.marca}}</p>
+                                                <p class="text-left"><b class="text-info">Descripción:</b> {{productoM.descripcion}}</p>
+                                                <p class="text-left"><b class="text-info">código de barras:</b> {{productoM.codigo}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal eliminar  -->
+    <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header c-amarillo">
+                    <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Eliminar producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="com-sm-12 col-md-2 text-center">
+                            <img src="../assets/img/provImg.png" alt="eliminar usuario" style="height: 72px; width: 72px;">
+                        </div>
+                        <div class="col-sm-12 col-md-10">
+                            <p class="mt-3">¿Deseas eliminar a <b>{{productoM.nombreProd}}</b> de la base de datos?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary" (click)="eliminarProd()" data-dismiss="modal">Si</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cierra el modal eliminar -->

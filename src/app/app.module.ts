@@ -28,6 +28,11 @@ import { NavbarEmpleadoComponent } from './components/Empleado/navbar-empleado/n
 import { EmpleadoCrudComponent } from './components/Empleado/empleado-crud/empleado-crud.component';
 import { ClienteCrudComponent } from './components/Empleado/cliente-crud/cliente-crud.component';
 import { ProveedorCrudComponent } from './components/Empleado/proveedor-crud/proveedor-crud.component';
+import { InventarioComponent } from './components/Empleado/inventario/inventario.component';
+import { AlimentosComponent } from './components/paginaInfo/alimentos/alimentos.component';
+import { AbarrotesComponent } from './components/paginaInfo/abarrotes/abarrotes.component';
+import { ServiciosComponent } from './components/paginaInfo/servicios/servicios.component';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +52,11 @@ import { ProveedorCrudComponent } from './components/Empleado/proveedor-crud/pro
     NavbarEmpleadoComponent,
     EmpleadoCrudComponent,
     ClienteCrudComponent,
-    ProveedorCrudComponent
+    ProveedorCrudComponent,
+    InventarioComponent,
+    AlimentosComponent,
+    AbarrotesComponent,
+    ServiciosComponent,
   ],
   imports: [
     BrowserModule,
