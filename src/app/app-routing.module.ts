@@ -16,9 +16,10 @@ import { EmpleadoCrudComponent } from './components/Empleado/empleado-crud/emple
 import { ClienteCrudComponent } from './components/Empleado/cliente-crud/cliente-crud.component';
 import { ProveedorCrudComponent } from './components/Empleado/proveedor-crud/proveedor-crud.component';
 import { InventarioComponent } from './components/Empleado/inventario/inventario.component';
-import { AlimentosComponent } from './components/paginaInfo/alimentos/alimentos.component';
-import { AbarrotesComponent } from './components/paginaInfo/abarrotes/abarrotes.component';
 import { ServiciosComponent } from './components/paginaInfo/servicios/servicios.component';
+import { MisPedidosComponent } from './components/Cliente/mis-pedidos/mis-pedidos.component';
+import { CarritoComponent } from './components/Cliente/carrito/carrito.component';
+import { ProductosComponent } from './components/paginaInfo/productos/productos.component';
 
 
 const routes: Routes = [
@@ -27,15 +28,16 @@ const routes: Routes = [
   { path: 'contacto', component: ContactoComponent, canActivate: [GuardiaPaginaInfoGuard]},
   { path: 'nosotros', component: NosotrosComponent, canActivate: [GuardiaPaginaInfoGuard]},
   { path: 'registrarse', component: RegistrarseComponent, canActivate: [GuardiaPaginaInfoGuard]},
-  { path: 'inicio-Cliente', component: InicioClienteComponent, canActivate: [GuardiaSesionAdminGuard]},
+  { path: 'inicio-Cliente', component: InicioClienteComponent},
   { path: 'inicio-Empleado',component: InicioEmpleadoComponent, canActivate: [GuardiaSesionAdminGuard]},
   { path: 'empleado-crud', component: EmpleadoCrudComponent, canActivate: [GuardiaSesionAdminGuard] },
   { path: 'cliente-crud', component: ClienteCrudComponent, canActivate: [GuardiaSesionAdminGuard]},
   { path: 'proveedor-crud', component: ProveedorCrudComponent, canActivate: [GuardiaSesionAdminGuard]},
   { path: 'inventario', component: InventarioComponent, canActivate: [GuardiaSesionAdminGuard]},
-  { path: 'alimentos', component: AlimentosComponent },
-  { path: 'abarrotes', component: AbarrotesComponent },
+  { path: 'productos', component: ProductosComponent},
   { path: 'servicios', component: ServiciosComponent },
+  { path: 'misPedidos', component: MisPedidosComponent},
+  { path: 'carrito', component: CarritoComponent},
   { path: '**', redirectTo: '/inicio'}, //<--- esta ruta tiene que ir siempre al último para que funcione
 
 ];

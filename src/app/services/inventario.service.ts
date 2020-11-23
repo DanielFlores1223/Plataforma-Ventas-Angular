@@ -49,4 +49,8 @@ export class InventarioService {
     return this.http.post<any>(this.urlInv + "/buscar-like-categoria-sub", filtros)
   }
 
+  //consulta todo sin necesidad de async
+  buscarTodoSA(nada){
+    return this.http.post<any>(this.urlInv + '/buscar-todo', nada);
+  }
 }

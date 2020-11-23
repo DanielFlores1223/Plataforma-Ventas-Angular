@@ -26,8 +26,8 @@ export class GuardiaPaginaInfoGuard implements CanActivate {
                 return false;
    
     }else if(this.loginService.tipoUsu() == 'Cliente'){
-              this.rutas.navigate(['/inicio-Cliente']);
-              return false;
+              //this.rutas.navigate(['/inicio-Cliente']);
+              return true;
    }
  }
 }

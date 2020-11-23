@@ -37,13 +37,10 @@
                     <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-handbag" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                          <path fill-rule="evenodd" d="M8 1a2 2 0 0 0-2 2v2h4V3a2 2 0 0 0-2-2zm3 4V3a3 3 0 1 0-6 0v2H3.361a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.356a2.5 2.5 0 0 0 2.472-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5H11zm-1 1v1.5a.5.5 0 0 0 1 0V6h1.639a.5.5 0 0 1 .494.426l1.028 6.851A1.5 1.5 0 0 1 12.678 15H3.322a1.5 1.5 0 0 1-1.483-1.723l1.028-6.851A.5.5 0 0 1 3.36 6H5v1.5a.5.5 0 0 0 1 0V6h4z"/>
                        </svg>
-                    <span class="ml-2">Productos</span>
+                    <span class="ml-2">Catálogo</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                    <a routerLink="alimentos" class="dropdown-item">Alimentos</a>
-                    <div class="dropdown-divider"></div>
-                    <a routerLink="abarrotes" class="dropdown-item">Abarrotes</a>
+                    <a routerLink="productos" class="dropdown-item">Productos</a>
                     <div class="dropdown-divider"></div>
                     <a routerLink="servicios" class="dropdown-item ">Servicios</a>
                 </div>
@@ -56,23 +53,66 @@
                     <span class="ml-2">Contáctanos</span>
                 </a>
             </li>
-            <li class="nav-item" routerLinkActive="link-Activado">
-                <a class="nav-link ml-3" routerLink="registrarse" data-toggle="modal" data-target="#modalRegistro">
-                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <ng-template #noEntro>
+                <li class="nav-item" routerLinkActive="link-Activado">
+                    <a class="nav-link ml-3" routerLink="registrarse" data-toggle="modal" data-target="#modalRegistro">
+                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
                         </svg>
-                    <span class="ml-2">Registrarse </span>
-                </a>
-            </li>
-            <li class="nav-item" routerLinkActive="link-Activado">
-                <a class="nav-link ml-3 mr-3" data-toggle="modal" data-target="#modalInicioSesion" href="">
-                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-box-arrow-in-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <span class="ml-2">Registrarse </span>
+                    </a>
+                </li>
+                <li class="nav-item" routerLinkActive="link-Activado">
+                    <a class="nav-link ml-3 mr-3" data-toggle="modal" data-target="#modalInicioSesion" href="">
+                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-box-arrow-in-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
                           <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
                         </svg>
-                    <span class="ml-2">Iniciar Sesión</span>
-                </a>
-            </li>
+                        <span class="ml-2">Iniciar Sesión</span>
+                    </a>
+                </li>
+            </ng-template>
+
+            <div *ngIf="entro; else noEntro" class="ordenar-links">
+                <li routerLink="inicio-Cliente" class="nav-item" routerLinkActive="link-Activado" *ngIf="tipo == 'Cliente'">
+                    <a class="nav-link ml-3 mr-3 cursor-link">
+                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-lines-fill cursor-link" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7 1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm2 9a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+                          </svg>
+                        <span class="ml-2">Mi perfil</span>
+                    </a>
+                </li>
+
+                <li class="nav-item" routerLinkActive="link-Activado" *ngIf="tipo == 'Cliente'">
+                    <a routerLink="misPedidos" class="nav-link ml-3 mr-3 cursor-link">
+                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-basket3-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172z"/>
+                            <path d="M2.468 15.426L.943 9h14.114l-1.525 6.426a.75.75 0 0 1-.729.574H3.197a.75.75 0 0 1-.73-.574z"/>
+                          </svg>
+                        <span class="ml-2">Mis pedidos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item" routerLinkActive="link-Activado" *ngIf="tipo == 'Cliente'">
+                    <a routerLink="carrito" class="nav-link ml-3 mr-3 cursor-link">
+                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cart4" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                          </svg>
+                        <span class="ml-2">Carrito</span>
+                    </a>
+                </li>
+
+
+                <li class="nav-item" routerLinkActive="link-Activado" *ngIf="tipo == 'Cliente'">
+                    <a class="nav-link ml-3 mr-3 cursor-link" (click)="cerrarSesion()">
+                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-box-arrow-in-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                          <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                        </svg>
+                        <span class="ml-2">Cerrar sesión</span>
+                    </a>
+                </li>
+            </div>
         </ul>
 
     </div>

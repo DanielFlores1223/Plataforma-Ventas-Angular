@@ -29,9 +29,10 @@ import { EmpleadoCrudComponent } from './components/Empleado/empleado-crud/emple
 import { ClienteCrudComponent } from './components/Empleado/cliente-crud/cliente-crud.component';
 import { ProveedorCrudComponent } from './components/Empleado/proveedor-crud/proveedor-crud.component';
 import { InventarioComponent } from './components/Empleado/inventario/inventario.component';
-import { AlimentosComponent } from './components/paginaInfo/alimentos/alimentos.component';
-import { AbarrotesComponent } from './components/paginaInfo/abarrotes/abarrotes.component';
 import { ServiciosComponent } from './components/paginaInfo/servicios/servicios.component';
+import { MisPedidosComponent } from './components/Cliente/mis-pedidos/mis-pedidos.component';
+import { CarritoComponent } from './components/Cliente/carrito/carrito.component';
+import { ProductosComponent } from './components/paginaInfo/productos/productos.component';
 
 
 @NgModule({
@@ -54,9 +55,10 @@ import { ServiciosComponent } from './components/paginaInfo/servicios/servicios.
     ClienteCrudComponent,
     ProveedorCrudComponent,
     InventarioComponent,
-    AlimentosComponent,
-    AbarrotesComponent,
     ServiciosComponent,
+    MisPedidosComponent,
+    CarritoComponent,
+    ProductosComponent,
   ],
   imports: [
     BrowserModule,

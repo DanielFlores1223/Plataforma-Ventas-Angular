@@ -18,8 +18,9 @@
         </div>
     </div>
     <ng-template #noEsEmpleado>
-        <div ngIf="tipo == 'Cliente'; else noEsCliente">
-            <app-header-cliente></app-header-cliente>
+        <div *ngIf="tipo == 'Cliente'; else noEsCliente">
+            <!-- <app-header-cliente></app-header-cliente> -->
+            <app-header></app-header>
             <router-outlet></router-outlet>
         </div>
     </ng-template>

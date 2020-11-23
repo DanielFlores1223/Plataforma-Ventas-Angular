@@ -26,3 +26,18 @@ a:hover {
 .cursor-img {
     cursor: pointer;
 }
+
+@media (min-width: 800px) {
+    .ordenar-links {
+        display: flex;
+    }
+}
+
+.cursor-link {
+    cursor: pointer;
+    border: 0px;
+}
+
+*:focus {
+    outline: none;
+}
