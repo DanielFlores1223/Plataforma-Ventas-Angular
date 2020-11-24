@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'; 
 //servicio
 import {PedidoService} from '../../../services/pedido.service';
 import {InventarioService} from '../../../services/inventario.service';
@@ -10,7 +11,7 @@ import {InventarioService} from '../../../services/inventario.service';
 })
 export class CarritoComponent implements OnInit {
 
-  constructor(private pedidoService : PedidoService, private productoService : InventarioService) { }
+  constructor(private pedidoService : PedidoService, private productoService : InventarioService, private rutas: Router) { }
 
   filtrosCarrito = {
     correoCli : ''
@@ -91,4 +92,7 @@ export class CarritoComponent implements OnInit {
     }, err => console.log(err))
   }
 
+  recargarPagina(){
+    location.reload();
+  }
 }
