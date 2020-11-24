@@ -53,4 +53,9 @@ export class InventarioService {
   buscarTodoSA(nada){
     return this.http.post<any>(this.urlInv + '/buscar-todo', nada);
   }
+
+  //consulta productos para el carrito
+  buscarCodigoProdCarrito(tiene){
+    return this.http.post<any>(this.urlInv + "/buscar-prod-codigoProd", tiene);
+  }
 }
