@@ -145,7 +145,7 @@
                        </button>
                         <div class="card-body">
                             <h5 class="card-title">{{a.nombreProd}}</h5>
-                            <p class="card-text"><b>Precio:</b> <b class="text-success"> {{a.precio}}</b> pesos.</p>
+                            <p class="card-text"><b>Precio:</b> <b class="text-success"> ${{a.precio}}</b></p>
                             <div class=" text-center">
                                 <button data-toggle="modal" data-target="#modalInfo" class="btn btn-info mt-2 form-control" (click)="consultarProd(a.codigo)">Más detalles</button>
                                 <!-- boton para agregar al carrito -->
@@ -200,7 +200,7 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <p class="texto-info"><b class="text-info">Precio: </b> <b class="text-success">{{productoB.precio}} </b>pesos</p>
+                                <p class="texto-info"><b class="text-info">Precio: </b> <b class="text-success">${{productoB.precio}} </b></p>
                                 <p class="texto-info"><b class="text-info">Categoria: </b>{{productoB.categoria}}</p>
                             </div>
                             <div class="col-6">

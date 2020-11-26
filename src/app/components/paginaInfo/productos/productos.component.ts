@@ -241,5 +241,5 @@ export class ProductosComponent implements OnInit {
   reiniciarExitoCarrito(){
     this.exitoCarrito = 0;
   }
-}
 
+}

@@ -45,4 +45,9 @@ export class PedidoService {
   buscarProductoCarrito(pedido){
     return this.http.post<any>(this.urlPedido + '/buscar-producto-carrito', pedido);
   }
+
+  //modificar pedido
+  modificarPedidoCarrito(pedido){
+    return this.http.put<any>(this.urlPedido + '/modificar-pedido-carrito', pedido);
+  }
 }
