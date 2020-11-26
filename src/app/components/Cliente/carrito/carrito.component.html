@@ -142,7 +142,47 @@
                 </div>
             </div>
             <div class=" form-row px-4">
-                <button type="button " class="btn btn-primary form-control mb-2" (click)=" modificarPedidoCarrito(); recargarPagina();">Enviar mi pedido</button>
+                <button type="button " class="btn btn-primary form-control mb-2" (click)=" modificarPedidoCarrito();" data-toggle="modal" data-target="#mensajeReg" data-dismiss="modal">Enviar mi pedido</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal mensajes-->
+<div class="modal fade" id="mensajeReg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="recargarPagina()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body text-center">
+                <div *ngIf="exito == 3">
+                    <div class="spinner-border text-warning" style="height: 8rem; width: 8rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+
+                <div *ngIf="exito == 1">
+                    <img class="imagenExito" src="../assets/img/exito.gif" alt="gif correcto">
+                    <div class="alert alert-success texto-info" role="alert">
+                        ¡El pedido se envió correctamente!
+                    </div>
+                </div>
+
+                <div *ngIf="exito == 2">
+                    <img class="imagenExito" src="../assets/img/incorrecto.gif" alt="gif correcto">
+                    <div class="alert alert-danger texto-info" role="alert">
+                        No se proceso el pedido correctamente.
+                    </div>
+                    <p class="text-left texto-info font-weight-bold">Revise los posibles errores:</p>exito.gif
+                    <ul class="list-group">
+                        <li class="list-group-item text-left list-group-item-warning texto-info">Llene todos los campos</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-info form-control" data-dismiss="modal" (click)="recargarPagina()">Aceptar</button>
             </div>
         </div>
     </div>

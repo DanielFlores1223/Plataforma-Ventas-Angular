@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 //servicio
 import {PedidoService} from '../../../services/pedido.service';
 import {InventarioService} from '../../../services/inventario.service';
+import { exit } from 'process';
 
 @Component({
   selector: 'app-carrito',
@@ -54,6 +55,10 @@ export class CarritoComponent implements OnInit {
     estatus : 'Pendiente',
     correoCli : ''
   }
+
+  exito = 0;
+
+  
 
   ngOnInit(): void {
     this.consultarCarrito(); 
@@ -121,13 +126,17 @@ export class CarritoComponent implements OnInit {
     //en esta funcion se modifica el pedido que este en carrito y lo convierte a pendiente
     this.procesarCarrtio.total = this.total;
     this.procesarCarrtio.correoCli = localStorage.getItem('correo');
+    this.exito = 3;
 
     this.pedidoService.modificarPedidoCarrito(this.procesarCarrtio).subscribe(res => {
       this.total = 0;
       this.cantidadTotalProd = 0;
+      this.exito = 1;
       this.consultarCarrito();
     },
-    err => console.log(err));
+    err => {
+      this.exito = 2;
+    });
   }
 
   recargarPagina(){
