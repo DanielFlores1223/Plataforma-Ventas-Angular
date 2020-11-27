@@ -13,8 +13,21 @@ export class PedidoService {
     return this.http.get(this.urlPedido);
   }
 
+  //consultar pedidos que no esten en carrito
+  consultarPedidosDifCa(filtros){
+    return this.http.post<any>(this.urlPedido + '/buscar-pedidos-diferente-carrito', filtros);
+  }
+
+  consultarIdPedido(pedido){
+    return this.http.post<any>(this.urlPedido +'/consultar-pedido-id', pedido);
+  }
+
   regPedido(pedido){
     return this.http.post<any>(this.urlPedido, pedido)
+  }
+
+  consultarPedidosEstatusCliente(filtros){
+    return this.http.post<any>(this.urlPedido + '/buscar-pedidos-estatus-cliente', filtros);
   }
 
   //agrega un producto al pedido 
@@ -25,6 +38,10 @@ export class PedidoService {
   //modificar la cantidad y el monto de un producto en el pedido
   modificarProducto(producto){
     return this.http.put<any>(this.urlPedido + '/modificar-prod', producto);
+  }
+
+  modificarEstatusPedido(pedido){
+    return this.http.put<any>(this.urlPedido + '/modificar-pedido-estatus', pedido);
   }
 
   //eliminar un producto del pedido en el arreglo tiene

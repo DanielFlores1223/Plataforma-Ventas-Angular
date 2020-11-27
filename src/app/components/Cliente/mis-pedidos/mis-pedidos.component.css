@@ -1,0 +1,16 @@
+.buscador {
+    border-right: 5px solid #F1C40F;
+}
+
+.buscador:focus {
+    color: #495057;
+    background-color: white;
+    border-color: #F9E79F;
+    outline: none;
+    border-width: 2px;
+    box-shadow: 0 0 6px #F9E79F !important;
+}
+
+.clase {
+    background: #F9E79F;
+}

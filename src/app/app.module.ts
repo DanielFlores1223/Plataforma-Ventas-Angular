@@ -3,6 +3,12 @@ import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination'; //paginacion
+// Import pdfmake-wrapper and the fonts to use
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
+ 
+// Set the fonts to use
+PdfMakeWrapper.setFonts(pdfFonts);
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +39,7 @@ import { ServiciosComponent } from './components/paginaInfo/servicios/servicios.
 import { MisPedidosComponent } from './components/Cliente/mis-pedidos/mis-pedidos.component';
 import { CarritoComponent } from './components/Cliente/carrito/carrito.component';
 import { ProductosComponent } from './components/paginaInfo/productos/productos.component';
+import { PedidosComponent } from './components/Empleado/pedidos/pedidos.component';
 
 
 @NgModule({
@@ -59,6 +66,7 @@ import { ProductosComponent } from './components/paginaInfo/productos/productos.
     MisPedidosComponent,
     CarritoComponent,
     ProductosComponent,
+    PedidosComponent,
   ],
   imports: [
     BrowserModule,

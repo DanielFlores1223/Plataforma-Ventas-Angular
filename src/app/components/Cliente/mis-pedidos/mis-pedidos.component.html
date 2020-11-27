@@ -1,1 +1,145 @@
-<p>mis-pedidos works!</p>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-8">
+            <p class="font-weight-light h4">
+                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-basket3-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172z"/>
+                    <path d="M2.468 15.426L.943 9h14.114l-1.525 6.426a.75.75 0 0 1-.729.574H3.197a.75.75 0 0 1-.73-.574z"/>
+                  </svg> Mis pedidos
+            </p>
+        </div>
+        <div class="col-4">
+            <select name="estatusPed" class="form-control buscador mb-2" [(ngModel)]="filtros.estatus" (change)="consultar()">
+               <option class="mt-2" value="">Todos</option>
+               <option class="mt-2" value="Pendiente">Pendientes</option>
+               <option class="mt-2" value="En proceso">En proceso</option>
+               <option class="mt-2" value="Cancelado">Cancelados</option>
+               <option class="mt-2" value="Completados">Completados</option>
+             </select>
+        </div>
+    </div>
+    <hr class="mt-1">
+
+    <div class="row" *ngIf="pedidos?.length > 0; else noHay">
+        <div class="col-4" *ngFor="let ped of pedidos | paginate: { itemsPerPage: 3, currentPage: p } let i = index ">
+            <div class="card borde-amarillo" style="width: 100%;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-10">
+                            <h5 class="card-title">Pedido #{{i + 1}}</h5>
+                        </div>
+                        <div class="col-1">
+                            <button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#modalCancelar" (click)="obtenerId(ped._id)">
+                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                              </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="texto-info"><b>Estatus: </b>{{ped.estatus}}</p>
+                    <p class="texto-info"><b>Fecha de entrega: </b>{{ ped.fechaEntrega.substring(0,10) }}</p>
+                    <p class="texto-info"><b>Método de pago: </b>{{ped.metodoPago}}</p>
+                    <p class="texto-info"><b>Total: </b> <strong class="text-success">${{ped.total}}</strong></p>
+                    <button class="btn btn-sm btn-info ml-2" data-toggle="modal" data-target="#modalProductos" (click)="consultarPedidoId(ped._id)">Productos del pedido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <pagination-controls (pageChange)="p = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+    <button>Generar pdf</button>
+    <ng-template #noHay>
+        <h3 class="text-center font-weight-light">No hay resultados</h3>
+    </ng-template>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalProductos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header c-amarillo">
+                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Productos del pedido</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <div class="row" *ngFor="let p of productosInfo">
+                    <div class="col-3">
+                        <img src="{{p?.img}}" alt="" style="max-width: 100%; height: 5rem;">
+
+                    </div>
+                    <div class="col-8">
+                        <p class="texto-info mb-0">{{p?.nombreProd}}</p>
+                        <p class="texto-info mb-0"><b>Precio: </b> <strong class="text-success">${{p?.precio}}</strong></p>
+                        <p class="texto-info mb-0"><b>Cantidad: </b>{{p?.cantidadProd}}</p>
+                        <p class="texto-info"><b>Monto: </b> <strong class="text-success">${{p?.monto}}</strong></p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-right">
+                <button class="btn btn-sm btn-warning" (click)="pdf()">Generar ticket</button>
+                <p class="texto-info" style="font-size: 1.8rem;"><b>Total: </b> <strong class="text-success">${{totalPActual}}</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para cancelar el pedido -->
+<div class="modal fade" id="modalCancelar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cancelar el pedido</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <p class="texto-info">¿Deseas cancelar este pedido?</p>
+                <p><small><b>Nota: </b>Una vez cancelado el pedido, cremeria liz borrara el registro del mismo</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" (click)="cancelarPedido()" data-dismiss="modal" data-toggle="modal" data-target="#mensajeReg">Si</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal mensajes-->
+<div class="modal fade" id="mensajeReg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body text-center">
+                <div *ngIf="exito == 3">
+                    <div class="spinner-border text-warning" style="height: 8rem; width: 8rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+
+                <div *ngIf="exito == 1">
+                    <img class="imagenExito" src="../assets/img/exito.gif" alt="gif correcto">
+                    <div class="alert alert-success texto-info" role="alert">
+                        ¡El pedido se <b>Canceló</b> correctamente!
+                    </div>
+                </div>
+
+                <div *ngIf="exito == 2">
+                    <img class="imagenExito" src="../assets/img/incorrecto.gif" alt="gif correcto">
+                    <div class="alert alert-danger texto-info" role="alert">
+                        No se cancelo el pedido correctamente.
+                    </div>
+                    <p class="text-left texto-info font-weight-bold">Contacte con la tienda para aclarar el porque del del error</p>
+                </div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-info form-control" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>

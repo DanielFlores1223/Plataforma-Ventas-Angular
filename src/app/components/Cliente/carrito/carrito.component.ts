@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 //servicio
 import {PedidoService} from '../../../services/pedido.service';
 import {InventarioService} from '../../../services/inventario.service';
-import { exit } from 'process';
 
 @Component({
   selector: 'app-carrito',
