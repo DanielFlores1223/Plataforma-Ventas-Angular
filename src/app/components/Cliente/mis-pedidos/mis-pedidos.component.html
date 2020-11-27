@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row mt-4">
-        <div class="col-8">
+        <div class="col-sm-12 col-md-8">
             <p class="font-weight-light h4">
                 <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-basket3-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172z"/>
@@ -8,7 +8,7 @@
                   </svg> Mis pedidos
             </p>
         </div>
-        <div class="col-4">
+        <div class="col-sm-12 col-md-4">
             <select name="estatusPed" class="form-control buscador mb-2" [(ngModel)]="filtros.estatus" (change)="consultar()">
                <option class="mt-2" value="">Todos</option>
                <option class="mt-2" value="Pendiente">Pendientes</option>
@@ -21,7 +21,7 @@
     <hr class="mt-1">
 
     <div class="row" *ngIf="pedidos?.length > 0; else noHay">
-        <div class="col-4" *ngFor="let ped of pedidos | paginate: { itemsPerPage: 3, currentPage: p } let i = index ">
+        <div class="col-sm-12 col-md-4" *ngFor="let ped of pedidos | paginate: { itemsPerPage: 3, currentPage: p } let i = index ">
             <div class="card borde-amarillo" style="width: 100%;">
                 <div class="card-body">
                     <div class="row">
@@ -40,13 +40,14 @@
                     <p class="texto-info"><b>Fecha de entrega: </b>{{ ped.fechaEntrega.substring(0,10) }}</p>
                     <p class="texto-info"><b>Método de pago: </b>{{ped.metodoPago}}</p>
                     <p class="texto-info"><b>Total: </b> <strong class="text-success">${{ped.total}}</strong></p>
-                    <button class="btn btn-sm btn-info ml-2" data-toggle="modal" data-target="#modalProductos" (click)="consultarPedidoId(ped._id)">Productos del pedido</button>
+                    <button class="btn btn-sm btn-info ml-2 form-control" data-toggle="modal" data-target="#modalProductos" (click)="consultarPedidoId(ped._id)">Productos del pedido</button>
                 </div>
             </div>
         </div>
     </div>
-    <pagination-controls (pageChange)="p = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
-    <button>Generar pdf</button>
+    <div *ngIf="pedidos?.length > 0">
+        <pagination-controls (pageChange)="p = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+    </div>
     <ng-template #noHay>
         <h3 class="text-center font-weight-light">No hay resultados</h3>
     </ng-template>
@@ -89,8 +90,8 @@
 <div class="modal fade" id="modalCancelar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cancelar el pedido</h5>
+            <div class="modal-header c-amarillo">
+                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Cancelar el pedido</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

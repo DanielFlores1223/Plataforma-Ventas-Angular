@@ -80,6 +80,10 @@ export class MisPedidosComponent implements OnInit {
     )
 
     pdf.add(
+      new Columns(['Método de pago: ', this.pedidoC.metodoPago]).fontSize(12).margin([0,10,0,0]).end
+    )
+
+    pdf.add(
       new Txt('Productos del pedido').bold().alignment("center").fontSize(14).margin([0,10,0,0]).end
     )
 
