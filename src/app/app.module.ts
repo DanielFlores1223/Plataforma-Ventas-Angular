@@ -40,6 +40,7 @@ import { MisPedidosComponent } from './components/Cliente/mis-pedidos/mis-pedido
 import { CarritoComponent } from './components/Cliente/carrito/carrito.component';
 import { ProductosComponent } from './components/paginaInfo/productos/productos.component';
 import { PedidosComponent } from './components/Empleado/pedidos/pedidos.component';
+import { ReportesComponent } from './components/Empleado/reportes/reportes.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { PedidosComponent } from './components/Empleado/pedidos/pedidos.componen
     CarritoComponent,
     ProductosComponent,
     PedidosComponent,
+    ReportesComponent,
   ],
   imports: [
     BrowserModule,

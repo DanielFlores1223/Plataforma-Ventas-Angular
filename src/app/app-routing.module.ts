@@ -20,6 +20,7 @@ import { ServiciosComponent } from './components/paginaInfo/servicios/servicios.
 import { MisPedidosComponent } from './components/Cliente/mis-pedidos/mis-pedidos.component';
 import { CarritoComponent } from './components/Cliente/carrito/carrito.component';
 import { ProductosComponent } from './components/paginaInfo/productos/productos.component';
+import { ReportesComponent } from './components/Empleado/reportes/reportes.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'cliente-crud', component: ClienteCrudComponent, canActivate: [GuardiaSesionAdminGuard]},
   { path: 'proveedor-crud', component: ProveedorCrudComponent, canActivate: [GuardiaSesionAdminGuard]},
   { path: 'inventario', component: InventarioComponent, canActivate: [GuardiaSesionAdminGuard]},
+  { path: 'reportes',component:ReportesComponent,canActivate:[GuardiaSesionAdminGuard]},
   { path: 'productos', component: ProductosComponent},
   { path: 'servicios', component: ServiciosComponent },
   { path: 'misPedidos', component: MisPedidosComponent},
