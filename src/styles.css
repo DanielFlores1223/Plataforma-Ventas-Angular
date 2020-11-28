@@ -1,5 +1,10 @@
 /* Utilidades */
 
+* {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1rem;
+}
+
 .c-amarillo {
     background: #F9E79F;
 }
@@ -11,7 +16,7 @@
 .texto-info {
     /* font-family: 'Abel', sans-serif; */
     font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .texto-titulo {

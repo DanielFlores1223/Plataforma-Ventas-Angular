@@ -146,22 +146,34 @@
                         <div class="card-body">
                             <h5 class="card-title">{{a.nombreProd}}</h5>
                             <p class="card-text"><b>Precio:</b> <b class="text-success"> ${{a.precio}}</b></p>
+                            <p *ngIf="a.existencia > 5; else agotado" class="font-weight-bold">En stock</p>
+                            <ng-template #agotado>
+                                <p class="font-weight-bold">Agotado</p>
+                            </ng-template>
                             <div class=" text-center">
                                 <button data-toggle="modal" data-target="#modalInfo" class="btn btn-info mt-2 form-control" (click)="consultarProd(a.codigo)">Más detalles</button>
                                 <!-- boton para agregar al carrito -->
                                 <ng-template #noEntro>
-                                    <button class="btn btn-warning mt-2 form-control">
+                                    <button class="btn btn-warning mt-2 form-control" data-toggle="modal" data-target="#modalInicioSesion">
                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                        <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
                                      </svg>
                                </button>
                                 </ng-template>
-                                <button class="btn btn-warning mt-2 form-control" *ngIf="entro && tipo == 'Cliente'; else noEntro" (click)="agregarCarrito(a.codigo, a.precio)">
+                                <div *ngIf="entro && tipo == 'Cliente'; else noEntro">
+                                    <button *ngIf="a.existencia > 5; else agotadoBtn" class="btn btn-warning mt-2 form-control" (click)="agregarCarrito(a.codigo, a.precio)">
                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                        <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
                                      </svg>
                                </button>
-
+                                    <ng-template #agotadoBtn>
+                                        <button class="btn btn-warning mt-2 form-control" *ngIf="entro && tipo == 'Cliente'; else noEntro" disabled>
+                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
+                                      </svg>
+                                </button>
+                                    </ng-template>
+                                </div>
                             </div>
                         </div>
                     </div>

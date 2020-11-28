@@ -58,4 +58,8 @@ export class InventarioService {
   buscarCodigoProdCarrito(tiene){
     return this.http.post<any>(this.urlInv + "/buscar-prod-codigoProd", tiene);
   }
+
+  modificarExistencia(producto){
+    return this.http.put<any>(this.urlInv + '/modificar-existencia', producto);
+  }
 }

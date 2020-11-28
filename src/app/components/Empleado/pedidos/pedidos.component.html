@@ -1,1 +1,156 @@
-<p>pedidos works!</p>
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-sm-12 col-md-2">
+            <p class="font-weight-light h4">
+                <svg width="2.3em" height="2.3em" viewBox="0 0 16 16" class="bi bi-bag-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M14 5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5zM1 4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4H1z"/>
+                    <path d="M8 1.5A2.5 2.5 0 0 0 5.5 4h-1a3.5 3.5 0 1 1 7 0h-1A2.5 2.5 0 0 0 8 1.5z"/>
+                    <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"/>
+                    <path fill-rule="evenodd" d="M7.5 10a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-2z"/>
+                </svg> Pedidos
+            </p>
+        </div>
+        <div class="col-sm-12 col-md-6 pr-0">
+            <input type="text" name="buscador" class=" form-control buscador  mb-2" placeholder="Buscar pedido por nombre del cliente o id del pedido..." [(ngModel)]="busqueda.nombre" (keyup)="buscar()">
+        </div>
+        <div class="col-sm-1 pl-0 ocultar">
+            <button class="btn p-1 btn-buscador">
+               <svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                   <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                   <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                 </svg>
+           </button>
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <select name="estatusPed" class="form-control buscador mb-2" [(ngModel)]="busqueda.estatus" (change)="buscar()">
+                <option class="mt-2" value="">Todos</option>
+                <option class="mt-2" value="Pendiente">Pendientes</option>
+                <option class="mt-2" value="En proceso">En proceso</option>
+                <option class="mt-2" value="Cancelado">Cancelados</option>
+                <option class="mt-2" value="Completados">Completados</option>
+              </select>
+        </div>
+    </div>
+    <hr class="mt-1">
+</div>
+
+<div class="container">
+    <div class="row" *ngFor="let ped of pedidos | paginate: { itemsPerPage: 3, currentPage: p }">
+        <div class="col-12 card mb-2 borde-amarillo">
+            <div class="row py-2">
+                <div class="col-11 bg-light">
+                    <h5 class="font-weight-light mt-2">Id del pedido: {{ped._id}}</h5>
+                </div>
+                <div class="col-1 bg-light">
+                    <button *ngIf="ped.estatus == 'Cancelado'" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalEliminar" (click)="obtenerId(ped._id)"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                      </svg></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <p class="text-info">Informacion del pedido</p>
+                    <hr>
+                    <p><b>Método de pago: </b>{{ped.metodoPago}}</p>
+                    <p><b>Fecha de entrega: </b>{{ped.fechaEntrega.substring(0,10)}}</p>
+                    <p><b>Estatus: </b>{{ped.estatus}}</p>
+                    <p *ngIf="ped.direccionEnvio != ''">{{ped.direccionEnvio}}</p>
+                    <p><b>Total: </b>{{ped.total}}</p>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <p class="text-info">Información del cliente</p>
+                    <hr>
+                    <p><b>Cliente: </b>{{ped.cliente.nombre}} {{ped.cliente.apellidos}}</p>
+                    <p><b>Correo eléctronico: </b>{{ped.cliente.correo}}</p>
+                    <p><b>Teléfono: </b>{{ped.cliente.telefono}}</p>
+                </div>
+                <div class="col-sm-12 col-md-4 bg-white">
+                    <p class="text-info">Acciones</p>
+                    <hr>
+                    <p class="mb-0">Más Información del pedido</p>
+                    <button class="btn btn-sm btn-info form-control mb-3" data-toggle="modal" data-target="#modalProductos" (click)="consultarPedidoId(ped._id)">Ver productos del pedido</button>
+                    <p class="mb-0">Cambiar estatus del pedido: </p>
+
+                    <div *ngIf="ped.estatus == 'Completado' || ped.estatus == 'Cancelado'; else noCE">
+                        <p class="{{ped.estatus == 'Completado' ? 'sub-success' : 'sub-danger'}}">El pedido esta {{ped.estatus}}</p>
+                    </div>
+                    <ng-template #noCE>
+                        <div *ngIf="ped.estatus == 'En proceso' || ped.estatus == 'Pendiente'">
+                            <div class="row">
+                                <div class="col">
+                                    <a target="_blank" href="https://api.whatsapp.com/send?phone=52{{ped.cliente.telefono}}&text=Hola%20{{ped.cliente.nombre}},tu%20pedido:%20{{ped._id}}%20fue%20cancelado%20por%20las%20siguientes%20causas:">
+                                        <button class="form-control mr-1 btn btn-sm btn-danger mb-2" (click)="modificarEstatusPedido('Cancelado', ped._id)">Cancelar</button>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <button *ngIf="ped.estatus == 'Pendiente'" class="form-control mr-1 mb-2 btn btn-sm btn-warning" (click)="modificarEstatusPedido('En proceso', ped._id)">En proceso</button>
+                                </div>
+                                <div class="col">
+                                    <a target="_blank" href="https://api.whatsapp.com/send?phone=52{{ped.cliente.telefono}}&text=Hola%20{{ped.cliente.nombre}},tu%20pedido:%20{{ped._id}}%20está%20completado">
+                                        <button class="form-control mr-1 mb-2 btn btn-sm btn-primary" (click)="modificarEstatusPedido('Completado', ped._id)">Completado</button>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <pagination-controls (pageChange)="p = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalProductos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header c-amarillo">
+                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Productos del pedido</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <div class="row" *ngFor="let p of productosInfo">
+                    <div class="col-3">
+                        <img src="{{p?.img}}" alt="" style="max-width: 100%; height: 5rem;">
+
+                    </div>
+                    <div class="col-8">
+                        <p class="texto-info mb-0">{{p?.nombreProd}}</p>
+                        <p class="texto-info mb-0"><b>Precio: </b> <strong class="text-success">${{p?.precio}}</strong></p>
+                        <p class="texto-info mb-0"><b>Cantidad: </b>{{p?.cantidadProd}}</p>
+                        <p class="texto-info"><b>Monto: </b> <strong class="text-success">${{p?.monto}}</strong></p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-right">
+                <p class="texto-info"><b class="h4 font-weight-bold">Total: </b> <strong class="text-success h4 font-weight-bold">${{totalPActual}}</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para cancelar el pedido -->
+<div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header c-amarillo">
+                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Eliminar el pedido</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <p class="texto-info">¿Deseas eliminar este pedido?</p>
+                <p><small><b>Nota: </b>Una vez eliminado el pedido, ya no se podrá recuperar la información del mismo</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="eliminarPedido()">Si</button>
+            </div>
+        </div>
+    </div>
+</div>
