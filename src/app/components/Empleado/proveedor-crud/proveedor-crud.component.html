@@ -30,7 +30,7 @@
         <div class="col-sm-12 col-md-9">
 
             <h4 class="font-weight-light h3">
-                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-badge-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-person-badge-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
                   </svg> Proveedores
             </h4>
@@ -59,8 +59,8 @@
                         <h5 class="card-title font-weight-normal">{{prov.nombreProveedor}} </h5>
                     </div>
                     <ul class="list-group list-group-flush c-amarillo">
-                        <li class="list-group-item text-dark c-amarillo">Categoria: {{prov.categoria}} </li>
-                        <li class="list-group-item  c-amarillo">Telefono: {{prov.telefono}}</li>
+                        <li class="list-group-item text-dark c-amarillo texto-info">Categoria: {{prov.categoria}} </li>
+                        <li class="list-group-item  c-amarillo texto-info">Telefono: {{prov.telefono}}</li>
                     </ul>
                     <div class="card-body bg-light">
                         <div *ngIf="tipoEmp == 'Admin'; else noEsAdmin">
@@ -89,8 +89,8 @@
                         <h5 class="card-title font-weight-normal">{{prov.nombreProveedor}} </h5>
                     </div>
                     <ul class="list-group list-group-flush c-amarillo">
-                        <li class="list-group-item text-dark c-amarillo">Categoria: {{prov.categoria}} </li>
-                        <li class="list-group-item  c-amarillo">Telefono: {{prov.telefono}}</li>
+                        <li class="list-group-item text-dark c-amarillo texto-info">Categoria: {{prov.categoria}} </li>
+                        <li class="list-group-item  c-amarillo texto-info">Telefono: {{prov.telefono}}</li>
                     </ul>
                     <div class="card-body bg-light">
                         <div *ngIf="tipoEmp == 'Admin'; else noEsAdmin">
@@ -124,7 +124,7 @@
             </div>
             <div class="modal-body">
                 <div *ngIf="exito == 1">
-                    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                    <div class="alert alert-success alert-dismissible fade show text-center texto-info" role="alert">
                         El proveedor se registró <strong>correctamente!</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="reiniciarExito()">
                           <span aria-hidden="true">&times;</span>
@@ -132,7 +132,7 @@
                     </div>
                 </div>
                 <div *ngIf="exito == 2">
-                    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show text-center texto-info" role="alert">
                         <strong>¡Error! </strong>El proveedor no se registró
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="reiniciarExito()">
                           <span aria-hidden="true">&times;</span>
@@ -148,7 +148,7 @@
                 <!-- Formulario registro de proveedor -->
                 <div class="form-row">
                     <div class="col-4">
-                        <p class="text-center">Nombre del Proveedor</p>
+                        <p class="text-center texto-info">Nombre del Proveedor</p>
                     </div>
                     <div class="col-7">
                         <input type="text" name="nombreProv" class="form-control" placeholder="Nombre(s)" maxlength="50" required title="maximo 50 caracteres" [(ngModel)]="proveedor.nombreProveedor">
@@ -161,7 +161,7 @@
                 </div>
                 <div class="form-row mt-2">
                     <div class="col-4">
-                        <p class="text-center">Nombre del Agente</p>
+                        <p class="text-center texto-info">Nombre del Agente</p>
                     </div>
                     <div class="col-7">
                         <input type="text" name="nombreAgente" class="form-control" placeholder="Nombre(s)" maxlength="50" required title="maximo 50 caracteres" [(ngModel)]="proveedor.nombreAgente">
@@ -175,7 +175,7 @@
 
                 <div class="form-row mt-2">
                     <div class="col-4">
-                        <p class="text-center">Teléfono</p>
+                        <p class="text-center texto-info">Teléfono</p>
                     </div>
                     <div class="col-7">
                         <input type="text" name="telefono" class="form-control" placeholder="Ejem. 3333333333" (keypress)="soloNumeros($event)" maxlength="10" minlength="10" required title="maximo 14 caracteres" [(ngModel)]="proveedor.telefono">
@@ -188,7 +188,7 @@
                 </div>
                 <div class="form-row mt-2">
                     <div class="col-4">
-                        <p class="text-center">Horario</p>
+                        <p class="text-center texto-info">Horario</p>
                     </div>
                     <div class="col-7">
                         <input type="text" name="horario" class="form-control" placeholder="Ejem. lun-vie 00:00 - 00:00" required title="maximo 50 caracteres" [(ngModel)]="proveedor.horario">
@@ -202,7 +202,7 @@
 
                 <div class="form-row mt-2 mb-2">
                     <div class="col-4">
-                        <p class="text-center">Categoria</p>
+                        <p class="text-center texto-info">Categoria</p>
                     </div>
                     <div class="col-7">
                         <select name="categoria" id="" class="form-control" [(ngModel)]="proveedor.categoria">
@@ -244,7 +244,7 @@
             </div>
             <div class="modal-body">
                 <div *ngIf="exito == 1">
-                    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                    <div class="alert alert-success alert-dismissible fade show text-center texto-info" role="alert">
                         El proveedor se actualizó <strong>correctamente!</strong>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="reiniciarExito()">
                            <span aria-hidden="true">&times;</span>
@@ -252,7 +252,7 @@
                     </div>
                 </div>
                 <div *ngIf="exito == 2">
-                    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show text-center texto-info" role="alert">
                         <strong>¡Error! </strong>El proveedor no se actualizó
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="reiniciarExito()">
                            <span aria-hidden="true">&times;</span>
@@ -268,7 +268,7 @@
                 <!-- Formulario registro de proveedor -->
                 <div class="form-row">
                     <div class="col-4">
-                        <p class="text-center">Nombre del Proveedor</p>
+                        <p class="text-center texto-info">Nombre del Proveedor</p>
                     </div>
                     <div class="col-7">
                         <input type="text" name="nombreProv" class="form-control" placeholder="Nombre(s)" maxlength="50" required title="maximo 50 caracteres" [(ngModel)]="proveedorM.nombreProveedor">
@@ -281,7 +281,7 @@
                 </div>
                 <div class="form-row mt-2">
                     <div class="col-4">
-                        <p class="text-center">Nombre del Agente</p>
+                        <p class="text-center texto-info">Nombre del Agente</p>
                     </div>
                     <div class="col-7">
                         <input type="text" name="nombreAgente" class="form-control" placeholder="Nombre(s)" maxlength="50" required title="maximo 50 caracteres" [(ngModel)]="proveedorM.nombreAgente">
@@ -295,7 +295,7 @@
 
                 <div class="form-row mt-2">
                     <div class="col-4">
-                        <p class="text-center">Teléfono</p>
+                        <p class="text-center texto-info">Teléfono</p>
                     </div>
                     <div class="col-7">
                         <input type="text" name="telefono" class="form-control" placeholder="Ejem. 3333333333" (keypress)="soloNumeros($event)" maxlength="10" minlength="10" required title="maximo 14 caracteres" [(ngModel)]="proveedorM.telefono">
@@ -308,7 +308,7 @@
                 </div>
                 <div class="form-row mt-2">
                     <div class="col-4">
-                        <p class="text-center">Horario</p>
+                        <p class="text-center texto-info">Horario</p>
                     </div>
                     <div class="col-7">
                         <input type="text" name="horario" class="form-control" placeholder="Ejem. lun-vie 00:00 - 00:00" required title="maximo 50 caracteres" [(ngModel)]="proveedorM.horario">
@@ -322,7 +322,7 @@
 
                 <div class="form-row mt-2 mb-2">
                     <div class="col-4">
-                        <p class="text-center">Categoria</p>
+                        <p class="text-center texto-info">Categoria</p>
                     </div>
                     <div class="col-7">
                         <select name="categoria" id="" class="form-control" [(ngModel)]="proveedorM.categoria">
@@ -368,20 +368,20 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <p class="text-center h4 font-weight-light mt-1">{{proveedorM.nombreProveedor}}</p>
+                        <p class="text-center h4 font-weight-light mt-1 texto-info">{{proveedorM.nombreProveedor}}</p>
                     </div>
                 </div>
 
                 <hr>
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <p>
+                        <p class="texto-info">
                             <img src="../assets/img/user.png" alt="Sueldo"> <b> Nombre del agente: </b> {{proveedorM.nombreAgente}}
                         </p>
 
                     </div>
                     <div class="col-sm-12 col-md-6">
-                        <p>
+                        <p class="texto-info">
                             <img src="../assets/img/calendario.png" alt="teléfono"> <b> Horario: </b> {{proveedorM.horario}}
                         </p>
                     </div>
@@ -389,19 +389,20 @@
 
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <p>
+                        <p class="texto-info">
                             <img src="../assets/img/categoria.png" alt="Sueldo"> <b> Categoria: </b> {{proveedorM.categoria}}
                         </p>
                     </div>
                     <div class="col-sm-12 col-md-6">
-                        <p>
+                        <p class="texto-info">
                             <img src="../assets/img/phone-inicio.png" alt="teléfono"> <b> Teléfono: </b> {{proveedorM.telefono}}
-                            <a class="btn btn-info form-control mt-2" target="_blank" href="https://api.whatsapp.com/send?phone=52{{proveedorM.telefono}}">
-                                <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-telephone-fill mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M2.267.98a1.636 1.636 0 0 1 2.448.152l1.681 2.162c.309.396.418.913.296 1.4l-.513 2.053a.636.636 0 0 0 .167.604L8.65 9.654a.636.636 0 0 0 .604.167l2.052-.513a1.636 1.636 0 0 1 1.401.296l2.162 1.681c.777.604.849 1.753.153 2.448l-.97.97c-.693.693-1.73.998-2.697.658a17.47 17.47 0 0 1-6.571-4.144A17.47 17.47 0 0 1 .639 4.646c-.34-.967-.035-2.004.658-2.698l.97-.969z"/>
-                                  </svg> Enviar whatsapp
-                            </a>
+
                         </p>
+                        <a class="btn btn-info form-control mt-2" target="_blank" href="https://api.whatsapp.com/send?phone=52{{proveedorM.telefono}}">
+                            <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-telephone-fill mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M2.267.98a1.636 1.636 0 0 1 2.448.152l1.681 2.162c.309.396.418.913.296 1.4l-.513 2.053a.636.636 0 0 0 .167.604L8.65 9.654a.636.636 0 0 0 .604.167l2.052-.513a1.636 1.636 0 0 1 1.401.296l2.162 1.681c.777.604.849 1.753.153 2.448l-.97.97c-.693.693-1.73.998-2.697.658a17.47 17.47 0 0 1-6.571-4.144A17.47 17.47 0 0 1 .639 4.646c-.34-.967-.035-2.004.658-2.698l.97-.969z"/>
+                              </svg> Enviar whatsapp
+                        </a>
 
                     </div>
                 </div>
@@ -431,7 +432,7 @@
                         <img src="../assets/img/provImg.png" alt="eliminar usuario" style="height: 72px; width: 72px;">
                     </div>
                     <div class="col-sm-12 col-md-10">
-                        <p class="mt-3">¿Deseas eliminar a <b>{{proveedorM.nombreProveedor}}</b> de la base de datos?</p>
+                        <p class="mt-3 texto-info">¿Deseas eliminar a <b>{{proveedorM.nombreProveedor}}</b> de la base de datos?</p>
                     </div>
                 </div>
             </div>

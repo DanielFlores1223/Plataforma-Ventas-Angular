@@ -9,8 +9,18 @@ export class PedidoService {
 
   constructor(private http: HttpClient) { }
 
+  //consulta todos los pedidos que diferente de estatus = carrito
   consultarTodo(){
     return this.http.get(this.urlPedido);
+  }
+
+  //consultas like
+  consultarLikeEstatus(filtros){
+    return this.http.post<any>(this.urlPedido + '/buscar-like-cliente-codigo-estatus', filtros);
+  }
+
+  consultaLike(filtros){
+    return this.http.post<any>(this.urlPedido + '/buscar-like-cliente-codigo', filtros);
   }
 
   //consultar pedidos que no esten en carrito

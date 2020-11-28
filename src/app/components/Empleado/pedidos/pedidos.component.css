@@ -1,0 +1,45 @@
+.buscador {
+    border-right: 5px solid #F1C40F;
+}
+
+.buscador:focus {
+    color: #495057;
+    background-color: white;
+    border-color: #F9E79F;
+    outline: none;
+    border-width: 2px;
+    box-shadow: 0 0 6px #F9E79F !important;
+}
+
+.btn-buscador :hover {
+    color: #F1C40F;
+}
+
+.btn-buscador:focus {
+    outline: none;
+    border-width: 0px;
+    box-shadow: 0 0 0px #F9E79F !important;
+}
+
+@media (max-width: 480px) {
+    .ocultar {
+        display: none;
+    }
+    .boton-responsivo {
+        margin-top: 0.5rem;
+    }
+}
+
+@media (min-width: 480px) {
+    .ocultar-div {
+        display: none;
+    }
+}
+
+.sub-success {
+    background-color: rgb(170, 230, 152);
+}
+
+.sub-danger {
+    background-color: rgb(240, 143, 131);
+}
