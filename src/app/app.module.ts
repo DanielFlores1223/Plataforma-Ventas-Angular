@@ -42,7 +42,6 @@ import { ProductosComponent } from './components/paginaInfo/productos/productos.
 import { PedidosComponent } from './components/Empleado/pedidos/pedidos.component';
 import { ReportesComponent } from './components/Empleado/reportes/reportes.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
