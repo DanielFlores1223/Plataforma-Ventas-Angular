@@ -106,7 +106,7 @@ export class ReportesComponent implements OnInit {
           [ new Columns([this.pedidos[i].estatus]).end,
           new Columns([this.pedidos[i].metodoPago]).end,
           new Columns([this.pedidos[i].direccionEnvio]).end,
-          new Columns([this.pedidos[i].fechaEntrega]).fontSize(12).margin([0,10,0,0]).end]
+          new Columns([this.pedidos[i].fechaEntrega]).fontSize(10).end]
         ]).end
       )
   
@@ -119,13 +119,13 @@ export class ReportesComponent implements OnInit {
           ['Codigo',
           'Precio',
           'Cantidad',
-          'Monto']).fontSize(12).margin([0,10,0,0]).bold().background('#F9E79F').alignment('center').end
+          'Monto']).fontSize(12).margin([0,10,0,0]).bold().alignment('left').end
         
       )
       console.log(this.pedidos[i].tiene);
       for (let j = 0; j < this.pedidos[i].tiene.length; j++) {
 
-        pdf.add(
+        /*pdf.add(
           new Table([
             [new Columns([this.pedidos[i].tiene[j].codigoProd]).end,
             new Columns([this.pedidos[i].tiene[j].precioProd]).end,
@@ -133,7 +133,15 @@ export class ReportesComponent implements OnInit {
             new Columns([this.pedidos[i].tiene[j].monto]).end
           ]
           ]).end
-        );
+        );*/
+        pdf.add(
+          new Columns(
+            [ this.pedidos[i].tiene[j].codigoProd,
+            this.pedidos[i].tiene[j].precioProd,
+            this.pedidos[i].tiene[j].cantidadProd,
+            this.pedidos[i].tiene[j].monto
+          ]).fontSize(10).alignment('left').end
+        )
       }
       pdf.add(
         new Txt('Total: $' + this.pedidos[i].total).bold().alignment("right").fontSize(14).margin([0,20,0,0]).end
