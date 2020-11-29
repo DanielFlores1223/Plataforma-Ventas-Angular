@@ -43,34 +43,26 @@
     </div>-->
 </div>
 <div class="container">
-    <div class="row" *ngFor="let ped of pedidos">
+    <!-- <div class="row" *ngFor="let ped of pedidos"> -->
         <div class="col-12 card mb-2 borde-amarillo">
-            <div class="row py-2">
-                <!--<div class="col-11 bg-light">
-                    <h5 class="font-weight-light mt-2">Id del pedido: {{ped._id}}</h5>
-                </div> -->
-                <div class="col-1 bg-light">
-                    <button *ngIf="ped.estatus == 'Cancelado'" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalEliminar" (click)="obtenerId(ped._id)"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
-                      </svg></button>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-sm-12 col-md-4">
                     <p class="text-info">Informacion del Reporte</p>
                     <hr>
-                    <p><b>Método de pago: </b>{{ped.metodoPago}}</p>
-                    <p><b>Fecha de entrega: </b>{{ped.fechaEntrega.substring(0,10)}}</p>
-                    <p><b>Estatus: </b>{{ped.estatus}}</p>
-                    <p *ngIf="ped.direccionEnvio != ''">{{ped.direccionEnvio}}</p>
-                    <p><b>Total: </b>{{ped.total}}</p>
+                    <p><b>Numero Pedidos: </b>{{ noPedidos }}</p>
+                    <p><b>Fecha: </b>  </p>
+                    <p><b>Estatus: </b></p>
+                    <p><b>Total: </b> {{ total }}</p>
                 </div>
                 <div class="col-sm-12 col-md-4">
                     <p class="text-info">Información del cliente</p>
                     <hr>
-                    <p><b>Cliente: </b>{{ped.cliente.nombre}} {{ped.cliente.apellidos}}</p>
+                    <!-- <p><b>Periodo: </b>{{ped.cliente.nombre}} {{ped.cliente.apellidos}}</p>
                     <p><b>Correo eléctronico: </b>{{ped.cliente.correo}}</p>
-                    <p><b>Teléfono: </b>{{ped.cliente.telefono}}</p>
+                    <p><b>Teléfono: </b>{{ped.cliente.telefono}}</p> -->
+                    <p><b>Periodo: </b> no data </p>
+                    <p><b>Correo eléctronico: </b> no data </p>
+                    <p><b>Teléfono: </b> no data </p>
                 </div>
                 <div class="col-sm-12 col-md-4 bg-white">
                     <p class="text-info">Acciones</p>
@@ -80,5 +72,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 </div>
