@@ -6,7 +6,6 @@ import { PdfMakeWrapper, Txt, Img, Columns, Stack, Table, Cell } from 'pdfmake-w
 import {PedidoService} from '../../../services/pedido.service';
 import {ClienteService} from '../../../services/cliente.service';
 import { InventarioService } from '../../../services/inventario.service';
-import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-reportes',
@@ -36,6 +35,17 @@ export class ReportesComponent implements OnInit {
     precio : 0
   }];
 
+  productoB = {
+    codigo : "",
+    nombreProd : "",
+    precio : 0,
+    categoria : "",
+    subCategoria : "",
+    marca : "",
+    descripcion : "",
+    img : ""
+  }
+
   constructor(private pedidoService : PedidoService, private productoService : InventarioService) { }
 
   ngOnInit(): void {
@@ -52,10 +62,18 @@ export class ReportesComponent implements OnInit {
           this.total+=this.pedidos[i].total;
         }
       }
-      console.log(this.total);
     },
     err => console.log(err));
     
+  }
+
+  consultarProd(codigo){
+    this.productoB.codigo = codigo;
+
+    this.productoService.buscarCodigo(this.productoB).subscribe(res => {
+      this.productoB = res
+    }, 
+    err => console.log(err));
   }
 
   infoReporte(){
@@ -66,50 +84,63 @@ export class ReportesComponent implements OnInit {
     const pdf = new PdfMakeWrapper();
 
     pdf.pageSize('A5');
- 
+    
     new Img('../assets/img/logo_crem_adap.png').alignment('center').height(80).width(80).build().then( img => {
     pdf.add( img );
     
-    //pdf.create().download();
-
+    pdf.add(
+      pdf.ln(2)
+    );//saltos de linea
+    pdf.add(
+      new Txt('Reporte de Pedidos').alignment('center').fontSize(15).bold().end
+    );
+    pdf.add(pdf.ln());
     for(let i=0;i<this.noPedidos;i++){
 
       pdf.add(
-        new Columns(['Total del Pedido: ', this.pedidos[i].total]).fontSize(12).margin([0,10,0,0]).end
-      )
-      pdf.add(
-        new Columns(['Metodo de pago: ', this.pedidos[i].metodoPago]).fontSize(12).margin([0,10,0,0]).end
-      )
-  
-      pdf.add(
-        new Columns(['Direccion: ', this.pedidos[i].estatus]).fontSize(12).margin([0,10,0,0]).end
-      )
-  
-      pdf.add(
-        new Columns(['Fecha entrega: ', this.pedidos[i].fechaEntrega]).fontSize(12).margin([0,10,0,0]).end
+        new Table([
+          [ new Txt('Estatus').bold().end,
+          new Txt('Metodo de pago').bold().end,
+          new Txt('Direccion').bold().end,
+          new Txt('Fecha entrega').bold().end],
+          [ new Columns([this.pedidos[i].estatus]).end,
+          new Columns([this.pedidos[i].metodoPago]).end,
+          new Columns([this.pedidos[i].direccionEnvio]).end,
+          new Columns([this.pedidos[i].fechaEntrega]).fontSize(12).margin([0,10,0,0]).end]
+        ]).end
       )
   
       pdf.add(
-        new Columns(['Estatus: ', this.pedidos[i].metodoPago]).fontSize(12).margin([0,10,0,0]).end
+        new Txt('Productos del pedido').bold().alignment('left').fontSize(12).margin([0,5,0,0]).end
       )
   
       pdf.add(
-        new Txt('Productos del pedido').bold().alignment("center").fontSize(14).margin([0,10,0,0]).end
+        new Columns(
+          ['Codigo',
+          'Precio',
+          'Cantidad',
+          'Monto']).fontSize(12).margin([0,10,0,0]).bold().background('#F9E79F').alignment('center').end
+        
       )
-  
-      pdf.add(
-        new Columns(['Producto','Precio','Cantidad','monto']).fontSize(12).margin([0,10,0,0]).bold().background('#F9E79F').alignment('center').end
-      )
+      console.log(this.pedidos[i].tiene);
       for (let j = 0; j < this.pedidos[i].tiene.length; j++) {
 
-        pdf.add('--Producto INFO--');
-        /*pdf.add(
-          new Columns([this.productosInfo[j].nombreProd,'$' +this.productosInfo[j].precio ,this.productosInfo[j].cantidadProd,'$' +this.productosInfo[j].monto]).fontSize(10).margin([0,10,0,0]).alignment('center').end
-        )*/
+        pdf.add(
+          new Table([
+            [new Columns([this.pedidos[i].tiene[j].codigoProd]).end,
+            new Columns([this.pedidos[i].tiene[j].precioProd]).end,
+            new Columns([this.pedidos[i].tiene[j].cantidadProd]).end,
+            new Columns([this.pedidos[i].tiene[j].monto]).end
+          ]
+          ]).end
+        );
       }
       pdf.add(
         new Txt('Total: $' + this.pedidos[i].total).bold().alignment("right").fontSize(14).margin([0,20,0,0]).end
       )
+      pdf.add(
+        pdf.ln(4)
+      );
     }
 
     pdf.create().download();
