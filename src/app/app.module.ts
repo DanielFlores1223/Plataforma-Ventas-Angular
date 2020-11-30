@@ -42,6 +42,7 @@ import { ProductosComponent } from './components/paginaInfo/productos/productos.
 import { PedidosComponent } from './components/Empleado/pedidos/pedidos.component';
 import { SolicitudesServiciosComponent } from './components/Empleado/solicitudes-servicios/solicitudes-servicios.component';
 
+import { ReportesComponent } from './components/Empleado/reportes/reportes.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { SolicitudesServiciosComponent } from './components/Empleado/solicitudes
     ProductosComponent,
     PedidosComponent,
     SolicitudesServiciosComponent,
+    ReportesComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-sm-12 col-md-2">
+            <p class="font-weight-light h4">
+                <svg width="2.3em" height="2.3em" viewBox="0 0 16 16" class="bi bi-bag-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M14 5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5zM1 4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4H1z"/>
+                    <path d="M8 1.5A2.5 2.5 0 0 0 5.5 4h-1a3.5 3.5 0 1 1 7 0h-1A2.5 2.5 0 0 0 8 1.5z"/>
+                    <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"/>
+                    <path fill-rule="evenodd" d="M7.5 10a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-2z"/>
+                </svg> Reportes
+            </p>
+        </div>
+        <div class="col-sm-12 col-md-6 pr-0">
+            <select type="text" name="buscador" class=" form-control buscador  mb-2">
+                <option class="mt-2" value="">---Seleccione Reporte---</option>
+                <option class="mt-2" value="Pendiente">Ventas por Dia</option>
+                <option class="mt-2" value="En proceso">Ventas por Semana</option>
+                <option class="mt-2" value="Cancelado">Ventas por Mes</option>
+                <option class="mt-2" value="Completados">Ventas por Año</option>
+            </select>
+        </div>
+        
+        <div class="col-sm-12 col-md-3">
+            <select name="estatusPed" class="form-control buscador mb-2" ><!-- aqui agregas esta bainas ver en pedidos [(ngModel)]="busqueda.estatus" (change)="buscar()"   -->
+                <option class="mt-2" value="">---Filtrar---</option>
+                <option class="mt-2" value="Pendiente">Completados</option>
+                <option class="mt-2" value="En proceso">Cancelados</option>
+                <option class="mt-2" value="Cancelado">Pendientes</option>
+              </select>
+        </div>
+    </div>
+    <hr class="mt-1">
+    <!--<div class="container">
+        <table>
+            <tr *ngFor="let p of pedidos">
+                <td> {{ p.total}} </td>
+                <td> {{ p.metodoPago}} </td>
+                <td> {{ p.direccionEnvio}} </td>
+                <td> {{ p.fechaEntrega}} </td>
+                <td> {{ p.estatus}} </td>
+            </tr>
+        </table>
+    </div>-->
+</div>
+<div class="container">
+    <!-- <div class="row" *ngFor="let ped of pedidos"> -->
+        <div class="col-12 card mb-2 borde-amarillo">
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <p class="text-info">Informacion del Reporte</p>
+                    <hr>
+                    <p><b>Numero Pedidos: </b>{{ noPedidos }}</p>
+                    <p><b>Fecha: </b>  </p>
+                    <p><b>Estatus: </b></p>
+                    <p><b>Total: </b> {{ total }}</p>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <p class="text-info">Información del cliente</p>
+                    <hr>
+                    <!-- <p><b>Periodo: </b>{{ped.cliente.nombre}} {{ped.cliente.apellidos}}</p>
+                    <p><b>Correo eléctronico: </b>{{ped.cliente.correo}}</p>
+                    <p><b>Teléfono: </b>{{ped.cliente.telefono}}</p> -->
+                    <p><b>Periodo: </b> no data </p>
+                    <p><b>Correo eléctronico: </b> no data </p>
+                    <p><b>Teléfono: </b> no data </p>
+                </div>
+                <div class="col-sm-12 col-md-4 bg-white">
+                    <p class="text-info">Acciones</p>
+                    <hr>
+                    <p class="mb-0">Descargar Reporte</p>
+                    <button class="btn btn-sm btn-info form-control mb-3" (click)="generarPDF()">Descargar</button>
+                </div>
+            </div>
+        </div>
+    <!-- </div> -->
+</div>
