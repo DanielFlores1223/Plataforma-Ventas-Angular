@@ -6,6 +6,7 @@ import { PdfMakeWrapper, Txt, Img, Columns, Stack, Table, Cell } from 'pdfmake-w
 import {PedidoService} from '../../../services/pedido.service';
 import {ClienteService} from '../../../services/cliente.service';
 import { InventarioService } from '../../../services/inventario.service';
+import { now } from 'moment';
 
 @Component({
   selector: 'app-reportes',
@@ -16,10 +17,12 @@ export class ReportesComponent implements OnInit {
 
   pedidos;
 
-  dateHoy= new Date().getDay();
+  dateHoy= new Date();
+
+  //dateHoy: number = Date.now();
 
   noPedidos=0;
-
+  
   total=0;
   filtro="Todas";
   tipo="Total";
@@ -89,10 +92,6 @@ export class ReportesComponent implements OnInit {
     err => console.log(err));
   }
 
-  infoReporte(){
-
-  }
-
   buscar(){
     if(this.tipo=="Total"){
       console.log('La variable es: '+this.tipo)
@@ -120,8 +119,7 @@ export class ReportesComponent implements OnInit {
         }
       }
     }else{
-      this.noPedidos=this.pedidos.length;
-      for(let i=0;i<this.noPedidos;i++){
+      for(let i=0;i<this.pedidos.length;i++){
         if(this.pedidos[i].estatus!="en carrito"){
           this.noPedidos++;
         }
