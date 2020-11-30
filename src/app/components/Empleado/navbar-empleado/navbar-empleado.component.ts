@@ -8,6 +8,7 @@ import * as $ from 'jquery';
 })
 export class NavbarEmpleadoComponent implements OnInit {
 
+  nombre = localStorage.getItem('nombre')
   constructor() { }
 
   ngOnInit(): void {

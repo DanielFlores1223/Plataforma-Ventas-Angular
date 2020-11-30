@@ -67,9 +67,17 @@
                     <p><b>Teléfono: </b>{{ped.cliente.telefono}}</p>
                 </div>
                 <div class="col-sm-12 col-md-4 bg-white">
+                    <div *ngIf="ped.empleado.correo != ''">
+                        <p class="text-info">Información del empleado que atendió el servicio</p>
+                        <hr>
+                        <p><b>Empleado: </b>{{ped.empleado.nombre}} {{ped.empleado.apellidos}}</p>
+                        <p><b>Correo eléctronico: </b>{{ped.empleado.correo}}</p>
+                        <p><b>Teléfono: </b>{{ped.empleado.telefono}}</p>
+                    </div>
                     <p class="text-info">Acciones</p>
                     <hr>
                     <p class="mb-0">Más Información del pedido</p>
+                    <a *ngIf="ped.metodoPago == 'En línea'" href="https://www.paypal.com/mx/signin" target="_blank" class="btn btn-sm mb-2 btn-primary form-control">Ir a paypal</a>
                     <button class="btn btn-sm btn-info form-control mb-3" data-toggle="modal" data-target="#modalProductos" (click)="consultarPedidoId(ped._id)">Ver productos del pedido</button>
                     <p class="mb-0">Cambiar estatus del pedido: </p>
 
