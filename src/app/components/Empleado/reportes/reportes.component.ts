@@ -16,7 +16,9 @@ export class ReportesComponent implements OnInit {
 
   pedidos;
 
-  noPedidos;
+  dateHoy= new Date().getDay();
+
+  noPedidos=0;
 
   total=0;
   filtro="Todas";
@@ -59,10 +61,18 @@ export class ReportesComponent implements OnInit {
   totalPedidos(){
     this.pedidoService.consultarTodo().subscribe(res =>{
       this.pedidos=res;
-      this.noPedidos=this.pedidos.length;
-      for(let i=0;i<this.noPedidos;i++){
-        if(this.pedidos[i]!=null){
-          this.total+=this.pedidos[i].total;
+      for(let j=0;j<this.pedidos.length;j++){
+        if(this.pedidos[j].estatus!="en carrito"){
+          this.noPedidos++;
+        }
+      }
+      //this.noPedidos=this.pedidos.length;
+      for(let i=0;i<this.pedidos.length;i++){
+        //if(this.pedidos[i]!=null){
+        if(this.pedidos[i].estatus!="en carrito"){
+          if(this.pedidos[i].estatus!="Cancelado"){
+            this.total+=this.pedidos[i].total;
+          }
         }
       }
     },
@@ -92,6 +102,10 @@ export class ReportesComponent implements OnInit {
     }
   }
 
+  Ctrl($scope){ 
+    $scope.date = new Date(); 
+  } 
+
   actualizar(){
     this.total=0;
     this.noPedidos=0;
@@ -108,7 +122,10 @@ export class ReportesComponent implements OnInit {
     }else{
       this.noPedidos=this.pedidos.length;
       for(let i=0;i<this.noPedidos;i++){
-        if(this.pedidos[i]!=null){
+        if(this.pedidos[i].estatus!="en carrito"){
+          this.noPedidos++;
+        }
+        if(this.pedidos[i].estatus!="Cancelado"){
           this.total+=this.pedidos[i].total;
         }
       }
@@ -134,48 +151,53 @@ export class ReportesComponent implements OnInit {
     if(this.filtro=="Todas"){
       
       for(let i=0;i<this.pedidos.length;i++){
-        pdf.add(
-          new Table([
-            [ new Txt('Estatus').bold().end,
-            new Txt('Metodo de pago').bold().end,
-            new Txt('Direccion').bold().end,
-            new Txt('Fecha entrega').bold().end],
-            [ new Columns([this.pedidos[i].estatus]).end,
-            new Columns([this.pedidos[i].metodoPago]).end,
-            new Columns([this.pedidos[i].direccionEnvio]).end,
-            new Columns([this.pedidos[i].fechaEntrega]).fontSize(10).end]
-          ]).end
-        )
-    
-        pdf.add(
-          new Txt('Productos del pedido').bold().alignment('left').fontSize(12).margin([0,5,0,0]).end
-        )
-    
-        pdf.add(
-          new Columns(
-            ['Codigo',
-            'Precio',
-            'Cantidad',
-            'Monto']).fontSize(12).margin([0,10,0,0]).bold().alignment('left').end
-        )
 
-        console.log(this.pedidos[i].tiene);
-        for (let j = 0; j < this.pedidos[i].tiene.length; j++) {
+        if(this.pedidos[i].estatus!="en carrito"){
+
+          pdf.add(
+            new Table([
+              [ new Txt('Estatus').bold().end,
+              new Txt('Metodo de pago').bold().end,
+              new Txt('Direccion').bold().end,
+              new Txt('Fecha entrega').bold().end],
+              [ new Columns([this.pedidos[i].estatus]).end,
+              new Columns([this.pedidos[i].metodoPago]).end,
+              new Columns([this.pedidos[i].direccionEnvio]).end,
+              new Columns([this.pedidos[i].fechaEntrega]).fontSize(10).end]
+            ]).end
+          )
+      
+          pdf.add(
+            new Txt('Productos del pedido').bold().alignment('left').fontSize(12).margin([0,5,0,0]).end
+          )
+      
           pdf.add(
             new Columns(
-              [ this.pedidos[i].tiene[j].codigoProd,
-              this.pedidos[i].tiene[j].precioProd,
-              this.pedidos[i].tiene[j].cantidadProd,
-              this.pedidos[i].tiene[j].monto
-            ]).fontSize(10).alignment('left').end
+              ['Codigo',
+              'Precio',
+              'Cantidad',
+              'Monto']).fontSize(12).margin([0,10,0,0]).bold().alignment('left').end
           )
+  
+          console.log(this.pedidos[i].tiene);
+          for (let j = 0; j < this.pedidos[i].tiene.length; j++) {
+            pdf.add(
+              new Columns(
+                [ this.pedidos[i].tiene[j].codigoProd,
+                this.pedidos[i].tiene[j].precioProd,
+                this.pedidos[i].tiene[j].cantidadProd,
+                this.pedidos[i].tiene[j].monto
+              ]).fontSize(10).alignment('left').end
+            )
+          }
+          pdf.add(
+            new Txt('Total: $' + this.pedidos[i].total).bold().alignment("right").fontSize(14).margin([0,20,0,0]).end
+          )
+          pdf.add(
+            pdf.ln(4)
+          );
+
         }
-        pdf.add(
-          new Txt('Total: $' + this.pedidos[i].total).bold().alignment("right").fontSize(14).margin([0,20,0,0]).end
-        )
-        pdf.add(
-          pdf.ln(4)
-        );
       }
     }else{
       //aqui imprime dependiendo el filtro
