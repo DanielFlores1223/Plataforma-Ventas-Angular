@@ -1,1 +1,119 @@
-<p>solicitudes-servicios works!</p>
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-sm-12 col-md-2">
+            <p class="font-weight-light h4">
+                <svg width="2.3em" height="2.3em" viewBox="0 0 16 16" class="bi bi-rss-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5a1 1 0 0 0 0 2 8 8 0 0 1 8 8 1 1 0 1 0 2 0c0-5.523-4.477-10-10-10zm0 4a1 1 0 0 0 0 2 4 4 0 0 1 4 4 1 1 0 1 0 2 0 6 6 0 0 0-6-6zm.5 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+               </svg> Servicios
+            </p>
+        </div>
+        <div class="col-sm-12 col-md-6 pr-0">
+            <input type="text" name="buscador" class=" form-control buscador  mb-2" placeholder="Buscar servicio por numero de celular..." [(ngModel)]="filtros.numCelular" (keyup)="buscar()">
+        </div>
+        <div class="col-sm-1 pl-0 ocultar">
+            <button class="btn p-1 btn-buscador" (click)="buscar()">
+                <svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                  </svg>
+            </button>
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <select name="estatusPed" class="form-control buscador mb-2" [(ngModel)]="filtros.estatus" (change)="buscar()">
+                 <option class="mt-2" value="">Todos</option>
+                 <option class="mt-2" value="Pendiente">Pendientes</option>
+                 <option class="mt-2" value="Cancelado">Cancelados</option>
+                 <option class="mt-2" value="Completado">Completados</option>
+               </select>
+        </div>
+    </div>
+    <hr class="mt-1">
+</div>
+
+<div class="container">
+    <div class="row" *ngFor="let s of servicios | paginate: { itemsPerPage: 3, currentPage: p }">
+        <div class="col-12 card mb-2 borde-amarillo">
+            <div class="row py-2">
+                <div class="col-11 bg-light">
+                    <h5 class="font-weight-light mt-2">Id de la solicitud de servicio: {{s._id}}</h5>
+                </div>
+                <div class="col-1 bg-light">
+                    <button *ngIf="s.estatus == 'Cancelado'" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalEliminar" (click)="obtenerId(s._id)"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                         <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                       </svg></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <p class="text-info">Información</p>
+                    <hr>
+                    <p><b>Fecha de solicitud: </b>{{s.fecha.substring(0,10)}}</p>
+                    <p><b>Estatus: </b>{{s.estatus}}</p>
+                    <p><b>Número de celular: </b>{{s.numCelular}}</p>
+                    <p><b>Servicio a realizar: </b>{{s.servicio.nombre}}</p>
+                    <p><b>Total: </b>${{s.servicio.precio}}</p>
+                </div>
+                <div class="col-sm-12 col-md-4" *ngIf="s.cliente.correo != ''">
+                    <p class="text-info">Información del cliente</p>
+                    <hr>
+                    <p><b>Cliente: </b>{{s.cliente.nombre}} {{s.cliente.apellidos}}</p>
+                    <p><b>Correo eléctronico: </b>{{s.cliente.correo}}</p>
+                    <p><b>Teléfono: </b>{{s.cliente.telefono}}</p>
+                </div>
+                <div class="col-sm-12 col-md-4 bg-white">
+                    <div *ngIf="s.empleado.correo != ''">
+                        <p class="text-info">Información del empleado que atendió el servicio</p>
+                        <hr>
+                        <p><b>Empleado: </b>{{s.empleado.nombre}} {{s.empleado.apellidos}}</p>
+                        <p><b>Correo eléctronico: </b>{{s.empleado.correo}}</p>
+                        <p><b>Teléfono: </b>{{s.empleado.telefono}}</p>
+                    </div>
+                    <p class="text-info">Acciones</p>
+                    <hr>
+                    <p class="mb-0">Cambiar estatus de la solicitud del servicio: </p>
+
+                    <div *ngIf="s.estatus == 'Completado' || s.estatus == 'Cancelado'; else noCE">
+                        <p class="{{s.estatus == 'Completado' ? 'sub-success' : 'sub-danger'}}">El pedido esta {{s.estatus}}</p>
+                    </div>
+                    <ng-template #noCE>
+                        <div class="row">
+                            <div class="col">
+                                <a target="_blank" href="https://api.whatsapp.com/send?phone=52{{s.numCelular}}&text=Hola%20{{s.cliente.nombre}},tu%20recarga:%20{{s.servicio.nombre}}%20fue%20cancelado%20por%20las%20siguientes%20causas:">
+                                    <button class="form-control mr-1 btn btn-sm btn-danger mb-2" (click)="modificarEstatus('Cancelado', s._id)">Cancelar</button>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a target="_blank" href="https://api.whatsapp.com/send?phone=52{{s.numCelular}}&text=Hola%20{{s.cliente.nombre}},tu%20recarga:%20{{s.servicio.nombre}}%20está%20completado">
+                                    <button class="form-control mr-1 mb-2 btn btn-sm btn-primary" (click)="modificarEstatus('Completado', s._id)">Completado</button>
+                                </a>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <pagination-controls (pageChange)="p = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+</div>
+
+<!-- Modal para eliminar la solicitud del servicio -->
+<div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header c-amarillo">
+                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Eliminar la solicitud de servicio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+            </div>
+            <div class="modal-body">
+                <p class="texto-info">¿Deseas eliminar esta solicitud?</p>
+                <p><small><b>Nota: </b>Una vez eliminado la solicitud, ya no se podrá recuperar la información del mismo</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="eliminar()">Si</button>
+            </div>
+        </div>
+    </div>
+</div>

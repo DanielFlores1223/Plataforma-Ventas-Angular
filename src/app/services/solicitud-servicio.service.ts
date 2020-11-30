@@ -14,7 +14,23 @@ export class SolicitudServicioService {
     return this.http.get(this.urlSolServ);
   }
 
+  buscarLikeCel(filtros){
+    return this.http.post(this.urlSolServ + '/buscar-like-cel', filtros);
+  }
+
+  buscarLikeCelEst(filtros){
+    return this.http.post(this.urlSolServ + '/buscar-like-cel-estatus', filtros);
+  }
+
   regSolicitud(solicitud){
     return this.http.post(this.urlSolServ, solicitud);
+  }
+
+  modificarEstEmp(campos){
+    return this.http.put(this.urlSolServ + '/modificar-estatus-emp', campos);
+  }
+
+  eliminar(solicitud){
+    return this.http.post(this.urlSolServ + '/eliminar', solicitud);
   }
 }

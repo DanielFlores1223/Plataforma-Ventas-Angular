@@ -87,9 +87,16 @@ export class ServiciosComponent implements OnInit {
         this.solicitud.apellidosCli = res.apellidos;
         this.solicitud.telefonoCli = res.telefono;
         this.solicitud.correoCli = res.correo;
+        this.registrar()
       })
+    }else{
+      this.registrar();
     }
 
+   
+  }
+
+  registrar(){
     this.solicitudService.regSolicitud(this.solicitud).subscribe(res => {
       this.desplegarBtn = true;
       this.limpiarSolicitud();
