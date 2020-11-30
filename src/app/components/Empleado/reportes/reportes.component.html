@@ -11,21 +11,22 @@
             </p>
         </div>
         <div class="col-sm-12 col-md-6 pr-0">
-            <select type="text" name="buscador" class=" form-control buscador  mb-2">
-                <option class="mt-2" value="">---Seleccione Reporte---</option>
-                <option class="mt-2" value="Pendiente">Ventas por Dia</option>
-                <option class="mt-2" value="En proceso">Ventas por Semana</option>
-                <option class="mt-2" value="Cancelado">Ventas por Mes</option>
-                <option class="mt-2" value="Completados">Ventas por Año</option>
+            <select type="text" name="buscador" class="form-control buscador mb-2" [(ngModel)]="tipo" (change)="buscar()">
+                <option class="mt-2" value="Total" class="select-option">Totales</option>
+                <option class="mt-2" value="por Dia">Ventas por Dia</option>
+                <option class="mt-2" value="por Semana">Ventas por Semana</option>
+                <option class="mt-2" value="por Mes">Ventas por Mes</option>
+                <option class="mt-2" value="por Año">Ventas por Año</option>
             </select>
         </div>
         
         <div class="col-sm-12 col-md-3">
-            <select name="estatusPed" class="form-control buscador mb-2" ><!-- aqui agregas esta bainas ver en pedidos [(ngModel)]="busqueda.estatus" (change)="buscar()"   -->
-                <option class="mt-2" value="">---Filtrar---</option>
-                <option class="mt-2" value="Pendiente">Completados</option>
-                <option class="mt-2" value="En proceso">Cancelados</option>
-                <option class="mt-2" value="Cancelado">Pendientes</option>
+            <select name="estatusPed" class="form-control buscador mb-2" [(ngModel)]="filtro" (change)="actualizar()"><!-- aqui agregas esta bainas ver en pedidos [(ngModel)]="busqueda.estatus" (change)="buscar()"   -->
+                <option class="mt-2" value="Todas">Todas</option>
+                <option class="mt-2" value="Completado">Completados</option>
+                <option class="mt-2" value="Cancelado">Cancelados</option>
+                <option class="mt-2" value="Pendiente">Pendientes</option>
+                <option class="mt-2" value="en carrito">en Carrito</option>
               </select>
         </div>
     </div>
@@ -51,7 +52,7 @@
                     <hr>
                     <p><b>Numero Pedidos: </b>{{ noPedidos }}</p>
                     <p><b>Fecha: </b>  </p>
-                    <p><b>Estatus: </b></p>
+                    <p><b>Tipo de Reporte: </b> {{ tipo }} </p>
                     <p><b>Total: </b> {{ total }}</p>
                 </div>
                 <div class="col-sm-12 col-md-4">
@@ -62,7 +63,7 @@
                     <p><b>Teléfono: </b>{{ped.cliente.telefono}}</p> -->
                     <p><b>Periodo: </b> no data </p>
                     <p><b>Correo eléctronico: </b> no data </p>
-                    <p><b>Teléfono: </b> no data </p>
+                    <p><b>Tipo de Cuentas: </b> {{filtro}} </p>
                 </div>
                 <div class="col-sm-12 col-md-4 bg-white">
                     <p class="text-info">Acciones</p>
