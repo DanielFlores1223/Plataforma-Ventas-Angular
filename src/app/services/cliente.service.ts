@@ -32,4 +32,8 @@ export class ClienteService {
   buscarCliLike(cliente){
     return this.http.post<any>(this.urlCli + "/buscar-like", cliente);
   }
+
+  modificarContra(cliente){
+    return this.http.put(this.urlCli + '/modificar-contrasenia', cliente);
+  }
 }

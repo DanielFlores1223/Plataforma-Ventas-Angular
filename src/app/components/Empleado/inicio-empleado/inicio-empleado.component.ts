@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 //servicio
 import {EmpleadoService} from '../../../services/empleado.service';
 
@@ -46,7 +47,7 @@ modificarContra = false;
 exito = 0;
 exitoContra = 0;
 
-  constructor(private empleadoService : EmpleadoService) { }
+  constructor(private empleadoService : EmpleadoService, private rutas : Router) { }
 
   ngOnInit(): void {
     this.miInfo();
@@ -90,6 +91,7 @@ exitoContra = 0;
       if(this.contasenias.contrasenia === this.contasenias.contrasenia2){ 
         this.empleadoService.modificarContraEmp(this.contasenias).subscribe(res=>{
           this.exito = 1;
+          this.cerrarSesion();
         },
         err => {
           this.exito = 2;
@@ -118,5 +120,14 @@ exitoContra = 0;
       this.modificarContra = false;
     else
       this.modificarContra = true;
+  }
+
+  cerrarSesion(){
+    //elimina las variables del localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('nombre');
+    localStorage.removeItem('tipo');
+    localStorage.removeItem('correo')
+    this.rutas.navigate(['/inicio']);
   }
 }
