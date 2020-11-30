@@ -22,6 +22,7 @@ import { CarritoComponent } from './components/Cliente/carrito/carrito.component
 import { ProductosComponent } from './components/paginaInfo/productos/productos.component';
 import { ReportesComponent } from './components/Empleado/reportes/reportes.component';
 import { PedidosComponent } from './components/Empleado/pedidos/pedidos.component';
+import { SolicitudesServiciosComponent } from './components/Empleado/solicitudes-servicios/solicitudes-servicios.component';
 
 
 const routes: Routes = [
@@ -39,9 +40,10 @@ const routes: Routes = [
   { path: 'reportes',component:ReportesComponent,canActivate:[GuardiaSesionAdminGuard]},
   { path: 'pedidos', component: PedidosComponent, canActivate: [GuardiaSesionAdminGuard]},
   { path: 'productos', component: ProductosComponent},
-  { path: 'servicios', component: ServiciosComponent },
+  { path: 'servicios', component: ServiciosComponent, canActivate: [GuardiaPaginaInfoGuard] },
   { path: 'misPedidos', component: MisPedidosComponent},
   { path: 'carrito', component: CarritoComponent},
+  { path: 'solicitudes-servicios', component: SolicitudesServiciosComponent},
   { path: '**', redirectTo: '/inicio'}, //<--- esta ruta tiene que ir siempre al último para que funcione
 
 ];

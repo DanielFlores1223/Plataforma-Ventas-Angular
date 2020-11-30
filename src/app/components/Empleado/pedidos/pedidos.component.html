@@ -54,7 +54,9 @@
                     <p><b>Método de pago: </b>{{ped.metodoPago}}</p>
                     <p><b>Fecha de entrega: </b>{{ped.fechaEntrega.substring(0,10)}}</p>
                     <p><b>Estatus: </b>{{ped.estatus}}</p>
-                    <p *ngIf="ped.direccionEnvio != ''">{{ped.direccionEnvio}}</p>
+                    <p *ngIf="ped.direccionEnvio == ''"><b>El pedido será recogido por el cliente en la tienda </b></p>
+                    <p *ngIf="ped.direccionEnvio != ''"><b>El pedido se entrega mediante un envio </b></p>
+                    <p *ngIf="ped.direccionEnvio != ''"><b>Dirección envio: </b>{{ped.direccionEnvio}}</p>
                     <p><b>Total: </b>{{ped.total}}</p>
                 </div>
                 <div class="col-sm-12 col-md-4">
@@ -133,7 +135,7 @@
     </div>
 </div>
 
-<!-- Modal para cancelar el pedido -->
+<!-- Modal para eliminar el pedido -->
 <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
