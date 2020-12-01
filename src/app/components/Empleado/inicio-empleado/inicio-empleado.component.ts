@@ -15,9 +15,11 @@ export class InicioEmpleadoComponent implements OnInit {
  letra = this.nombre.charAt(0);
  correo : String = localStorage.getItem('correo');
 
- alerts =false;
+ alertsTotal;
+ notifiProd;
  notificaciones;
  pedidos;
+ productos;
 
  empleado = {
   _id:"",
@@ -57,7 +59,8 @@ exitoContra = 0;
   constructor(private empleadoService : EmpleadoService, private pedidoservice :PedidoService, private inventarioservice: InventarioService, private rutas : Router) { }
 
   ngOnInit(): void {
-    this.countPendientes();
+    //this.countPendidosPendientes();
+    this.alertas();
     this.miInfo();
   }
 
@@ -110,22 +113,43 @@ exitoContra = 0;
       }
     }
   }
-
-  countPendientes(){
+// metodos para notificaciones 
+  countPendidosPendientes(){
     this.notificaciones=0;
     this.pedidoservice.consultarTodo().subscribe(res =>{
       this.pedidos=res;
-      console.log(this.pedidos);
-      console.log(this.pedidos.length);
       for(let i=0;i<this.pedidos.length;i++){
         
         if(this.pedidos[i].estatus=="Pendiente"){
           this.notificaciones++;
         }
       }
+      console.log(this.notificaciones);
     },
     err =>console.log(err)
     );
+    //console.log(this.notificaciones);
+  }
+
+  countProductPendientes(){
+    this.notifiProd=0;
+    this.inventarioservice.consultarTodo().subscribe(res=>{
+      this.productos=res;
+      for(let i=0;i<this.productos.length;i++){
+        if(this.productos[i].existencia <=5){
+          this.notifiProd++;
+        }
+      }
+      console.log(this.notifiProd);
+    },
+    err =>console.log(err)
+    );
+    //console.log(this.notifiProd);
+  }
+
+  alertas(){
+    this.countPendidosPendientes();
+    this.countProductPendientes();
   }
 
   //funciones extra
