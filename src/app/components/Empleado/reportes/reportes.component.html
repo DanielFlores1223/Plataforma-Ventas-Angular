@@ -10,37 +10,40 @@
                 </svg> Reportes
             </p>
         </div>
-        <div class="col-sm-12 col-md-6 pr-0">
-            <select type="text" name="buscador" class="form-control buscador mb-2" [(ngModel)]="tipo" (change)="buscar()">
-                <option class="mt-2" value="Total" class="select-option">Totales</option>
-                <option class="mt-2" value="por Dia">Ventas por Dia</option>
-                <option class="mt-2" value="por Semana">Ventas por Semana</option>
-                <option class="mt-2" value="por Mes">Ventas por Mes</option>
-                <option class="mt-2" value="por Año">Ventas por Año</option>
-            </select>
-        </div>
-        
-        <div class="col-sm-12 col-md-3">
-            <select name="estatusPed" class="form-control buscador mb-2" [(ngModel)]="filtro" (change)="actualizar()"><!-- aqui agregas esta bainas ver en pedidos [(ngModel)]="busqueda.estatus" (change)="buscar()"   -->
-                <option class="mt-2" value="Todas">Todas</option>
+        <div class="col-sm-12 col-md-5 pr-0">
+            <select type="text" name="buscador" class="form-control buscador mb-2" [(ngModel)]="filtro" (change)="actualizar()">
+                <option class="mt-2" value="Todos">---Tipo de Pedido---</option>
+                <option class="mt-2" value="Todos">Todos</option>
                 <option class="mt-2" value="Completado">Completados</option>
                 <option class="mt-2" value="Cancelado">Cancelados</option>
                 <option class="mt-2" value="Pendiente">Pendientes</option>
-              </select>
+            </select>
         </div>
+        
+        <div class="col-sm-12 col-md-4" *ngIf="isCheck else esFake">
+            <div class="row">
+                <div class="col-md-4">
+                    <button class="btn btn-secondary btn-sm ml-3" (click)="changeStatus()">Cancelar</button>
+                </div>
+                <div class="col-md-8">
+                    <input type="date" name="fecha" id="" class="form-control" [(ngModel)]="byDate">
+                </div>
+            </div>
+        </div>
+        <ng-template #esFake>
+            <div class="col-sm-12 col-md-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button class="btn btn-info btn-sm ml-3" (click)="changeStatus()">por Fecha</button>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="date" name="fecha" id="" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
     </div>
     <hr class="mt-1">
-    <!--<div class="container">
-        <table>
-            <tr *ngFor="let p of pedidos">
-                <td> {{ p.total}} </td>
-                <td> {{ p.metodoPago}} </td>
-                <td> {{ p.direccionEnvio}} </td>
-                <td> {{ p.fechaEntrega}} </td>
-                <td> {{ p.estatus}} </td>
-            </tr>
-        </table>
-    </div>-->
 </div>
 <div class="container">
     <!-- <div class="row" *ngFor="let ped of pedidos"> -->
@@ -50,7 +53,7 @@
                     <p class="text-info">Informacion del Reporte</p>
                     <hr>
                     <p><b>Numero Pedidos: </b>{{ noPedidos }}</p>
-                    <p><b>Fecha de Expedicion: </b> {{ dateHoy }}  </p>
+                    <p><b>Fecha de Expedicion: </b> {{ dateHoy | date: 'shortDate' }}  </p>
                     <p><b>Tipo de Reporte: </b> {{ tipo }} </p>
                     <p><b>Total: </b> {{ total }}</p>
                 </div>
@@ -60,9 +63,13 @@
                     <!-- <p><b>Periodo: </b>{{ped.cliente.nombre}} {{ped.cliente.apellidos}}</p>
                     <p><b>Correo eléctronico: </b>{{ped.cliente.correo}}</p>
                     <p><b>Teléfono: </b>{{ped.cliente.telefono}}</p> -->
-                    <p><b>Periodo: </b> no data </p>
+                    <!-- <p><b>Periodo: </b> no data </p> -->
+                    <p *ngIf ="isCheck else esFalso"><b>Desde el dia: </b> {{byDate}} </p>
+                    <ng-template #esFalso>
+                        <p><b>Desde el dia: </b> N/A </p>
+                    </ng-template>
                     <p><b>Correo eléctronico: </b> no data </p>
-                    <p><b>Tipo de Cuentas: </b> {{filtro}} </p>
+                    <p><b>Tipo de Pedido: </b> {{filtro}} </p>
                 </div>
                 <div class="col-sm-12 col-md-4 bg-white">
                     <p class="text-info">Acciones</p>
