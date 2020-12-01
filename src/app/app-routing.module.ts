@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 //guardianes
 import{ GuardiaSesionAdminGuard } from './guardias/guardia-sesion-admin.guard';
 import { GuardiaPaginaInfoGuard } from './guardias/guardia-pagina-info.guard';
+import { GuardiaClienteGuard } from './guardias/guardia-cliente.guard';
 
 //componentes
 import { HomeComponent } from './components/paginaInfo/home/home.component';
@@ -31,7 +32,7 @@ const routes: Routes = [
   { path: 'contacto', component: ContactoComponent, canActivate: [GuardiaPaginaInfoGuard]},
   { path: 'nosotros', component: NosotrosComponent, canActivate: [GuardiaPaginaInfoGuard]},
   { path: 'registrarse', component: RegistrarseComponent, canActivate: [GuardiaPaginaInfoGuard]},
-  { path: 'inicio-Cliente', component: InicioClienteComponent},
+  { path: 'inicio-Cliente', component: InicioClienteComponent, canActivate: [GuardiaClienteGuard]},
   { path: 'inicio-Empleado',component: InicioEmpleadoComponent, canActivate: [GuardiaSesionAdminGuard]},
   { path: 'empleado-crud', component: EmpleadoCrudComponent, canActivate: [GuardiaSesionAdminGuard] },
   { path: 'cliente-crud', component: ClienteCrudComponent, canActivate: [GuardiaSesionAdminGuard]},
@@ -39,10 +40,10 @@ const routes: Routes = [
   { path: 'inventario', component: InventarioComponent, canActivate: [GuardiaSesionAdminGuard]},
   { path: 'reportes',component:ReportesComponent,canActivate:[GuardiaSesionAdminGuard]},
   { path: 'pedidos', component: PedidosComponent, canActivate: [GuardiaSesionAdminGuard]},
-  { path: 'productos', component: ProductosComponent},
+  { path: 'productos', component: ProductosComponent, canActivate: [GuardiaPaginaInfoGuard]},
   { path: 'servicios', component: ServiciosComponent, canActivate: [GuardiaPaginaInfoGuard] },
-  { path: 'misPedidos', component: MisPedidosComponent},
-  { path: 'carrito', component: CarritoComponent},
+  { path: 'misPedidos', component: MisPedidosComponent, canActivate: [GuardiaClienteGuard]},
+  { path: 'carrito', component: CarritoComponent, canActivate: [GuardiaClienteGuard]},
   { path: 'solicitudes-servicios', component: SolicitudesServiciosComponent},
   { path: '**', redirectTo: '/inicio'}, //<--- esta ruta tiene que ir siempre al último para que funcione
 
