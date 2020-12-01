@@ -5,6 +5,7 @@ import { PdfMakeWrapper, Txt, Img, Columns, Stack, Table, Cell } from 'pdfmake-w
 //servicos de reporte 
 import {PedidoService} from '../../../services/pedido.service';
 import { InventarioService } from '../../../services/inventario.service';
+import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-reportes',
@@ -16,7 +17,7 @@ export class ReportesComponent implements OnInit {
   isCheck=false;
   byDate;
   pedidos;
-
+  datePedido;
   dateHoy = new Date();
 
   //dateHoy: number = Date.now();
@@ -190,10 +191,13 @@ export class ReportesComponent implements OnInit {
   }
 
   changeStatus(){
+
     if(this.isCheck==true){
       this.isCheck=false;
+      this.actualizar();
     }else{
       this.isCheck=true;
+      this.actualizar();
     }
   }
 
@@ -225,7 +229,7 @@ export class ReportesComponent implements OnInit {
         'Monto']).fontSize(12).margin([0,10,0,0]).bold().alignment('left').end
     )
 
-    console.log(this.pedidos[i].tiene);
+    //console.log(this.pedidos[i].tiene);
     for (let j = 0; j < this.pedidos[i].tiene.length; j++) {
 
       pdf.add(
@@ -272,7 +276,7 @@ export class ReportesComponent implements OnInit {
       //metodo DEFINITIVO
       if(this.isCheck){
         if(this.byDate==null){
-          console.log(this.byDate);
+          //console.log(this.byDate);
           for(let i=0;i<this.pedidos.length;i++){
 
             if(this.pedidos[i].estatus!="en carrito"){
@@ -284,14 +288,14 @@ export class ReportesComponent implements OnInit {
             }
           }
         }else{
-          console.log(this.byDate);
+          //console.log(this.byDate);
           for(let i=0;i<this.pedidos.length;i++){
 
             if(this.pedidos[i].estatus!="en carrito"){
               
               if(this.pedidos[i].fechaPedido >= this.byDate){
 
-                console.log(this.pedidos[i].fechaPedido);
+                //console.log(this.pedidos[i].fechaPedido);
                 num++;
                 pdf.add(
                   new Txt("Pedido no° "+num.toString()).alignment('left').fontSize(10).bold().end
