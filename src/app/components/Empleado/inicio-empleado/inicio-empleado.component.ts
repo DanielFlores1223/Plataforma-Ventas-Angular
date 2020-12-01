@@ -37,7 +37,8 @@ empleadoM = {
 
 contasenias = {
   contrasenia: "",
-  contrasenia2: ""
+  contrasenia2: "",
+  correo: ''
 }
 
 
@@ -88,6 +89,7 @@ exitoContra = 0;
     }
 
     if (this.modificarContra) {
+      this.contasenias.correo = localStorage.getItem('correo');
       if(this.contasenias.contrasenia === this.contasenias.contrasenia2){ 
         this.empleadoService.modificarContraEmp(this.contasenias).subscribe(res=>{
           this.exito = 1;
