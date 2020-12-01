@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 //servicio
 import {PedidoService} from '../../../services/pedido.service';
 import {InventarioService} from '../../../services/inventario.service';
+import {EmpleadoService} from '../../../services/empleado.service';
+
 
 
 @Component({
@@ -20,7 +22,15 @@ export class PedidosComponent implements OnInit {
   filtros = {
     correoCli : '',
     id: '',
-    estatus: ''
+    estatus: '',
+    correoEmp: '',
+    nombreEmp: '',
+    apellidosEmp: '',
+    telefonoEmp: ''
+  }
+
+  busquedaEmp = {
+    correo : ''
   }
 
   busqueda ={
@@ -44,7 +54,7 @@ export class PedidosComponent implements OnInit {
   idActual = '';
   totalPActual = 0;
 
-  constructor(private pedidoService: PedidoService,  private productoService : InventarioService) { }
+  constructor(private pedidoService: PedidoService,  private productoService : InventarioService, private empleadoService : EmpleadoService) { }
 
   ngOnInit(): void {
     this.buscar();
@@ -117,7 +127,19 @@ export class PedidosComponent implements OnInit {
     if (this.filtros.estatus == 'Completado') 
       this.consultarPedidoCompletar(id) //este metodo resta los productos en la base de datos
     
+    this.busquedaEmp.correo = localStorage.getItem('correo');
+    this.empleadoService.consultarEmpCorreo(this.busquedaEmp).subscribe(res => {
+      this.filtros.nombreEmp = res.nombre;
+      this.filtros.apellidosEmp = res.apellidos;
+      this.filtros.telefonoEmp = res.telefono;
+      this.filtros.correoEmp = res.correo;
+      this.modificarEst();
+    },
+    err => console.log(err));
+   
+  }
 
+  modificarEst(){
     this.pedidoService.modificarEstatusPedido(this.filtros).subscribe(res => {
       this.buscar();
     },
