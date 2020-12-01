@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { PdfMakeWrapper, Txt, Img, Columns, Stack, Table, Cell } from 'pdfmake-wrapper';
 //servicos de reporte 
 import {PedidoService} from '../../../services/pedido.service';
-import {ClienteService} from '../../../services/cliente.service';
 import { InventarioService } from '../../../services/inventario.service';
 
 @Component({
@@ -112,21 +111,79 @@ export class ReportesComponent implements OnInit {
     this.noPedidos=0;
     // it could be some trouble here, just be careful
     if(this.filtro!="Todos"){
-      for(let i=0;i<this.pedidos.length;i++){
-        if(this.pedidos[i].estatus==this.filtro){
-          this.noPedidos++;
-          if(this.pedidos[i]!=null){
-            this.total+=this.pedidos[i].total;
+      if(this.isCheck){
+
+        if(this.byDate==null){
+          for(let i=0;i<this.pedidos.length;i++){
+            if(this.pedidos[i].estatus==this.filtro){
+              this.noPedidos++;
+              if(this.pedidos[i]!=null){
+                this.total+=this.pedidos[i].total;
+              }
+            }
+          }
+        }else{
+          for(let i=0;i<this.pedidos.length;i++){
+            if(this.pedidos[i].fechaPedido >= this.byDate){
+              if(this.pedidos[i].estatus==this.filtro){
+                this.noPedidos++;
+                if(this.pedidos[i]!=null){
+                  this.total+=this.pedidos[i].total;
+                }
+              }
+            }
           }
         }
+
+      }else{
+
+        for(let i=0;i<this.pedidos.length;i++){
+          if(this.pedidos[i].estatus==this.filtro){
+            this.noPedidos++;
+            if(this.pedidos[i]!=null){
+              this.total+=this.pedidos[i].total;
+            }
+          }
+        }
+
       }
     }else{
-      for(let i=0;i<this.pedidos.length;i++){
-        if(this.pedidos[i].estatus!="en carrito"){
-          this.noPedidos++;
+      if(this.isCheck){
+
+        if(this.byDate==null){
+          for(let i=0;i<this.pedidos.length;i++){
+            if(this.pedidos[i].estatus!="en carrito"){
+              this.noPedidos++;
+            }
+            if(this.pedidos[i].estatus!="Cancelado"){
+              this.total+=this.pedidos[i].total;
+            }
+          }
+        }else{
+          for(let i=0;i<this.pedidos.length;i++){
+
+            if(this.pedidos[i].fechaPedido >= this.byDate){
+
+              if(this.pedidos[i].estatus!="en carrito"){
+                this.noPedidos++;
+              }
+              if(this.pedidos[i].estatus!="Cancelado"){
+                this.total+=this.pedidos[i].total;
+              }
+
+            }
+            
+          }
         }
-        if(this.pedidos[i].estatus!="Cancelado"){
-          this.total+=this.pedidos[i].total;
+
+      }else{
+        for(let i=0;i<this.pedidos.length;i++){
+          if(this.pedidos[i].estatus!="en carrito"){
+            this.noPedidos++;
+          }
+          if(this.pedidos[i].estatus!="Cancelado"){
+            this.total+=this.pedidos[i].total;
+          }
         }
       }
     }
@@ -140,17 +197,63 @@ export class ReportesComponent implements OnInit {
     }
   }
 
+  generarTabla(pdf,i){
+    
+
+    pdf.add(
+      new Table([
+        [ new Txt('Estatus').bold().end,
+        new Txt('Metodo de pago').bold().end,
+        new Txt('Direccion').bold().end,
+        new Txt('Fecha entrega').bold().end],
+        [ new Columns([this.pedidos[i].estatus]).end,
+        new Columns([this.pedidos[i].metodoPago]).end,
+        new Columns([this.pedidos[i].direccionEnvio]).end,
+        new Columns([this.pedidos[i].fechaEntrega.substring(0,10)]).fontSize(10).end]
+      ]).end
+    )
+
+    pdf.add(
+      new Txt('Productos del pedido').bold().alignment('left').fontSize(12).margin([0,5,0,0]).end
+    )
+
+    pdf.add(
+      new Columns(
+        ['Codigo',
+        'Precio',
+        'Cantidad',
+        'Monto']).fontSize(12).margin([0,10,0,0]).bold().alignment('left').end
+    )
+
+    console.log(this.pedidos[i].tiene);
+    for (let j = 0; j < this.pedidos[i].tiene.length; j++) {
+
+      pdf.add(
+        new Columns(
+          [ this.pedidos[i].tiene[j].codigoProd,
+          this.pedidos[i].tiene[j].precioProd,
+          this.pedidos[i].tiene[j].cantidadProd,
+          this.pedidos[i].tiene[j].monto
+        ]).fontSize(10).alignment('left').end
+      )
+    }
+    pdf.add(
+      new Txt('Total: $' + this.pedidos[i].total).bold().alignment("right").fontSize(14).margin([0,20,0,0]).end
+    )
+    pdf.add(
+      pdf.ln(4)
+    );
+  }
+
   generarPDF(){
-    console.log(this.dateHoy);
-    //var fecha_nueva='fecha: '+this.dateHoy.getDay()+'/'+this.dateHoy.getMonth()+'/'+this.dateHoy.getUTCFullYear();
     var fecha_nueva= this.dateHoy.toString();
-    console.log(fecha_nueva)
     var num=0;       
     const pdf = new PdfMakeWrapper();
+
+    
     pdf.pageSize('A5');
-    //'fecha: '+this.dateHoy.getDay()+'/'+date.getMonth()+'/'+date.getUTCFullYear()
     pdf.add(
-      new Txt(fecha_nueva).bold().alignment('right').fontSize(5).margin([0,5,0,0]).end
+      new Txt(fecha_nueva.substring(0,10)).bold().alignment('right').fontSize(10).margin([0,5,0,0]).end
     )
     
     new Img('../assets/img/logo_crem_adap.png').alignment('center').height(80).width(80).build().then( img => {
@@ -165,122 +268,100 @@ export class ReportesComponent implements OnInit {
     pdf.add(pdf.ln());
     
     if(this.filtro=="Todos"){
-      
-      for(let i=0;i<this.pedidos.length;i++){
 
-        if(this.pedidos[i].estatus!="en carrito"){
+      //metodo DEFINITIVO
+      if(this.isCheck){
+        if(this.byDate==null){
+          console.log(this.byDate);
+          for(let i=0;i<this.pedidos.length;i++){
 
-          num++;
-
-          pdf.add(
-            new Txt("Pedido no° "+num.toString()).alignment('left').fontSize(10).bold().end
-          );
-
-          pdf.add(
-            new Table([
-              [ new Txt('Estatus').bold().end,
-              new Txt('Metodo de pago').bold().end,
-              new Txt('Direccion').bold().end,
-              new Txt('Fecha entrega').bold().end],
-              [ new Columns([this.pedidos[i].estatus]).end,
-              new Columns([this.pedidos[i].metodoPago]).end,
-              new Columns([this.pedidos[i].direccionEnvio]).end,
-              new Columns([this.pedidos[i].fechaEntrega]).fontSize(10).end]
-            ]).end
-          )
-      
-          pdf.add(
-            new Txt('Productos del pedido').bold().alignment('left').fontSize(12).margin([0,5,0,0]).end
-          )
-      
-          pdf.add(
-            new Columns(
-              ['Codigo',
-              'Precio',
-              'Cantidad',
-              'Monto']).fontSize(12).margin([0,10,0,0]).bold().alignment('left').end
-          )
-  
-          console.log(this.pedidos[i].tiene);
-          for (let j = 0; j < this.pedidos[i].tiene.length; j++) {
-
-            pdf.add(
-              new Columns(
-                [ this.pedidos[i].tiene[j].codigoProd,
-                this.pedidos[i].tiene[j].precioProd,
-                this.pedidos[i].tiene[j].cantidadProd,
-                this.pedidos[i].tiene[j].monto
-              ]).fontSize(10).alignment('left').end
-            )
+            if(this.pedidos[i].estatus!="en carrito"){
+              num++;
+              pdf.add(
+                new Txt("Pedido no° "+num.toString()).alignment('left').fontSize(10).bold().end
+              );
+              this.generarTabla(pdf,i);
+            }
           }
-          pdf.add(
-            new Txt('Total: $' + this.pedidos[i].total).bold().alignment("right").fontSize(14).margin([0,20,0,0]).end
-          )
-          pdf.add(
-            pdf.ln(4)
-          );
+        }else{
+          console.log(this.byDate);
+          for(let i=0;i<this.pedidos.length;i++){
 
+            if(this.pedidos[i].estatus!="en carrito"){
+              
+              if(this.pedidos[i].fechaPedido >= this.byDate){
+
+                console.log(this.pedidos[i].fechaPedido);
+                num++;
+                pdf.add(
+                  new Txt("Pedido no° "+num.toString()).alignment('left').fontSize(10).bold().end
+                );
+                this.generarTabla(pdf,i);
+              }
+            }
+          }
+        }
+      }else{
+        for(let i=0;i<this.pedidos.length;i++){
+
+          if(this.pedidos[i].estatus!="en carrito"){
+            num++;
+            pdf.add(
+              new Txt("Pedido no° "+num.toString()).alignment('left').fontSize(10).bold().end
+            );
+            this.generarTabla(pdf,i);
+          }
         }
       }
+      //METODO DEFINITIVO
     }else{
       //aqui imprime dependiendo el filtro
-      for(let k=0;k<this.pedidos.length;k++){
+      if(this.isCheck){
+        if(this.byDate==null){
+          for(let k=0;k<this.pedidos.length;k++){
         
-        if(this.pedidos[k].estatus==this.filtro){
-
-          num++;
-
-          pdf.add(
-            new Txt("Pedido no° "+num.toString()).alignment('left').fontSize(10).bold().end
-          );
-
-          pdf.add(
-            new Table([
-              [ new Txt('Estatus').bold().end,
-              new Txt('Metodo de pago').bold().end,
-              new Txt('Direccion').bold().end,
-              new Txt('Fecha entrega').bold().end],
-              [ new Columns([this.pedidos[k].estatus]).end,
-              new Columns([this.pedidos[k].metodoPago]).end,
-              new Columns([this.pedidos[k].direccionEnvio]).end,
-              new Columns([this.pedidos[k].fechaEntrega]).fontSize(10).end]
-            ]).end
-          )
-      
-          pdf.add(
-            new Txt('Productos del pedido').bold().alignment('left').fontSize(12).margin([0,5,0,0]).end
-          )
-      
-          pdf.add(
-            new Columns(
-              ['Codigo',
-              'Precio',
-              'Cantidad',
-              'Monto']).fontSize(12).margin([0,10,0,0]).bold().alignment('left').end
-          )
-  
-          console.log(this.pedidos[k].tiene);
-          for (let j = 0; j < this.pedidos[k].tiene.length; j++) {
-            pdf.add(
-              new Columns(
-                [ this.pedidos[k].tiene[j].codigoProd,
-                this.pedidos[k].tiene[j].precioProd,
-                this.pedidos[k].tiene[j].cantidadProd,
-                this.pedidos[k].tiene[j].monto
-              ]).fontSize(10).alignment('left').end
-            )
+            if(this.pedidos[k].estatus==this.filtro){
+              num++;
+              pdf.add(
+                new Txt("Pedido no° "+num.toString()).alignment('left').fontSize(10).bold().end
+              );
+              this.generarTabla(pdf,k);
+            }
           }
-          pdf.add(
-            new Txt('Total: $' + this.pedidos[k].total).bold().alignment("right").fontSize(14).margin([0,20,0,0]).end
-          )
-          pdf.add(
-            pdf.ln(4)
-          );
+        }else{
+          for(let k=0;k<this.pedidos.length;k++){
+        
+            if(this.pedidos[k].estatus==this.filtro){
+    
+              if(this.pedidos[k].fechaPedido>=this.byDate){
+
+                num++;
+                pdf.add(
+                  new Txt("Pedido no° "+num.toString()).alignment('left').fontSize(10).bold().end
+                );
+                this.generarTabla(pdf,k);
+              }
+            }
+          }
 
         }
+
+      }else{
+
+        for(let k=0;k<this.pedidos.length;k++){
+        
+          if(this.pedidos[k].estatus==this.filtro){
+            num++;
+            pdf.add(
+              new Txt("Pedido no° "+num.toString()).alignment('left').fontSize(10).bold().end
+            );
+            this.generarTabla(pdf,k);
+          }
+        }
+
       }
     }
-    pdf.create().download();
+    pdf.create().download("Reporte"+this.filtro);
 
     pdf.create().open();
   });
