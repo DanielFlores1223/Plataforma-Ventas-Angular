@@ -15,6 +15,7 @@ export class InicioEmpleadoComponent implements OnInit {
  letra = this.nombre.charAt(0);
  correo : String = localStorage.getItem('correo');
 
+ alerts =false;
  notificaciones;
  pedidos;
 
