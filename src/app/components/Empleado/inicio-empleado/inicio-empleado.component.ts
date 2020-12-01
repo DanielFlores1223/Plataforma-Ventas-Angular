@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 //servicio
 import {EmpleadoService} from '../../../services/empleado.service';
+import {PedidoService} from '../../../services/pedido.service';
+import { InventarioService } from '../../../services/inventario.service';
 
 @Component({
   selector: 'app-inicio-empleado',
@@ -12,7 +14,10 @@ export class InicioEmpleadoComponent implements OnInit {
  nombre = localStorage.getItem('nombre');
  letra = this.nombre.charAt(0);
  correo : String = localStorage.getItem('correo');
- 
+
+ notificaciones;
+ pedidos;
+
  empleado = {
   _id:"",
   nombre: "",
@@ -48,11 +53,11 @@ modificarContra = false;
 exito = 0;
 exitoContra = 0;
 
-  constructor(private empleadoService : EmpleadoService, private rutas : Router) { }
+  constructor(private empleadoService : EmpleadoService, private pedidoservice :PedidoService, private inventarioservice: InventarioService, private rutas : Router) { }
 
   ngOnInit(): void {
+    this.countPendientes();
     this.miInfo();
-
   }
 
   miInfo(){
@@ -103,6 +108,23 @@ exitoContra = 0;
         this.exitoContra = 3;
       }
     }
+  }
+
+  countPendientes(){
+    this.notificaciones=0;
+    this.pedidoservice.consultarTodo().subscribe(res =>{
+      this.pedidos=res;
+      console.log(this.pedidos);
+      console.log(this.pedidos.length);
+      for(let i=0;i<this.pedidos.length;i++){
+        
+        if(this.pedidos[i].estatus=="Pendiente"){
+          this.notificaciones++;
+        }
+      }
+    },
+    err =>console.log(err)
+    );
   }
 
   //funciones extra

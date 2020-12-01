@@ -36,11 +36,21 @@
 
     <div class="row my-4">
         <div class="col-12">
-            <h3 class="font-weight-light">Notificaciones(0)</h3>
+            <h3 class="font-weight-light">Notificaciones({{notificaciones}})</h3>
             <hr>
         </div>
 
     </div>
+    <div class="container" *ngIF="notificaciones >0 else esFake">
+        <h2>Que pedooooooooooo</h2>
+        
+    </div>
+
+    <ng-template #esFake>
+        <div class="container">
+            <h3>pedorron</h3>
+        </div>
+    </ng-template>
 </div>
 
 <!-- Modal para configuraciones de perfil -->
