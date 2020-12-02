@@ -245,7 +245,7 @@ export class ReportesComponent implements OnInit {
       new Txt('Total: $' + this.pedidos[i].total).bold().alignment("right").fontSize(14).margin([0,20,0,0]).end
     )
     pdf.add(
-      pdf.ln(4)
+      pdf.ln(3)
     );
   }
 
