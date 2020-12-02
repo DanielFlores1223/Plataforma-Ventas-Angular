@@ -21,6 +21,8 @@ export class InicioEmpleadoComponent implements OnInit {
  pedidos;
  productos;
 
+ tipoUsu =localStorage.getItem('tipo');
+
  empleado = {
   _id:"",
   nombre: "",

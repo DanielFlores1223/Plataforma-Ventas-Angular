@@ -2,12 +2,11 @@
     <div class="row mt-3">
         <div class="col-sm-12 col-md-2">
             <p class="font-weight-light h4">
-                <svg width="2.3em" height="2.3em" viewBox="0 0 16 16" class="bi bi-bag-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M14 5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5zM1 4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4H1z"/>
-                    <path d="M8 1.5A2.5 2.5 0 0 0 5.5 4h-1a3.5 3.5 0 1 1 7 0h-1A2.5 2.5 0 0 0 8 1.5z"/>
-                    <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"/>
-                    <path fill-rule="evenodd" d="M7.5 10a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-2z"/>
-                </svg> Reportes
+                <svg width="2.3em" height="2.3em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
+                    <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
+                    <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                  </svg> Reportes
             </p>
         </div>
         <div class="col-sm-12 col-md-5 pr-0">
@@ -26,7 +25,7 @@
                     <button class="btn btn-secondary btn-sm ml-3" (click)="changeStatus()">Cancelar</button>
                 </div>
                 <div class="col-md-8">
-                    <input type="date" name="fecha" id="" class="form-control" [(ngModel)]="byDate">
+                    <input type="date" name="fecha" id="" class="form-control" [(ngModel)]="byDate" (change)="actualizar()">
                 </div>
             </div>
         </div>
@@ -37,13 +36,26 @@
                         <button class="btn btn-info btn-sm ml-3" (click)="changeStatus()">por Fecha</button>
                     </div>
                     <div class="col-md-8">
-                        <input type="date" name="fecha" id="" class="form-control" disabled>
+                        <input type="date" name="fecha" id="data" class="form-control" disabled>
                     </div>
                 </div>
             </div>
         </ng-template>
     </div>
     <hr class="mt-1">
+</div>
+<!-- alert -->
+<div class="cointeiner" *ngIf="noPedidos == 0">
+    <div class="container">
+        <div class="animated fadeIn">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <p class="texto-info text-center">No se encontraron reportes con esa Fecha</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="container">
     <!-- <div class="row" *ngFor="let ped of pedidos"> -->
@@ -58,7 +70,7 @@
                     <p><b>Total: </b> {{ total }}</p>
                 </div>
                 <div class="col-sm-12 col-md-4">
-                    <p class="text-info">Información del cliente</p>
+                    <p class="text-info">Más Información</p>
                     <hr>
                     <!-- <p><b>Periodo: </b>{{ped.cliente.nombre}} {{ped.cliente.apellidos}}</p>
                     <p><b>Correo eléctronico: </b>{{ped.cliente.correo}}</p>
@@ -68,14 +80,21 @@
                     <ng-template #esFalso>
                         <p><b>Desde el dia: </b> N/A </p>
                     </ng-template>
-                    <p><b>Correo eléctronico: </b> no data </p>
                     <p><b>Tipo de Pedido: </b> {{filtro}} </p>
                 </div>
                 <div class="col-sm-12 col-md-4 bg-white">
                     <p class="text-info">Acciones</p>
                     <hr>
                     <p class="mb-0">Descargar Reporte</p>
-                    <button class="btn btn-sm btn-info form-control mb-3" (click)="generarPDF()">Descargar</button>
+                    <div *ngIf="noPedidos >0 else empty">
+                        <button class="btn btn-sm btn-info form-control mb-3" (click)="generarPDF()">Descargar</button>
+                    </div>
+                    
+                    <ng-template #empty>
+                        <div>
+                            <button class="btn btn-sm btn-secondary form-control mb-3" disabled >Descargar</button>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
         </div>
