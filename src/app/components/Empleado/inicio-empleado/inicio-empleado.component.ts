@@ -84,9 +84,9 @@ fechaHoy = '';
   buscarPeligro(){
     var f = new Date();
     if (f.getDay() < 10) {
-      this.fechaHoy =  f.getFullYear() + "-" + (f.getMonth() +1) + "-" + "0"+f.getDay();
+      this.fechaHoy =  f.getFullYear() + "-" + (f.getMonth() +1) + "-" + "0"+f.getDate();
     }else{
-      this.fechaHoy =  f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDay();
+      this.fechaHoy =  f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate();
     }
     
     
