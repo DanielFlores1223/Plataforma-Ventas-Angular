@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
+import Swal from 'sweetalert2'
 //servicio
 import {EmpleadoService} from '../../../services/empleado.service';
 import {PedidoService} from '../../../services/pedido.service';
 import { InventarioService } from '../../../services/inventario.service';
+import {ArduinoService} from '../../../services/arduino.service';
 
 @Component({
   selector: 'app-inicio-empleado',
@@ -57,13 +60,46 @@ modificarPerfil = false;
 modificarContra = false;
 exito = 0;
 exitoContra = 0;
+arduinoReg;
+fechaHoy = '';
 
-  constructor(private empleadoService : EmpleadoService, private pedidoservice :PedidoService, private inventarioservice: InventarioService, private rutas : Router) { }
+  constructor(private empleadoService : EmpleadoService, private pedidoservice :PedidoService, private inventarioservice: InventarioService, private rutas : Router, private arduinoService : ArduinoService) { }
 
   ngOnInit(): void {
     //this.countPendidosPendientes();
     this.alertas();
     this.miInfo();
+    this.consultarArd()
+  
+  }
+
+  consultarArd(){
+    this.arduinoService.consultarTodoArd().subscribe(res => {
+      this.arduinoReg = res;
+      this.buscarPeligro()
+    })
+    
+  }
+
+  buscarPeligro(){
+    var f = new Date();
+    if (f.getDay() < 10) {
+      this.fechaHoy =  f.getFullYear() + "-" + (f.getMonth() +1) + "-" + "0"+f.getDay();
+    }else{
+      this.fechaHoy =  f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDay();
+    }
+    
+    
+    for (let i = 0; i < this.arduinoReg.length; i++) {
+      console.log(this.arduinoReg[i].fecha_reg.substring(0,10))
+      if (this.arduinoReg[i].fecha_reg.substring(0,10) == this.fechaHoy) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Peligro',
+          text: 'La temperatura a subido drasticamente',
+        })
+      }
+    }
   }
 
   miInfo(){
