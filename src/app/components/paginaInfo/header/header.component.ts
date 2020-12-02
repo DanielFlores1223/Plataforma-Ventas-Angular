@@ -35,11 +35,14 @@ export class HeaderComponent implements OnInit {
 
     if (this.entro && this.tipo == 'Cliente') {
       this.consultarCarrito();
-      
+    
     }
+    
 
     
   }
+
+  
 
   cerrarSesion(){
     //elimina las variables del localStorage
@@ -51,10 +54,12 @@ export class HeaderComponent implements OnInit {
     this.rutas.navigate(['/inicio']);
   }
 
+
   consultarCarrito(){
     this.filtrosCarrito.correoCli = localStorage.getItem('correo');
 
     this.pedidoService.buscarPedidoCarrito(this.filtrosCarrito).subscribe(res => {
+      console.log(res);
       this.carrito = res;
       this.obtnerCantidadItems();
     },err => {
@@ -63,6 +68,7 @@ export class HeaderComponent implements OnInit {
   }
 
   obtnerCantidadItems(){
+    this.items = 0;
     for (let i = 0; i < this.carrito.tiene.length; i++) {
       this.items += this.carrito.tiene[i].cantidadProd;  
     }
