@@ -56,7 +56,7 @@
     <div class="container" *ngIf="(notifiProd+notificaciones) >0 && tipoUsu =='Admin' else noAdmin">
         <div class="animated fadeIn" *ngIf="notificaciones >0">
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <p class="texto-info text-center" *ngIf="notificaciones == 1 else mayor">Tienes {{notificaciones}} Pedido Pendiente</p>
+                <p class="texto-info text-center" *ngIf="notificaciones == 1 else mayor">TENES {{notificaciones}} Pedido Pendiente</p>
                 <ng-template #mayor>
                     <p class="texto-info text-center">Tienes {{notificaciones}} Pedidos Pendientes</p>
                 </ng-template>
